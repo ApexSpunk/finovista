@@ -6,7 +6,6 @@ import connectDB from '../../middleware/mongoose';
 
 const handler = async (req, res) => {
     if (req.method == 'POST') {
-        // console.log(req.body)
         const { sal, firstName, lastName, email, secondEmail, phone, tel, designation, organizationName, organizationType, sector, subSector, subSector2, country, state, city, website, organizationProfile, remark1, remark2, remark3, status } = req.body
         try {
             let u = await Mail.findByIdAndUpdate(req.body._id, {
