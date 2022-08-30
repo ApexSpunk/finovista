@@ -7,13 +7,13 @@ import Event from '../../models/Event'
 const handler = async (req, res) => {
 
     if ((req.method == 'GET')) {
-        let contacts = await Event.find()
-        res.status(200).json({ contacts })
+        let events = await Event.find()
+        res.status(200).json({ events })
     }
 
     if (req.method == 'POST') {
-        const { title, content, location, fromDate, toDate, fromTime, toTime, thumbnail, type, mode, created, isCompleted, slug } = req.body
-        let e = new Event({ title, content, location, fromDate, toDate, fromTime, toTime, thumbnail, type, mode, created, isCompleted, slug })
+        const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug } = req.body
+        let e = new Event({ title:eventTitle, content:pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type:eventType, mode:eventMode, created: Date.now(), isCompleted, slug })
 
         await e.save()
 

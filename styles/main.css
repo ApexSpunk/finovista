@@ -1,0 +1,35 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+.previewBtn{
+    border: 2px solid teal;
+    color: teal;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 7px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.previewBtn:hover {
+    background-color: teal;
+    color: white;
+}
+.optionSel>div>button{
+    display: none;
+}
+
+
+.optionSel>div{
+    background-color: green;
+    padding: 4px 20px;
+}
+
+.optionSel>div:last-child{
+    display: none;
+}

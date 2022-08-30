@@ -13,7 +13,7 @@ const EventSchema = new mongoose.Schema({
     type: String,
     mode: String,
     created: Date,
-    isCompleted: Date,
+    isCompleted: String,
     slug: String
 }, { timeStamp: true })
 mongoose.models = {}
