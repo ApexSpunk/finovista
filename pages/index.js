@@ -1,10 +1,5 @@
 import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
-import Navbar from './Navbar'
-import Sidebar from './Sidebar'
-import { NextResponse } from 'next/server';
-import { verify } from 'jsonwebtoken';
-import { useRouter } from 'next/router'
 
 
 
