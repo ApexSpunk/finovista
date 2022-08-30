@@ -14,7 +14,8 @@ const EventSchema = new mongoose.Schema({
     mode: String,
     created: Date,
     isCompleted: String,
-    slug: String
+    slug: String,
+    formElements:Array
 }, { timeStamp: true })
 mongoose.models = {}
 export default mongoose.model("Event", EventSchema);

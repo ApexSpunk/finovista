@@ -1,6 +1,9 @@
 import Head from 'next/head'
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useEffect, useRouter } from 'react';
 import dynamic from 'next/dynamic';
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+import { Router } from 'next/router';
 
 
 const importJodit = () => import('jodit-react');
@@ -9,11 +12,10 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-
 function texteditor() {
     const editor = null
     const [content, setContent] = useState('')
-    const [permalink, setPermalink] = useState(null)
+    // const [permalink, setPermalink] = useState(null)
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
     function handleClick() {
@@ -39,7 +41,7 @@ function texteditor() {
         spellcheck: true,
         editorCssClass: false,
         triggerChangeEvent: true,
-        height: 800,
+        height: 1200,
         direction: 'ltr',
         language: 'en',
         debugLanguage: false,
@@ -74,9 +76,9 @@ function texteditor() {
 
 
     async function publishEvent() {
-        alert('hi')
+        // const router = useRouter();
         try {
-            const eventData = { eventTitle, pageContent:content, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false }
+            const eventData = { eventTitle, pageContent: content, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
             let response = await fetch(`../api/events`, {
                 method: 'POST',
                 headers: {
@@ -85,7 +87,16 @@ function texteditor() {
                 body: JSON.stringify(eventData)
             })
             let responseData = await response.json()
-            console.log(responseData)
+            toast.success(`Event ${eventTitle} Published`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            // router.push('index.html')
         } catch (error) {
             console.log(error)
         }
@@ -96,7 +107,8 @@ function texteditor() {
     function handleTitleInput(eventTitle) {
         eventTitle = eventTitle.split(" ");
         eventTitle = eventTitle.join("-").toLowerCase();
-        setPermalink(eventTitle);
+        setSlug(eventTitle);
+        setEventTitle(eventTitle)
     }
 
 
@@ -113,12 +125,21 @@ function texteditor() {
                     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
                 </Head>
                 <div className="bg-gray-100">
-
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover />
                     <div className='grid grid-cols-12 gap-6 font-[Poppins] pt-8 w-[95%] mx-auto'>
                         <div className='col-span-9'>
                             <div>
                                 <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
-                                <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{permalink}</a></h4>
+                                <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
                             </div>
                             <JoditEditor
                                 ref={editor}
@@ -148,35 +169,35 @@ function texteditor() {
                                 <div className='grid mt-4'>
                                     <div>
                                         <label className='text-sm text-gray-600'>Event Location</label>
-                                        <input type="text" name="location" placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
+                                        <input type="text" name="location" onChange={(loc) => setLocation(loc.target.value)} placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
                                     </div>
                                     <div className='grid grid-cols-2 gap-2'>
                                         <div>
                                             <label className='text-sm text-gray-600'>From Date</label>
-                                            <input type="date" className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="date" onChange={(loc) => setFromDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                         <div>
                                             <label className='text-sm text-gray-600'>To Date</label>
-                                            <input type="date" className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="date" onChange={(loc) => setToDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                     </div>
                                     <div className='grid grid-cols-2 gap-2'>
                                         <div>
                                             <label className='text-sm text-gray-600'>From Time</label>
-                                            <input type="time" className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="time" onChange={(loc) => setFromTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                         <div>
                                             <label className='text-sm text-gray-600'>To Time</label>
-                                            <input type="time" className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="time" onChange={(loc) => setToTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                     </div>
                                     <div>
                                         <label className='text-sm text-gray-600 '>Event Type</label>
-                                        <select name="" id="" className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
+                                        <select name="" id="" onChange={(loc) => setEventType(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
                                             <option value="">Select Type</option>
                                             <option value="internal">Internal</option>
                                             <option value="external">External</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label className='text-sm text-gray-600'>Select Mode</label>
-                                        <select name="" id="" className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
+                                        <label className='text-sm text-gray-600' >Select Mode</label>
+                                        <select name="" id="" onChange={(loc) => setEventMode(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
                                             <option value="">Select Mode</option>
                                             <option value="in-person">In-person</option>
                                             <option value="hybrid">Hybrid</option>
