@@ -10,7 +10,7 @@ function Footer() {
                 <div>
                     <h2>About Us</h2>
                     <div>
-                        <p>Corpkit is the high-rated Consulting Service Provider with well qualified advisors. No specialized skill is required to work on Corpkit Business Consulting WordPress Theme.</p>
+                        <p>Finovista, is a Program Management Consulting, IN Country Partner, Technology Management & Capacity Building firm engaged extensively with Developmental Agencies, Government Bodies.</p>
                         <div className='mt-4'>
                             <Socials width={'40px'} />
                         </div>
@@ -19,11 +19,11 @@ function Footer() {
                 <div>
                     <h2>Services</h2>
                     <div>
-                        <a href="#">Strategy And Planning</a>
-                        <a href="#">Business Analysis</a>
-                        <a href="#">Business Analysis</a>
-                        <a href="#">Business Analysis</a>
-                        <a href="#">Business Analysis</a>
+                        <a href="#">Services</a>
+                        <a href="#">Testimonials</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">BLogs And Stories</a>
+                        <a href="#">Job Opporunity</a>
                         <a href="#">Business Analysis</a>
                     </div>
                 </div>
