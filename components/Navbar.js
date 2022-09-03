@@ -17,12 +17,12 @@ function Navbar() {
             <a href="index.html">
               <div className="menu-logo">
                 <img
-                  src="./img/finovistaLogo.png"
+                  src="../img/finovistaLogo.png"
                   alt=""
                   className="mobile-logo"
                 />
                 <img
-                  src="./img/finovistaLogo.png"
+                  src="../img/finovistaLogo.png"
                   alt=""
                   className="logo"
                 />

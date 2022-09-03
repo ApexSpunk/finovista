@@ -356,6 +356,65 @@ header {
 
 /* Event css ends */
 
+/* Single Event Css Starts*/
+
+.eventPost__banner img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.eventPostMain{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    gap: 30px;
+    margin: 20px 5%;
+}
+
+.eventPostDetails{
+    background-image: url('https://wallpaperaccess.com/full/643353.png');
+    background-position: bottom;
+    background-size: cover;
+    color: white;
+    border-radius: 20px;
+}
+
+.eventDateTime{
+    background-color: white;
+    margin: 50px 0;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgb(15 48 106 / 15%);
+    color: black;
+}
+
+.eventPostDetails>div{
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-between;
+}
+
+.eventPostDetailsData{
+    display: grid;
+    align-items: center;
+}
+
+.eventPostDetailsData>div{
+    display: grid;
+    gap: 10px;
+}
+
+
+.eventPost__content__left__bottom{
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 30px;
+    border-radius: 20px;
+}
+
+
+/* Single Event Css Ends*/
+
 
 /* Media Screen Starts */
 
