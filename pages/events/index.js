@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
-import Event from '../../components/Event'
+import Event from '../../components/Event/Event'
 import Navbar from '../../components/Navbar'
 import Footer from '../../components/Footer'
 

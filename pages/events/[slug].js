@@ -3,12 +3,11 @@ import Navbar from '../../components/Navbar'
 import Head from 'next/head'
 import Footer from '../../components/Footer'
 import Sidebar from '../../components/Sidebar'
-
-import SinlePostEvent from '../../components/SinglePostEvent'
+import SinlePostEvent from '../../components/Event/SinglePostEvent'
 
 const eventPost = () => {
   const router = useRouter()
-  const { pid } = router.query
+  const { slug } = router.query
 
   return (
     <div>
@@ -20,8 +19,12 @@ const eventPost = () => {
       </Head>
       <div>
         <div className='eventPostMain'>
-          <SinlePostEvent title={pid} />
-          <Sidebar />
+          <div>
+            <SinlePostEvent title={slug} />
+          </div>
+          <div className=''>
+            <Sidebar />
+          </div>
         </div>
         <Footer />
       </div>

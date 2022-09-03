@@ -361,17 +361,30 @@ header {
 .eventPost__banner img{
     width: 100%;
     height: 400px;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    display: grid;
+    border-radius: 15px 15px 0 0;
 }
 
-.eventPostMain{
+.eventPost__banner__content {
+    margin-top: auto;
+    background-color: #1a213e;
+    height: 80px;
+    border-radius: 0 0 15px 15px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.eventPostMain {
     display: grid;
     grid-template-columns: 70% 30%;
     gap: 30px;
     margin: 20px 5%;
 }
 
-.eventPostDetails{
+.eventPostDetails {
     background-image: url('https://wallpaperaccess.com/full/643353.png');
     background-position: bottom;
     background-size: cover;
@@ -379,7 +392,7 @@ header {
     border-radius: 20px;
 }
 
-.eventDateTime{
+.eventDateTime {
     background-color: white;
     margin: 50px 0;
     padding: 20px;
@@ -388,25 +401,25 @@ header {
     color: black;
 }
 
-.eventPostDetails>div{
+.eventPostDetails>div {
     display: flex;
     width: 80%;
     margin: auto;
     justify-content: space-between;
 }
 
-.eventPostDetailsData{
+.eventPostDetailsData {
     display: grid;
     align-items: center;
 }
 
-.eventPostDetailsData>div{
+.eventPostDetailsData>div {
     display: grid;
     gap: 10px;
 }
 
 
-.eventPost__content__left__bottom{
+.eventPost__content__left__bottom {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 30px;
     border-radius: 20px;
@@ -424,7 +437,7 @@ header {
         height: 200px;
         object-fit: cover;
         width: 100%;
-        
+
     }
 }
 
