@@ -9,6 +9,7 @@ function Footer() {
             <div className='footer-middle-wrap'>
                 <div>
                     <h2>About Us</h2>
+                    <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                     <div>
                         <p>Finovista, is a Program Management Consulting, IN Country Partner, Technology Management & Capacity Building firm engaged extensively with Developmental Agencies, Government Bodies.</p>
                         <div className='mt-4'>
@@ -18,6 +19,7 @@ function Footer() {
                 </div>
                 <div>
                     <h2>Services</h2>
+                    <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                     <div>
                         <a href="#">Services</a>
                         <a href="#">Testimonials</a>
@@ -29,6 +31,7 @@ function Footer() {
                 </div>
                 <div>
                     <h2>Latest Posts</h2>
+                    <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                     <div>
                         <LatestPosts posts={3} type={'sidebar'} />
                     </div>
