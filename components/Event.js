@@ -35,7 +35,7 @@ function Event() {
             <div className="w-44 h-[3px] bg-[#2067ff] mx-auto mb-12"></div>
           </div>
         </div>
-        <div className='allEvents'>
+        <div className='allEvents' id='pastEvents'>
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />

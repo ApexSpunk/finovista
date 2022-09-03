@@ -291,7 +291,6 @@ header {
 .allEvents>div{
     display: grid;
     grid-template-columns: 20% 80%;
-    border: 1px solid rgb(245, 245, 245);
     border-radius: 10px;
     box-shadow: 0 0 20px rgb(15 48 106 / 15%);
     cursor: pointer;
@@ -300,10 +299,17 @@ header {
 .allEvents>div:hover{
     box-shadow: 0 0 20px rgb(15 48 106 / 30%);
     transition-duration: .7s;
-    border: none;
+    border-radius: 10px;
     transform: scale(1.01);
+    border: none;
 }
 
+.allEvents>div:hover>div>div:first-child{
+    box-shadow: 0 0 20px rgb(15 48 106 / 30%);
+    background-color: rgb(0, 123, 255);
+    color: white;
+    
+}
 
 
 .eventDate{
@@ -311,13 +317,15 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(0, 123, 255);
-    color: white;
+    background-color: rgb(202, 225, 255);
+    color: black;
     border-radius: 10px 0 0 10px;
     padding: 10px;
     height: 100%;
     line-height: 25px;
 }
+
+
 .eventDate span{
     margin: 10px 0;
 }
@@ -331,5 +339,12 @@ header {
 
 .allEvents>div>div>div{
     padding: 10px;
+    border-radius: 10px;
+}
+#pastEvents>div>div>div:first-child{
+    background-color: lightgray;
+}
+#pastEvents>div:hover>div>div:first-child{
+    background-color: gray;
 }
 /* Event css ends */
