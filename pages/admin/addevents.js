@@ -41,7 +41,7 @@ function texteditor() {
         spellcheck: true,
         editorCssClass: false,
         triggerChangeEvent: true,
-        height: 1200,
+        height: '1200px',
         direction: 'ltr',
         language: 'en',
         debugLanguage: false,
@@ -58,6 +58,7 @@ function texteditor() {
         textIcons: false,
         uploader: {
             insertImageAsBase64URI: true
+
         },
         placeholder: '',
         showXPathInStatusbar: false
@@ -76,7 +77,6 @@ function texteditor() {
 
 
     async function publishEvent() {
-        // const router = useRouter();
         try {
             const eventData = { eventTitle, pageContent: content, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
             let response = await fetch(`../api/events`, {
@@ -96,11 +96,11 @@ function texteditor() {
                 draggable: true,
                 progress: undefined,
             });
-            // router.push('index.html')
         } catch (error) {
             console.log(error)
         }
     }
+
 
 
 
@@ -122,7 +122,6 @@ function texteditor() {
                     <link rel="icon" href="/favicon.ico" />
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" />
-                    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
                 </Head>
                 <div className="bg-gray-100">
                     <ToastContainer

@@ -1,11 +1,13 @@
-*{
-    margin:0;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Poppins;
 }
 
-.previewBtn{
+.previewBtn {
     border: 2px solid teal;
     color: teal;
     font-size: 16px;
@@ -20,16 +22,258 @@
     background-color: teal;
     color: white;
 }
-.optionSel>div>button{
+
+.optionSel>div>button {
     display: none;
 }
 
 
-.optionSel>div{
+.optionSel>div {
     background-color: green;
     padding: 4px 20px;
 }
 
-.optionSel>div:last-child{
+.optionSel>div:last-child {
     display: none;
 }
+
+/* Navbar Css */
+.banner {
+    background-color: #faf2f4;
+    display: flex;
+    height: 45px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+}
+
+.banner a {
+    color: #c2214c;
+    text-decoration: none;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    box-shadow: 0 0 20px rgb(15 48 106 / 10%);
+    background-color: white;
+    padding: 0 3%;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.mobile-logo {
+    width: 34px;
+    transition: left 0.3s;
+    opacity: 0;
+}
+
+.logo {
+    width: 130px;
+    transition: left 0.3s;
+    position: relative;
+    left: -38px;
+    top: 2px;
+}
+
+.menu .menu-div {
+    display: flex;
+    align-items: center;
+}
+
+.bottom {
+    display: flex;
+    gap: 20px;
+}
+
+.menu-links {
+    display: flex;
+    gap: 20px;
+    transition: 2s;
+    margin-top: 2px;
+    margin-left: -6%;
+}
+
+.menuAnim {
+    transition-timing-function: ease-in;
+    transition: 1s;
+    transform: translateX(-30%);
+    margin-left: 0%;
+}
+
+.menuAnim1 {
+    transition-timing-function: ease-out;
+    transition: 0.5s;
+    transform: translateX(0%);
+    margin-left: -6%;
+
+}
+
+.menu-logo {
+    margin-right: 30px;
+
+}
+
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.bottom a:first-child {
+    border: 2px solid gray;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.bottom a:first-child:hover {
+    background-color: rgb(245, 245, 245);
+}
+
+.bottom a:nth-child(2) {
+    background-color: rgb(0, 123, 255);
+    padding: 7px 14px;
+    color: white;
+    border-radius: 10px;
+}
+
+.bottom a:nth-child(3) {
+    padding: 7px 0px;
+}
+
+.bottom a:nth-child(2):hover {
+    background-color: rgb(0, 99, 206);
+}
+
+.ham img {
+    height: 40px;
+}
+
+.ham {
+    display: none;
+}
+
+.ham1 img {
+    margin: 7px;
+    height: 25px;
+}
+
+.ham1 {
+    display: none;
+}
+
+.mobileMenu {
+    position: absolute;
+    width: 100%;
+    height: 90vh;
+    background-color: white;
+    display: grid;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.mobileMenu div {
+    padding: 15px;
+    justify-content: center;
+    align-items: center;
+    display: grid;
+    width: 100%;
+    font-size: 20px;
+    height: 400px;
+    margin-top: 50px;
+}
+
+header {
+    position: sticky;
+    top: 0;
+}
+
+/* Navbar Ends */
+
+/* Footer Css Starts */
+
+.site-footer {
+    background-color: #0e1531;
+    background-image: url('https://elementor.zozothemes.com/corpkit/wp-content/uploads/sites/45/2021/08/footer-bg-1.png');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    color: #777777;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.footer-middle-wrap {
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    margin: 0 10%;
+    padding: 80px 0;
+}
+
+.footer-bottom {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 30px;
+    background-color: #1a213e;
+    
+}
+
+.footer-bottom>div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 10%;
+}
+
+.footer-bottom img{
+    height: 40px;
+    margin: 15px 0;
+}
+
+.footer-middle-wrap>div h2{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    
+}
+.footer-middle-wrap>div a{
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    margin: 10px 0;
+}
+.footer-middle-wrap>div a:hover{
+    color: rgb(0, 123, 255);
+    transition-duration: .7s;
+}
+
+
+/* Footer Css Ends */
+
+/* Socials Css Starts */
+
+.socials-links{
+    display: flex;
+    gap: 10px;
+}
+
+/* Socials Css Ends */
+
+
+/* Latest Posts Css Starts */
+
+.latestPosts>div{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* Latest Post Css Ends */
