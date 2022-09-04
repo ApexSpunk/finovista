@@ -6,7 +6,7 @@ function Subscribe(props) {
     return (
         <div>
             <h2>Subscribe Us</h2>
-            <div className={"w-24 h-[3px] bg-gray-500 mb-8 m-"+align}><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
+            <div className={"w-24 h-[3px] bg-gray-500 mb-8 mx-"+align}><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
             <div>
                 <p>Get each and every latest news & update about Finovista without any delay by subscribing to us.</p>
                 <div className='mt-6'>
