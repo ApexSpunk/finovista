@@ -32,6 +32,6 @@ export default (req, res) => {
             : req.method === "DELETE"
                 ? console.log("DELETE")
                 : req.method === "GET"
-                    ? console.log("GET")
-                    : res.status(404).send("");
+                    ? res.status(200).json({ success: 'success' })
+                    : res.status(200).json({ success: 'success' })
 };
