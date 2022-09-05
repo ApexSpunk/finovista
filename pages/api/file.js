@@ -18,6 +18,7 @@ const post = async (req, res) => {
 
 const saveFile = async (file) => {
     const data = fs.readFileSync(file.filepath);
+    console.log(data)
     fs.writeFileSync(`./public/uploads/${file.originalFilename}`, data);
     await fs.unlinkSync(file.filepath);
     console.log('done')
