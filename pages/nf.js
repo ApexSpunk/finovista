@@ -21,6 +21,7 @@ export default function PrivatePage(props) {
       method: "POST",
       body
     });
+    console.log(response)
   };
 
   return (
