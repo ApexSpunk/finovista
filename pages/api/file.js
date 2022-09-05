@@ -9,18 +9,15 @@ export const config = {
 
 const post = async (req, res) => {
     const form = new formidable.IncomingForm();
-    console.log(form)
     form.parse(req, async function (err, fields, files) {
         await saveFile(files.file);
-        return res.status(201).send("");
     });
+    return res.status(200).json({ success: 'success' })
 };
 
 const saveFile = async (file) => {
-    console.log(file,'this is file')
     const data = fs.readFileSync(file.filepath);
-    console.log(data,"this is data")
-    fs.writeFileSync(`./public/uploads/${file.originalFilename}`, data);
+    fs.writeFileSync(`./public/${file.originalFilename}`, data);
     await fs.unlinkSync(file.filepath);
     console.log('done')
     return;
