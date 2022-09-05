@@ -1,36 +1,46 @@
-import formidable from "formidable";
-import fs from "fs";
+import nextConnect from "next-connect";
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+
+let filename = uuidv4() + "-" + new Date().getTime();
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: "./public/uploads/profiles", // destination folder
+        filename: (req, file, cb) => cb(null, getFileName(file)),
+    }),
+});
+
+const getFileName = (file) => {
+    filename +=
+        "." +
+        file.originalname.substring(
+            file.originalname.lastIndexOf(".") + 1,
+            file.originalname.length
+        );
+    return filename;
+};
+
+const apiRoute = nextConnect({
+    onError(error, req, res) {
+        res
+            .status(501)
+            .json({ error: `Sorry something Happened! ${error.message}` });
+    },
+    onNoMatch(req, res) {
+        res.status(405).json({ error: `Method '${req.method}' Not Allowed` });
+    },
+});
+
+apiRoute.use(upload.array("file")); // attribute name you are sending the file by 
+
+apiRoute.post((req, res) => {
+    res.status(200).json({ data: `/uploads/profiles/${filename}` }); // response
+});
+
+export default apiRoute;
 
 export const config = {
     api: {
-        bodyParser: false
-    }
-};
-
-const post = async (req, res) => {
-    const form = new formidable.IncomingForm();
-    form.parse(req, async function (err, fields, files) {
-        await saveFile(files.file);
-    });
-    return res.status(200).json({ success: 'success' })
-};
-
-const saveFile = async (file) => {
-    const data = fs.readFileSync(file.filepath);
-    fs.writeFileSync(`./public/${file.originalFilename}`, data);
-    await fs.unlinkSync(file.filepath);
-    console.log('done')
-    return;
-};
-
-export default (req, res) => {
-    req.method === "POST"
-        ? post(req, res)
-        : req.method === "PUT"
-            ? console.log("PUT")
-            : req.method === "DELETE"
-                ? console.log("DELETE")
-                : req.method === "GET"
-                    ? res.status(200).json({ success: 'success' })
-                    : res.status(200).json({ success: 'success' })
+        bodyParser: false, // Disallow body parsing, consume as stream
+    },
 };
