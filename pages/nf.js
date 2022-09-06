@@ -21,7 +21,9 @@ export default function PrivatePage(props) {
       method: "POST",
       body
     });
+    console.log(response,"response")
     let ress = response.json()
+    console.log(ress,"ress")
     console.log(await ress)
   };
 
