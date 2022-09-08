@@ -2,92 +2,132 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faCalendarAlt, faPlus, faClock } from '@fortawesome/free-solid-svg-icons'
 import EventRegister from './EventRegister'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import Parser from 'html-react-parser';
 
 function SinlePostEvent(props) {
-    const { title } = props
-    return (
-        <div className="eventPost">
-            <div className="eventPost__banner">
-                <img src="https://finovista.com/wp-content/uploads/2021/05/WhatsApp-Image-2021-05-31-at-3.55.23-PM.jpeg" alt="" />
-                <div className="eventPost__banner__content px-[5%]">
-                    <div className='grid content-center'>
-                        <div className="flex gap-2">
-                            <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
-                            <p>30 Oct 2021 - 31 Oct 2021</p>
-                        </div>
-                        <div className="flex gap-2">
-                            <FontAwesomeIcon icon={faLocationDot} className="w-3" />
-                            <p>Location</p>
-                        </div>
-                    </div>
-                    <div>
-                        <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700'>Register</button>
-                    </div>
-                </div>
-            </div>
-            <div className='eventTitle mt-8'>
-                <h1>{title}</h1>
-                <div class="w-24 h-[4px] bg-gray-500 mb-8 mt-2"><div class="w-12 h-[4px] bg-[#2067ff]"></div></div>
-            </div>
-            <div className="eventPost__content">
-                <div className="eventPost__content__left">
-                    <div className="eventPost__content__left__top">
-                        <div>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </div>
-                        <br />
-                        <div>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </div>
-                        <br />
-                        <img src="https://finovista.com/wp-content/uploads/2022/08/WhatsApp-Image-2022-08-25-at-12.47.57-PM.jpeg" alt="" width='100%' />
-                        <br />
-                        <div>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Voluptates, quibusdam. Lorem ipsum dolor sit amet consectetur
-                            adipisicing elit. Voluptates, quibusdam. Lorem ipsum dolor sit
-                            amet consectetur adipisicing elit. Voluptates, quibusdam.
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                        </div>
-                    </div>
-                    <EventRegister />
-                </div>
-            </div>
-        </div>
 
+    const [event, setEvent] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+
+    const router = useRouter()
+    const { slug } = router.query
+
+    const [eventSlug, setEventSlug] = useState(slug)
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [fromDate, setFromDate] = useState('')
+    const [toDate, setToDate] = useState('')
+    const [fromTime, setFromTime] = useState('')
+    const [toTime, setToTime] = useState('')
+    const [location, setLocation] = useState('')
+    const [thumbnail, setThumbnail] = useState('')
+    const [type, setType] = useState('')
+    const [mode, setMode] = useState('')
+    const [isCompleted, setIsCompleted] = useState('')
+    const [formElements, setFormElements] = useState([])
+
+
+    const fetchEvent = async () => {
+        setLoading(true)
+        if (router.isReady) {
+            const { slug } = router.query;
+            if (!slug) return null;
+            console.log(slug)
+            try {
+                const res = await fetch(`/api/singleEvent?slug=${slug}`)
+                const data = await res.json()
+                console.log(data)
+                setEvent(data.events[0])
+                setTitle(data.events[0].title)
+                setContent(data.events[0].content)
+                setFromDate(data.events[0].fromDate)
+                setToDate(data.events[0].toDate)
+                setFromTime(data.events[0].fromTime)
+                setToTime(data.events[0].toTime)
+                setLocation(data.events[0].location)
+                setThumbnail(data.events[0].thumbnail)
+                setType(data.events[0].type)
+                setMode(data.events[0].mode)
+                setIsCompleted(data.events[0].isCompleted)
+                setFormElements(data.events[0].formElements)
+                setLoading(false)
+            }
+            catch (err) {
+                setError(true)
+                setLoading(false)
+            }
+        }
+
+
+    }
+
+
+    useEffect(() => {
+        fetchEvent()
+    }, [router.isReady])
+
+
+
+
+
+
+
+
+
+    return (
+        <>
+            {
+                loading ? <div className='loading'>Loading...</div> : (
+                    <div className="eventPost">
+                        <div className="eventPost__banner">
+                            <img src={thumbnail} alt="" />
+                            <div className="eventPost__banner__content px-[5%]">
+                                <div className='grid content-center'>
+                                    <div className="flex gap-2">
+                                        <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
+                                        <p>{fromDate} to {toDate}</p>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <FontAwesomeIcon icon={faLocationDot} className="w-3" />
+                                        <p>{location}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700'>Register</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='eventTitle mt-8'>
+                            <h1>{title}</h1>
+                            <div className="w-24 h-[4px] bg-gray-500 mb-8 mt-2"><div className="w-12 h-[4px] bg-[#2067ff]"></div></div>
+                        </div>
+                        <div className="eventPost__content">
+                            <div className="eventPost__content__left">
+                                <div className="eventPost__content__left__top">
+
+                                    {content && Parser(content)}
+
+                                </div>
+                                <EventRegister />
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+        </>
     )
 }
+
+
+
+// const { title, content, location, fromDate, toDate, fromTime, toTime, thumbnail, type, mode, created, isCompleted, slug, formElements } = singleEvent()
+// return (
+
+
+// )
+// }
 
 export default SinlePostEvent

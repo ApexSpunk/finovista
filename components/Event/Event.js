@@ -1,7 +1,24 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import SingleEvent from './SingleEvent'
 
 function Event() {
+
+  // Fetch all events from the database
+
+  const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const getEvents = async () => {
+      const response = await fetch('/api/events')
+      let ress = await response.json()
+      setEvents(ress.events)
+    }
+    getEvents()
+  }, [loading])
+
+
   return (
     <div>
       <div className='mb-32'>
@@ -13,18 +30,12 @@ function Event() {
           </div>
         </div>
         <div className='allEvents'>
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
+          {
+            events.map((event) => (
+              <SingleEvent key={event._id} event={event} />
+            ))
+
+          }
         </div>
       </div>
       <div className=' bg-gray-100 pt-6 pb-16'>
@@ -36,6 +47,7 @@ function Event() {
           </div>
         </div>
         <div className='allEvents' id='pastEvents'>
+          {/* <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
@@ -46,8 +58,7 @@ function Event() {
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
           <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
+          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} /> */}
         </div>
       </div>
     </div>

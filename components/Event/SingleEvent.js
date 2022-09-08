@@ -4,9 +4,9 @@ import { faLocationDot, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
 
 function SingleEvent(props) {
-    const { title, fromDate, toDate, image, location } = props
+    const { event } = props
     const handleClick = () => {
-        Router.push(`/events/${title}`)
+        Router.push(`/events/${event.slug}`)
     }
     return (
         <div onClick={handleClick}>
@@ -22,12 +22,12 @@ function SingleEvent(props) {
                 </div>
             </div>
             <div>
-                <img src={image} alt="" />
+                <img src={event.thumbnail} alt="" />
                 <div>
-                    <h4>{title}</h4>
+                    <h4>{event.title}</h4>
                     <div className='flex gap-2'>
                         <FontAwesomeIcon icon={faLocationDot} className='w-3' />
-                        <p>{location}</p>
+                        <p>{event.location}</p>
                     </div>
                 </div>
             </div>

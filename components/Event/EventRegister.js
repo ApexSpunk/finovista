@@ -26,7 +26,7 @@ function EventRegister() {
                 <div className='eventDateTime w-[300px]'>
                     <div>
                         <h2 className='text-center'>Register Now</h2>
-                        <div class="w-24 h-[3px] bg-gray-500 mb-8 mt-2 mx-auto"><div class="w-12 h-[3px] bg-[#2067ff]"></div></div>
+                        <div className="w-24 h-[3px] bg-gray-500 mb-8 mt-2 mx-auto"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                         <div className='flex gap-2 text-blue-600 font-semibold bg-blue-100 rounded-md p-3 mb-4 cursor-pointer hover:bg-blue-200 duration-700'>
                             <FontAwesomeIcon icon={faPlus} className="w-3" />
                             <p>Add To Calander</p>

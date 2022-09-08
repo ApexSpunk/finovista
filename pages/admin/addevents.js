@@ -4,6 +4,13 @@ import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { Router } from 'next/router';
+import ImageUploader from '../../components/ImageUploader';
+import AddMedia from '../../components/AddMedia';
+const ReactDOMServer = require('react-dom/server');
+const HtmlToReactParser = require('html-to-react').Parser;
+
+const htmlToReactParser = new HtmlToReactParser();
+
 
 
 const importJodit = () => import('jodit-react');
@@ -18,9 +25,7 @@ function texteditor() {
     // const [permalink, setPermalink] = useState(null)
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
-    function handleClick() {
-        console.log(content)
-    }
+
 
     function updateFields(value) {
         let fieldsArr = registrationFormList
@@ -33,35 +38,84 @@ function texteditor() {
     let config = {
         zIndex: 0,
         readonly: false,
-        activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about'],
+        activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about', 'dots'],
         toolbarButtonSize: 'middle',
         theme: 'default',
-        enableDragAndDropFileToEditor: true,
         saveModeInCookie: false,
         spellcheck: true,
         editorCssClass: false,
         triggerChangeEvent: true,
-        height: '1200px',
-        direction: 'ltr',
-        language: 'en',
+        width: 'auto',
+        height: 1600,
+        minHeight: 100,
+        direction: '',
+        language: 'auto',
         debugLanguage: false,
         i18n: 'en',
         tabIndex: -1,
         toolbar: true,
-        enter: 'P',
+        enter: "P",
         useSplitMode: false,
+        colors: {
+            greyscale: ['#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF'],
+            palette: ['#980000', '#FF0000', '#FF9900', '#FFFF00', '#00F0F0', '#00FFFF', '#4A86E8', '#0000FF', '#9900FF', '#FF00FF'],
+            full: [
+                '#E6B8AF', '#F4CCCC', '#FCE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E3', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
+                '#DD7E6B', '#EA9999', '#F9CB9C', '#FFE599', '#B6D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D6', '#D5A6BD',
+                '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#93C47D', '#76A5AF', '#6D9EEB', '#6FA8DC', '#8E7CC3', '#C27BA0',
+                '#A61C00', '#CC0000', '#E69138', '#F1C232', '#6AA84F', '#45818E', '#3C78D8', '#3D85C6', '#674EA7', '#A64D79',
+                '#85200C', '#990000', '#B45F06', '#BF9000', '#38761D', '#134F5C', '#1155CC', '#0B5394', '#351C75', '#733554',
+                '#5B0F00', '#660000', '#783F04', '#7F6000', '#274E13', '#0C343D', '#1C4587', '#073763', '#20124D', '#4C1130'
+            ]
+        },
         colorPickerDefaultTab: 'background',
-        imageDefaultWidth: 100,
-        // removeButtons: ['source', 'fullsize', 'about', 'outdent', 'indent', 'video', 'print', 'table', 'fontsize', 'superscript', 'subscript', 'file', 'cut', 'selectall'],
-        // disablePlugins: ['paste', 'stat'],
+        imageDefaultWidth: 300,
+        removeButtons: [],
+        disablePlugins: [],
+        extraButtons: [],
+        sizeLG: 900,
+        sizeMD: 700,
+        sizeSM: 400,
+        sizeSM: 400,
+        buttons: [
+            'source', '|',
+            'bold',
+            'strikethrough',
+            'underline',
+            'italic', '|',
+            'ul',
+            'ol', '|',
+            'outdent', 'indent', '|',
+            'font',
+            'fontsize',
+            'brush',
+            'paragraph', '|',
+            'image',
+            'video',
+            'table',
+            'link', '|',
+            'align', 'undo', 'redo', '|',
+            'hr',
+            'eraser',
+            'copyformat', '|',
+            'symbol',
+            'fullsize',
+            'print',
+            'about'
+        ],
+        buttonsXS: [
+            'bold',
+            'image', '|',
+            'brush',
+            'paragraph', '|',
+            'align', '|',
+            'undo', 'redo', '|',
+            'eraser',
+            'dots'
+        ],
         events: {},
         textIcons: false,
-        uploader: {
-            insertImageAsBase64URI: true
 
-        },
-        placeholder: '',
-        showXPathInStatusbar: false
     };
 
     const [eventTitle, setEventTitle] = useState('')
@@ -70,15 +124,21 @@ function texteditor() {
     const [toDate, setToDate] = useState('')
     const [fromTime, setFromTime] = useState('')
     const [toTime, setToTime] = useState('')
-    const [thumbnail, setThumbnail] = useState('')
+    const [thumbnail, setThumbnail] = useState('https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png')
     const [eventType, setEventType] = useState('')
     const [eventMode, setEventMode] = useState('')
     const [slug, setSlug] = useState('')
+    const [showModal, setShowModal] = useState(false);
 
+    function handleClick() {
+        setShowModal(!showModal)
+    }
 
     async function publishEvent() {
+        const reactElement = htmlToReactParser.parse(content);
+        const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { eventTitle, pageContent: content, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
+            const eventData = { eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
             let response = await fetch(`../api/events`, {
                 method: 'POST',
                 headers: {
@@ -101,15 +161,39 @@ function texteditor() {
         }
     }
 
+    const [image, setImage] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    const uploadThumbnail = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            const i = event.target.files[0];
+            setImage(i);
+        }
+    };
+
+    const uploadToServer = async (event) => {
+        const body = new FormData();
+        body.append("file", image);
+        const response = await fetch("/api/images", {
+            method: "POST",
+            body
+        });
+        let ress = await response.json();
+        console.log(ress)
+        setThumbnail(ress.data.Location)
+    };
+
 
 
 
     function handleTitleInput(eventTitle) {
+        setEventTitle(eventTitle)
         eventTitle = eventTitle.split(" ");
         eventTitle = eventTitle.join("-").toLowerCase();
         setSlug(eventTitle);
-        setEventTitle(eventTitle)
     }
+
+
 
 
     const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
@@ -138,7 +222,10 @@ function texteditor() {
                         <div className='col-span-9'>
                             <div>
                                 <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
-                                <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
+                                <div className='flex justify-between'>
+                                    <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
+                                    <button onClick={handleClick}>Add Media</button>
+                                </div>
                             </div>
                             <JoditEditor
                                 ref={editor}
@@ -235,14 +322,28 @@ function texteditor() {
                                     </div>
                                 </div>
                             </div>
+                            <div className='bg-white p-4 mt-4 rounded-xl'>
+                                <div>
+                                    <h4>Add Thumbnail</h4>
+                                    <div>
+                                        <img src={thumbnail} alt="" className='w-full' />
+                                        <input name="myImage" onChange={uploadThumbnail} class="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl my-2 text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
+                                        <button
+                                            className=" border-0 rounded-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer my-2 w-full p-3"
+                                            type="submit"
+                                            onClick={uploadToServer}
+                                        >Upload Image</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <button onClick={handleClick}>hi</button>
                 </div>
             </div>
+            <AddMedia handleClick={handleClick} showModal={showModal} />
         </div>
-    );
-
+    )
 }
 
 export default texteditor

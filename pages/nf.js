@@ -21,7 +21,6 @@ export default function PrivatePage(props) {
       body
     });
     let ress = await response.json();
-    console.log(ress);
   };
 
   return (

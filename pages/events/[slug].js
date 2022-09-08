@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import { useRouter, useState } from 'next/router'
 import Navbar from '../../components/Navbar'
 import Head from 'next/head'
 import Footer from '../../components/Footer'
@@ -6,8 +6,12 @@ import Sidebar from '../../components/Sidebar'
 import SinlePostEvent from '../../components/Event/SinglePostEvent'
 
 const eventPost = () => {
-  const router = useRouter()
-  const { slug } = router.query
+
+  const router = useRouter();
+
+  const { slug } = router.query;
+
+
 
   return (
     <div>
@@ -20,7 +24,7 @@ const eventPost = () => {
       <div>
         <div className='eventPostMain'>
           <div>
-            <SinlePostEvent title={slug} />
+            <SinlePostEvent eventSlug={slug} />
           </div>
           <div className=''>
             <Sidebar />
