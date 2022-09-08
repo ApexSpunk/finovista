@@ -8,7 +8,6 @@ export default function PrivatePage(props) {
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
-
       setImage(i);
       setCreateObjectURL(URL.createObjectURL(i));
     }
@@ -21,6 +20,8 @@ export default function PrivatePage(props) {
       method: "POST",
       body
     });
+    let ress = await response.json();
+    console.log(ress);
   };
 
   return (
