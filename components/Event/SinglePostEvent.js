@@ -63,6 +63,8 @@ function SinlePostEvent(props) {
 
     }
 
+    
+
 
     useEffect(() => {
         fetchEvent()
@@ -72,7 +74,6 @@ function SinlePostEvent(props) {
 
     const handleRegistor = () => {
         setRegister(!Register)
-        console.log('register')
     }
 
 

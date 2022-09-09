@@ -12,7 +12,6 @@ function FormElements(props) {
         form[element] = element
     });
 
-    console.log(form)
 
 
     const [showModal, setShowModal] = useState(true);
@@ -1346,44 +1345,59 @@ function FormElements(props) {
     const [remark1, setRemark1] = useState('')
     const [remark2, setRemark2] = useState('')
     const [remark3, setRemark3] = useState('')
-    const [status, setStatus] = useState()
+
+    function getCurrentDate(separator = '-') {
+
+        let newDate = new Date()
+        let date = newDate.getDate();
+        let month = newDate.getMonth() + 1;
+        let year = newDate.getFullYear();
+
+        return `${year}${separator}${month < 10 ? `0${month}` : `${month}`}${separator}${date}`
+    }
+
+    let date = getCurrentDate()
 
     let handleSubmit = async () => {
+        console.log('hiss')
         try {
             const data = {
-                sal: sal,
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                secondEmail: email2,
-                phone: mobile,
-                tel: tel,
-                designation: designation,
-                organizationName: organization,
-                organizationType: organizationType,
-                sector: sector,
-                subSector: subSector,
-                subSector2: subSectorL2,
-                country: country,
-                state: state,
-                city: city,
-                website: website,
-                organizationProfile: organizationProfile,
-                remark1: remark1,
-                remark2: remark2,
-                remark3: remark3,
-                addedBy: user,
-                date: date,
-                status: status
+                "sal": sal,
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "secondEmail": email2,
+                "phone": mobile,
+                "tel": tel,
+                "designation": designation,
+                "organizationName": organization,
+                "organizationType": organizationType,
+                "sector": sector,
+                "subSector": subSector,
+                "subSector2": subSectorL2,
+                "country": country,
+                "state": state,
+                "city": city,
+                "website": website,
+                "organizationProfile": organizationProfile,
+                "remark1": remark1,
+                "remark2": remark2,
+                "remark3": remark3,
+                "addedBy": 'finovista',
+                "date": date,
+                "status": 'active'
             }
-            let res = await fetch('https://finovista.com/api/contact', {
+            console.log(JSON.stringify(data))
+            let res = await fetch('https://finovista.netlify.app/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
+            console.log(res,'sdsfsdfsadasdasda')
             let response = await res.json()
+            console.log(response, 'response')
             if (response.success) {
                 setSal('')
                 setFirstName('')
@@ -1415,10 +1429,10 @@ function FormElements(props) {
                     draggable: true,
                     progress: undefined,
                 });
-                fetchData()
             }
 
         } catch (err) {
+            console.log(err,'sdsdas')
             toast.error('Please Try Again!', {
                 position: "top-center",
                 autoClose: 5000,
