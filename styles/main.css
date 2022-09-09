@@ -432,6 +432,11 @@ header {
     border-radius: 20px;
 }
 
+.formElementsBody input{
+    border: 1px solid lightgray;
+    background-color: transparent;
+}
+
 
 /* Single Event Css Ends*/
 

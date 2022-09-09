@@ -36,11 +36,9 @@ function SinlePostEvent(props) {
         if (router.isReady) {
             const { slug } = router.query;
             if (!slug) return null;
-            console.log(slug)
             try {
                 const res = await fetch(`/api/singleEvent?slug=${slug}`)
                 const data = await res.json()
-                console.log(data)
                 setEvent(data.events[0])
                 setTitle(data.events[0].title)
                 setContent(data.events[0].content)
@@ -70,6 +68,13 @@ function SinlePostEvent(props) {
         fetchEvent()
     }, [router.isReady])
 
+    const [Register, setRegister] = useState(false)
+
+    const handleRegistor = () => {
+        setRegister(!Register)
+        console.log('register')
+    }
+
 
 
     return (
@@ -94,7 +99,7 @@ function SinlePostEvent(props) {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700'>Register</button>
+                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700' onClick={handleRegistor}>Register</button>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +114,7 @@ function SinlePostEvent(props) {
                                     {content && Parser(content)}
 
                                 </div>
-                                <EventRegister />
+                                <EventRegister event={event} Register={Register} handleRegistor={handleRegistor} />
                             </div>
                         </div>
                     </div>

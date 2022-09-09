@@ -49,7 +49,7 @@ function ImageUploader() {
         <div>
             <div>
                 <div className='flex content-center my-4'>
-                    <input name="myImage" onChange={uploadToClient} class="text-md bg-blue-100 file:uppercase file:font-semibold rounded-l-3xl text-grey-500 file:mr-5 file:py-4 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
+                    <input name="myImage" onChange={uploadToClient} className="text-md bg-blue-100 file:uppercase file:font-semibold rounded-l-3xl text-grey-500 file:mr-5 file:py-4 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
                     <button
                         className="w-[150px] border-0 rounded-r-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer"
                         type="submit"
