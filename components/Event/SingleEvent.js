@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
 
+
 function SingleEvent(props) {
     const { event } = props
     const handleClick = () => {

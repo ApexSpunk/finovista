@@ -5,11 +5,12 @@ import EventRegister from './EventRegister'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Parser from 'html-react-parser';
+import SingleEventSkeleton from './SingleEventSkeleton'
 
 function SinlePostEvent(props) {
 
     const [event, setEvent] = useState({})
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
     const router = useRouter()
@@ -57,7 +58,7 @@ function SinlePostEvent(props) {
             }
             catch (err) {
                 setError(true)
-                setLoading(false)
+                setLoading(true)
             }
         }
 
@@ -71,16 +72,13 @@ function SinlePostEvent(props) {
 
 
 
-
-
-
-
-
-
     return (
         <>
             {
-                loading ? <div className='loading'>Loading...</div> : (
+                loading ? <div className='singleEventSkeleton'>
+                    <SingleEventSkeleton />
+
+                </div> : error ? <div className='error'>{error}</div> : (
                     <div className="eventPost">
                         <div className="eventPost__banner">
                             <img src={thumbnail} alt="" />

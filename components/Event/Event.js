@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import SingleEvent from './SingleEvent'
+import EventSkeloton from './EventSkeloton'
 
 function Event() {
 
@@ -10,13 +11,20 @@ function Event() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     const getEvents = async () => {
-      const response = await fetch('/api/events')
-      let ress = await response.json()
-      setEvents(ress.events)
+      try {
+        const response = await fetch('/api/events')
+        let ress = await response.json()
+        setEvents(ress.events)
+        setLoading(false)
+      } catch (error) {
+        console.log(error)
+        setLoading(false)
+      }
     }
     getEvents()
-  }, [loading])
+  }, [])
 
 
   return (
@@ -29,14 +37,26 @@ function Event() {
             <div className="w-44 h-[3px] bg-[#2067ff] mx-auto mb-12"></div>
           </div>
         </div>
-        <div className='allEvents'>
-          {
-            events.map((event) => (
-              <SingleEvent key={event._id} event={event} />
-            ))
 
-          }
-        </div>
+        {
+          loading ? <div className='skeleton'>
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+            <EventSkeloton />
+          </div> : (
+            <div className='allEvents'>
+             { events.map((event) => (
+              <SingleEvent key={event._id} event={event} />
+              ))}
+            </div>
+          )
+        }
       </div>
       <div className=' bg-gray-100 pt-6 pb-16'>
         <div className="text-center mt-12" >

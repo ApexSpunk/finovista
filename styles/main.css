@@ -346,6 +346,13 @@ header {
     border-radius: 10px;
 }
 
+.skeleton {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 20px 5%;
+}
+
 #pastEvents>div>div>div:first-child {
     background-color: lightgray;
 }
