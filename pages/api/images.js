@@ -19,6 +19,8 @@ const s3 = new S3({
     Bucket: process.env.S3_BUCKET_NAME,
 });
 
+console.log(s3, 's3')
+
 
 const handler = async (req, res) => {
 

@@ -1395,7 +1395,7 @@ function FormElements(props) {
                 },
                 body: JSON.stringify(data)
             })
-            console.log(res,'sdsfsdfsadasdasda')
+            console.log(res, 'sdsfsdfsadasdasda')
             let response = await res.json()
             console.log(response, 'response')
             if (response.success) {
@@ -1432,7 +1432,7 @@ function FormElements(props) {
             }
 
         } catch (err) {
-            console.log(err,'sdsdas')
+            console.log(err, 'sdsdas')
             toast.error('Please Try Again!', {
                 position: "top-center",
                 autoClose: 5000,
