@@ -72,7 +72,7 @@ function EventRegister(props) {
 
             </div>
             {
-                Register && <FormElements handleRegistor={handleRegistor} formElements={formElements} name={title} toast={toast} ToastContainer={ToastContainer} />
+                Register && <FormElements handleRegistor={handleRegistor} formElements={formElements} name={title} toast={toast} ToastContainer={ToastContainer} title={title} />
             }
         </>
     )

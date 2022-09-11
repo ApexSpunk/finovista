@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 function FormElements(props) {
 
-    const { formElements, handleRegistor, name, toast, ToastContainer } = props
+    const { formElements, handleRegistor, name, toast, ToastContainerd, title } = props
 
     let [form, setForm] = useState({})
 
@@ -1383,7 +1383,8 @@ function FormElements(props) {
                 "remark3": remark3,
                 "addedBy": 'finovista',
                 "date": date,
-                "status": 'active'
+                "status": 'active',
+                "type": title
             }
             let res = await fetch('/api/contacts', {
                 method: 'POST',
