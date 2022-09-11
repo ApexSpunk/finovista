@@ -1393,6 +1393,7 @@ function FormElements(props) {
                 body: JSON.stringify(data)
             })
             let response = await res.json()
+            console.log(response)
             if (response.success) {
                 setSal('')
                 setFirstName('')
