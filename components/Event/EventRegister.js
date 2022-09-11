@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faCalendarAlt, faPlus, faClock } from '@fortawesome/free-solid-svg-icons'
 import FormElements from './FormElements'
 import { title } from 'process'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function EventRegister(props) {
 
@@ -10,12 +12,22 @@ function EventRegister(props) {
 
     const { title, content, fromDate, toDate, fromTime, toTime, location, thumbnail, type, mode, isCompleted, formElements } = event
 
-    
+
 
 
     return (
         <>
             <div className='eventPostDetails my-12' >
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
                 <div>
                     <div className='eventPostDetailsData'>
                         <div className="eventPost__content__left__bottom">
@@ -60,7 +72,7 @@ function EventRegister(props) {
 
             </div>
             {
-                Register && <FormElements handleRegistor={handleRegistor} formElements={formElements} name={title} />
+                Register && <FormElements handleRegistor={handleRegistor} formElements={formElements} name={title} toast={toast} ToastContainer={ToastContainer} />
             }
         </>
     )

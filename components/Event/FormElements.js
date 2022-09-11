@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
+
 
 function FormElements(props) {
 
-    const { formElements, handleRegistor, name } = props
+    const { formElements, handleRegistor, name, toast, ToastContainer } = props
 
     let [form, setForm] = useState({})
 
@@ -1359,7 +1358,6 @@ function FormElements(props) {
     let date = getCurrentDate()
 
     let handleSubmit = async () => {
-        console.log('hiss')
         try {
             const data = {
                 "sal": sal,
@@ -1387,17 +1385,14 @@ function FormElements(props) {
                 "date": date,
                 "status": 'active'
             }
-            console.log(JSON.stringify(data))
-            let res = await fetch('https://finovista.netlify.app/api/contact', {
+            let res = await fetch('/api/contacts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
-            console.log(res, 'sdsfsdfsadasdasda')
             let response = await res.json()
-            console.log(response, 'response')
             if (response.success) {
                 setSal('')
                 setFirstName('')
@@ -1450,6 +1445,16 @@ function FormElements(props) {
 
     return (
         <div className='mb-44'>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover />
             <div className='mt-44'>
                 {showModal ? (
                     <>

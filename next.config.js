@@ -7,6 +7,14 @@ module.exports = {
       location: '../../node_modules/crypto-js',
       main: 'index'
     }
-  ]
+  ],
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://finovista.netlify.app/:path*',
+      }
+    ]
+  }
 
 }
