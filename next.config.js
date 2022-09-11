@@ -11,8 +11,8 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: '/api/:path*',
-        destination: 'https://finovista.netlify.app/:path*',
+        source: '/api/contacts',
+        destination: 'https://finovista.netlify.app/api/contacts',
       }
     ]
   }
