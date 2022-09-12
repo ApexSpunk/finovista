@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 function FormElements(props) {
 
-    const { formElements, handleRegistor, name, toast, ToastContainerd, title } = props
+    const { formElements, handleRegistor, name, toast, ToastContainer, title } = props
 
     let [form, setForm] = useState({})
 
