@@ -6,6 +6,11 @@ import Router from 'next/router'
 
 function SingleEvent(props) {
     const { event } = props
+    const { fromDate, toDate } = event
+    const [fromYear, fromMonth, fromDay] = fromDate.split("-");
+    const [toYear, toMonth, toDay] = toDate.split("-")
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
     const handleClick = () => {
         Router.push(`/events/${event.slug}`)
     }
@@ -13,13 +18,13 @@ function SingleEvent(props) {
         <div onClick={handleClick}>
             <div>
                 <div className='eventDate'>
-                    <h2>30</h2>
-                    <p>Oct</p>
-                    <p>2018</p>
+                    <h2>{fromDay}</h2>
+                    <p>{fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]}</p>
+                    <p>{fromYear}</p>
                     <span>To</span>
-                    <h2>31</h2>
-                    <p>Oct</p>
-                    <p>2018</p>
+                    <h2>{toDay}</h2>
+                    <p>{toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]}</p>
+                    <p>{toYear}</p>
                 </div>
             </div>
             <div>

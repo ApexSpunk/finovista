@@ -29,6 +29,11 @@ function SinlePostEvent(props) {
     const [mode, setMode] = useState('')
     const [isCompleted, setIsCompleted] = useState('')
     const [formElements, setFormElements] = useState([])
+    
+    const [fromYear, fromMonth, fromDay] = fromDate.split("-");
+    const [toYear, toMonth, toDay] = toDate.split("-")
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
 
 
     const fetchEvent = async () => {
@@ -63,7 +68,7 @@ function SinlePostEvent(props) {
 
     }
 
-    
+
 
 
     useEffect(() => {
@@ -92,7 +97,7 @@ function SinlePostEvent(props) {
                                 <div className='grid content-center'>
                                     <div className="flex gap-2">
                                         <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
-                                        <p>{fromDate} to {toDate}</p>
+                                        <p>{fromDay} {fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]} {fromYear} to {toDay} {toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]} {toYear}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <FontAwesomeIcon icon={faLocationDot} className="w-3" />

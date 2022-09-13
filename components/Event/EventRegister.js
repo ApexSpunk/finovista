@@ -11,6 +11,9 @@ function EventRegister(props) {
     const { event, Register, handleRegistor } = props
 
     const { title, content, fromDate, toDate, fromTime, toTime, location, thumbnail, type, mode, isCompleted, formElements } = event
+    const [fromYear, fromMonth, fromDay] = fromDate.split("-");
+    const [toYear, toMonth, toDay] = toDate.split("-")
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 
 
@@ -34,15 +37,15 @@ function EventRegister(props) {
                             <h2>Event Title</h2>
                             <div className="flex gap-2">
                                 <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
-                                <p>30 Oct 2021 - 31 Oct 2021</p>
+                                <p>{fromDay} {fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]} {fromYear} to {toDay} {toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]} {toYear}</p>
                             </div>
                             <div className="flex gap-2">
                                 <FontAwesomeIcon icon={faClock} className="w-3" />
-                                <p>11:20AM - 12:30PM</p>
+                                <p>{fromTime} - {toTime}</p>
                             </div>
                             <div className="flex gap-2">
                                 <FontAwesomeIcon icon={faLocationDot} className="w-3" />
-                                <p>Location</p>
+                                <p>{location}</p>
                             </div>
                         </div>
                     </div>
@@ -57,11 +60,11 @@ function EventRegister(props) {
                             <div>
                                 <div className="flex gap-2">
                                     <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
-                                    <p>30 Oct 2021 - 31 Oct 2021</p>
+                                    <p>{fromDay} {fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]} {fromYear} to {toDay} {toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]} {toYear}</p>
                                 </div>
                                 <div className="flex gap-2">
                                     <FontAwesomeIcon icon={faLocationDot} className="w-3" />
-                                    <p>Location</p>
+                                    <p>{location}</p>
                                 </div>
                             </div>
                             <button className='border-none p-3 mt-4 w-full bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 duration-700' onClick={handleRegistor}>Register</button>

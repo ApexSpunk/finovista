@@ -23,6 +23,38 @@
     color: white;
 }
 
+.redBtn {
+    border: 2px solid rgb(210, 0, 105);
+    color: rgb(210, 0, 105);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 7px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.rdBtn {
+    border: 2px solid rgb(170, 0, 0);
+    color: rgb(170, 0, 0);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px;
+    border-radius: 7px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.rdBtn:hover {
+    background-color: rgb(170, 0, 0);
+    color: white;
+}
+
+.redBtn:hover {
+    background-color: rgb(210, 0, 105);
+    color: white;
+}
+
 .optionSel>div>button {
     display: none;
 }

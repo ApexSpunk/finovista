@@ -22,7 +22,7 @@ function SingleEventSkeleton() {
                                 </div>
                             </div>
                         </div>
-                        <div classname='bg-slate-300'>
+                        <div className='bg-slate-300'>
                             <div className="rounded-2xl bg-slate-200 h-10 w-40 mt-[18px]"></div>
                         </div>
                     </div>

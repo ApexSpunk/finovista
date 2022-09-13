@@ -1,13 +1,19 @@
 import Head from 'next/head'
-import React, { useState, useRef, useMemo, useEffect, useRouter } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { Router } from 'next/router';
-import ImageUploader from '../../components/ImageUploader';
-import AddMedia from '../../components/AddMedia';
+import ImageUploader from '../../../../components/ImageUploader';
+import AddMedia from '../../../../components/AddMedia';
+import { faCalendarAlt, faClock, faLocationDot, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
+
+
 
 const htmlToReactParser = new HtmlToReactParser();
 
@@ -19,10 +25,13 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function texteditor() {
+function editevent({ event }) {
+    const router = useRouter();
+
+
+
     const editor = null
     const [content, setContent] = useState('')
-    // const [permalink, setPermalink] = useState(null)
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
 
@@ -118,6 +127,7 @@ function texteditor() {
 
     };
 
+    const [eventid , setEventid] = useState('')
     const [eventTitle, setEventTitle] = useState('')
     const [location, setLocation] = useState('')
     const [fromDate, setFromDate] = useState('')
@@ -129,6 +139,55 @@ function texteditor() {
     const [eventMode, setEventMode] = useState('')
     const [slug, setSlug] = useState('')
     const [showModal, setShowModal] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [image, setImage] = useState(null);
+    const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
+    
+    
+    const fetchEvent = async () => {
+        setLoading(true)
+        if (router.isReady) {
+            const { id } = router.query;
+            if (!id) return null;
+            console.log('first')
+            try {
+                const res = await fetch(`/api/singleEvent?slug=${id}`)
+                const data = await res.json()
+                console.log(data)
+                setEventid(data.events[0]._id)
+                setEventTitle(data.events[0].title)
+                setLocation(data.events[0].location)
+                setFromDate(data.events[0].fromDate)
+                setToDate(data.events[0].toDate)
+                setFromTime(data.events[0].fromTime)
+                setToTime(data.events[0].toTime)
+                setThumbnail(data.events[0].thumbnail)
+                setEventType(data.events[0].type)
+                setEventMode(data.events[0].mode)
+                setSlug(data.events[0].slug)
+                setContent(data.events[0].content)
+                setOptionsArr(data.events[0].formElements)
+                setOptionClass('optionSel')
+                setLoading(false)
+            }
+            catch (err) {
+                setError(true)
+                setLoading(true)
+                console.log(err)
+            }
+        }
+
+
+    }
+
+
+
+
+    useEffect(() => {
+        fetchEvent()
+    }, [router.isReady])
+
 
     function handleClick() {
         setShowModal(!showModal)
@@ -138,16 +197,16 @@ function texteditor() {
         const reactElement = htmlToReactParser.parse(content);
         const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
-            let response = await fetch(`../api/events`, {
-                method: 'POST',
+            const eventData = { id:eventid, eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
+            let response = await fetch(`../../../api/events`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(eventData)
             })
             let responseData = await response.json()
-            toast.success(`Event ${eventTitle} Published`, {
+            toast.success(`Event ${eventTitle} Updated`, {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -161,8 +220,7 @@ function texteditor() {
         }
     }
 
-    const [image, setImage] = useState(null);
-    const [loading, setLoading] = useState(false);
+
 
     const uploadThumbnail = (event) => {
         if (event.target.files && event.target.files[0]) {
@@ -179,9 +237,34 @@ function texteditor() {
             body
         });
         let ress = await response.json();
-        console.log(ress)
         setThumbnail(ress.data.Location)
     };
+
+    const deleteEvent = async () => {
+        try {
+            let response = await fetch(`../../../api/events`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ id: eventid })
+            })
+            let responseData = await response.json()
+            toast.success(`Event ${eventTitle} Deleted`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            router.push('/admin/events')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 
 
@@ -196,7 +279,6 @@ function texteditor() {
 
 
 
-    const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
 
     return (
         <div>
@@ -221,7 +303,7 @@ function texteditor() {
                     <div className='grid grid-cols-12 gap-6 font-[Poppins] pt-8 w-[95%] mx-auto'>
                         <div className='col-span-9'>
                             <div>
-                                <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
+                                <input type="text" value={eventTitle} onChange={(eve)=>{setEventTitle(eve.target.value)}} className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
                                 <div className='flex justify-between'>
                                     <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
                                     <button onClick={handleClick}>Add Media</button>
@@ -244,7 +326,14 @@ function texteditor() {
                                 </div>
                                 <div className='grid mt-4 text-center'>
                                     <p className='py-2'>status: {"published"}</p>
-                                    <button className='previewBtn' onClick={publishEvent}>Publish Event</button>
+                                    <p className='py-2'>visibility: {"public"}</p>
+                                    {/* Delete Post Button with fontAwseome Icon*/}
+                                    <button onClick={deleteEvent} className='rdBtn flex justify-center content-center gap-2'><FontAwesomeIcon icon={faTrashAlt} height='20px' /> Delete</button>
+                                    
+                                </div>
+                                <div className='grid mt-4 grid-cols-2 gap-2'>
+                                    <button className='previewBtn w-full' onClick={publishEvent}>Update Event</button>
+                                    <Link href='/admin/events'><button className='redBtn w-full'>Cancel</button></Link>
                                 </div>
                             </div>
                             <div className='bg-white p-4 mt-4 rounded-xl'>
@@ -255,27 +344,27 @@ function texteditor() {
                                 <div className='grid mt-4'>
                                     <div>
                                         <label className='text-sm text-gray-600'>Event Location</label>
-                                        <input type="text" name="location" onChange={(loc) => setLocation(loc.target.value)} placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
+                                        <input type="text" name="location" value={location} onChange={(loc) => setLocation(loc.target.value)} placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
                                     </div>
                                     <div className='grid grid-cols-2 gap-2'>
                                         <div>
                                             <label className='text-sm text-gray-600'>From Date</label>
-                                            <input type="date" onChange={(loc) => setFromDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="date" value={fromDate} onChange={(loc) => setFromDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                         <div>
                                             <label className='text-sm text-gray-600'>To Date</label>
-                                            <input type="date" onChange={(loc) => setToDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="date" value={toDate} onChange={(loc) => setToDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                     </div>
                                     <div className='grid grid-cols-2 gap-2'>
                                         <div>
                                             <label className='text-sm text-gray-600'>From Time</label>
-                                            <input type="time" onChange={(loc) => setFromTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="time" value={fromTime} onChange={(loc) => setFromTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                         <div>
                                             <label className='text-sm text-gray-600'>To Time</label>
-                                            <input type="time" onChange={(loc) => setToTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
+                                            <input type="time" value={toTime} onChange={(loc) => setToTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
                                     </div>
                                     <div>
                                         <label className='text-sm text-gray-600 '>Event Type</label>
-                                        <select name="" id="" onChange={(loc) => setEventType(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
+                                        <select name="" id="" value={eventType} onChange={(loc) => setEventType(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
                                             <option value="">Select Type</option>
                                             <option value="internal">Internal</option>
                                             <option value="external">External</option>
@@ -283,7 +372,7 @@ function texteditor() {
                                     </div>
                                     <div>
                                         <label className='text-sm text-gray-600' >Select Mode</label>
-                                        <select name="" id="" onChange={(loc) => setEventMode(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
+                                        <select name="" id="" value={eventMode} onChange={(loc) => setEventMode(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
                                             <option value="">Select Mode</option>
                                             <option value="in-person">In-person</option>
                                             <option value="hybrid">Hybrid</option>
@@ -304,7 +393,6 @@ function texteditor() {
                                                             let newArr = [...optionsArr]
                                                             newArr.splice(k, 1)
                                                             setOptionsArr(newArr)
-                                                            console.log(optionsArr)
                                                         }}
                                                     >X</button></div>
                                             })}
@@ -327,7 +415,7 @@ function texteditor() {
                                     <h4>Add Thumbnail</h4>
                                     <div>
                                         <img src={thumbnail} alt="" className='w-full' />
-                                        <input name="myImage" onChange={uploadThumbnail} class="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl my-2 text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
+                                        <input name="myImage" onChange={uploadThumbnail} className="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl my-2 text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
                                         <button
                                             className=" border-0 rounded-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer my-2 w-full p-3"
                                             type="submit"
@@ -338,7 +426,6 @@ function texteditor() {
                             </div>
                         </div>
                     </div>
-                    <button onClick={handleClick}>hi</button>
                 </div>
             </div>
             <AddMedia handleClick={handleClick} showModal={showModal} />
@@ -346,4 +433,4 @@ function texteditor() {
     )
 }
 
-export default texteditor
+export default editevent
