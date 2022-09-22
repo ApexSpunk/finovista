@@ -1,13 +1,13 @@
 import Head from 'next/head'
-import React, { useState, useRef, useMemo, useEffect, useRouter } from 'react';
+import React, { useState} from 'react';
 import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { Router } from 'next/router';
-import ImageUploader from '../../components/ImageUploader';
-import AddMedia from '../../components/AddMedia';
+import AddMedia from '../../../components/AddMedia';
 const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const htmlToReactParser = new HtmlToReactParser();
 
@@ -19,21 +19,14 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function addprogram() {
+function addProgram() {
+    const router = useRouter();
     const editor = null
     const [content, setContent] = useState('')
-    // const [permalink, setPermalink] = useState(null)
-    const [optionClass, setOptionClass] = useState('')
-    const [registrationFormList, setregistrationFormList] = useState([])
-
-
-    function updateFields(value) {
-        let fieldsArr = registrationFormList
-        fieldsArr.push(value)
-        setregistrationFormList(fieldsArr)
-    }
-
-
+    const [programTitle, setProgramTitle] = useState('')
+    const [thumbnail, setThumbnail] = useState('https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png')
+    const [slug, setSlug] = useState('')
+    const [showModal, setShowModal] = useState(false);
 
     let config = {
         zIndex: 0,
@@ -118,36 +111,25 @@ function addprogram() {
 
     };
 
-    const [eventTitle, setEventTitle] = useState('')
-    const [location, setLocation] = useState('')
-    const [fromDate, setFromDate] = useState('')
-    const [toDate, setToDate] = useState('')
-    const [fromTime, setFromTime] = useState('')
-    const [toTime, setToTime] = useState('')
-    const [thumbnail, setThumbnail] = useState('https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png')
-    const [eventType, setEventType] = useState('')
-    const [eventMode, setEventMode] = useState('')
-    const [slug, setSlug] = useState('')
-    const [showModal, setShowModal] = useState(false);
-
     function handleClick() {
         setShowModal(!showModal)
     }
 
-    async function publishEvent() {
+    async function publishProgram() {
         const reactElement = htmlToReactParser.parse(content);
         const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
-            let response = await fetch(`../api/events`, {
+            const programData = { programTitle, pageContent: reactHtml, thumbnail, slug }
+            let response = await fetch(`../../api/programs`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(eventData)
+                body: JSON.stringify(programData)
             })
             let responseData = await response.json()
-            toast.success(`Event ${eventTitle} Published`, {
+            console.log(responseData.success)
+            toast.success(`Program ${programTitle} Published`, {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -156,8 +138,20 @@ function addprogram() {
                 draggable: true,
                 progress: undefined,
             });
+            setTimeout(() => {
+                router.push('/admin/programs/edit/' + responseData.success.slug)
+            }, 2000)
+
         } catch (error) {
-            console.log(error)
+            toast.error(`Slug Already Exist Please Check The URL`, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
         }
     }
 
@@ -179,24 +173,18 @@ function addprogram() {
             body
         });
         let ress = await response.json();
-        console.log(ress)
         setThumbnail(ress.data.Location)
     };
 
 
 
 
-    function handleTitleInput(eventTitle) {
-        setEventTitle(eventTitle)
-        eventTitle = eventTitle.split(" ");
-        eventTitle = eventTitle.join("-").toLowerCase();
-        setSlug(eventTitle);
+    function handleTitleInput(programTitle) {
+        setProgramTitle(programTitle)
+        programTitle = programTitle.split(" ");
+        programTitle = programTitle.join("-").toLowerCase();
+        setSlug(programTitle);
     }
-
-
-
-
-    const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
 
     return (
         <div>
@@ -221,7 +209,7 @@ function addprogram() {
                     <div className='grid grid-cols-12 gap-6 font-[Poppins] pt-8 w-[95%] mx-auto'>
                         <div className='col-span-9'>
                             <div>
-                                <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
+                                <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Program Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
                                 <div className='flex justify-between'>
                                     <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
                                     <button onClick={handleClick}>Add Media</button>
@@ -243,18 +231,19 @@ function addprogram() {
                                     <hr />
                                 </div>
                                 <div className='grid mt-4 text-center'>
-                                    <p className='py-2'>status: {"published"}</p>
-                                    <button className='previewBtn' onClick={publishEvent}>Publish Event</button>
+                                    <p className='py-2'>status: {"Draft"}</p>
+                                    <button className='previewBtn' onClick={publishProgram}>Publish Program</button>
+                                    <Link href='/admin/programs'><button className='redBtn mt-4'>Cancel</button></Link>
                                 </div>
                             </div>
-                            <div className='bg-white p-4 mt-4 rounded-xl'>
+                            {/* <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
-                                    <h4>Event Details</h4>
+                                    <h4>Program Details</h4>
                                     <hr />
                                 </div>
                                 <div className='grid mt-4'>
                                     <div>
-                                        <label className='text-sm text-gray-600'>Event Location</label>
+                                        <label className='text-sm text-gray-600'>Pr Location</label>
                                         <input type="text" name="location" onChange={(loc) => setLocation(loc.target.value)} placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
                                     </div>
                                     <div className='grid grid-cols-2 gap-2'>
@@ -291,8 +280,8 @@ function addprogram() {
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='bg-white p-4 mt-4 rounded-xl'>
+                            </div> */}
+                            {/* <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
                                     <h4>Registration Form List</h4>
                                     <div>
@@ -304,7 +293,6 @@ function addprogram() {
                                                             let newArr = [...optionsArr]
                                                             newArr.splice(k, 1)
                                                             setOptionsArr(newArr)
-                                                            console.log(optionsArr)
                                                         }}
                                                     >X</button></div>
                                             })}
@@ -321,13 +309,13 @@ function addprogram() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
                                     <h4>Add Thumbnail</h4>
                                     <div>
                                         <img src={thumbnail} alt="" className='w-full' />
-                                        <input name="myImage" onChange={uploadThumbnail} class="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl my-2 text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
+                                        <input name="myImage" onChange={uploadThumbnail} className="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl my-2 text-grey-500 file:mr-5 file:py-2 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
                                         <button
                                             className=" border-0 rounded-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer my-2 w-full p-3"
                                             type="submit"
@@ -346,4 +334,4 @@ function addprogram() {
     )
 }
 
-export default addprogram
+export default addProgram

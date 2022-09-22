@@ -1,7 +1,7 @@
+const mongoose = require("mongoose");
 
-const mongoose = require('mongoose');
-
-const EventSchema = new mongoose.Schema({
+const EventSchema = new mongoose.Schema(
+  {
     title: String,
     content: Object,
     location: String,
@@ -14,8 +14,10 @@ const EventSchema = new mongoose.Schema({
     mode: String,
     created: Date,
     isCompleted: String,
-    slug: String,
-    formElements:Array
-}, { timeStamp: true })
-mongoose.models = {}
+    slug: { type: String, required: true, unique: true },
+    formElements: Array,
+  },
+  { timeStamp: true }
+);
+mongoose.models = {};
 export default mongoose.model("Event", EventSchema);

@@ -1,4 +1,3 @@
-import { error } from 'console';
 import React from 'react'
 import connectDB from '../../middleware/mongoose';
 import Event from '../../models/Event'
