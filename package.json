@@ -27,6 +27,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.4",
     "next": "latest",
+    "next-auth": "^4.10.3",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-toastify": "^9.0.8",

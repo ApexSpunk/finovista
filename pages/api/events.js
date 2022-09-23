@@ -4,6 +4,7 @@ import connectDB from '../../middleware/mongoose';
 import Event from '../../models/Event'
 
 
+
 const handler = async (req, res) => {
 
     if ((req.method == 'GET')) {
