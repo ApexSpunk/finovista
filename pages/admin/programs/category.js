@@ -112,16 +112,6 @@ function category() {
           <h2>Loading...</h2>
         ) : (
           <div>
-            {/* {categories.map((category) => (
-              <div key={category._id}>
-                <h2>{category.category}</h2>
-                <h2>{category.slug}</h2>
-                <div
-                  className="w-10 h-10 rounded-full"
-                  style={{ backgroundColor: category.categoryColor }}
-                ></div>
-              </div>
-            ))} */}
             <table>
               <thead>
                 <tr>

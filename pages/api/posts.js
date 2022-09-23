@@ -8,13 +8,14 @@ const handler = async (req, res) => {
   }
 
   if (req.method == "POST") {
-    const { postTitle, pageContent, thumbnail, slug } = req.body;
+    const { postTitle, pageContent, thumbnail, slug, category } = req.body;
     let e = new Post({
       title: postTitle,
       content: pageContent,
       thumbnail,
       created: Date.now(),
       slug,
+      category,
     });
 
     await e.save();
@@ -29,12 +30,13 @@ const handler = async (req, res) => {
   }
 
   if (req.method == "PUT") {
-    const { id, postTitle, pageContent, thumbnail, slug } = req.body;
+    const { id, postTitle, pageContent, thumbnail, slug, category } = req.body;
     await Post.findByIdAndUpdate(id, {
       title: postTitle,
       content: pageContent,
       thumbnail,
       slug,
+      category,
     });
     res.status(200).json({ success: true });
   }

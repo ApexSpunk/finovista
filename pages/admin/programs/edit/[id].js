@@ -209,6 +209,18 @@ function editProgram({ program }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [image, setImage] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
+
+  const fetchCategories = async () => {
+    const res = await fetch("/api/programcategory");
+    const cate = await res.json();
+    setCategories(cate.category);
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const fetchProgram = async () => {
     setLoading(true);
@@ -223,6 +235,7 @@ function editProgram({ program }) {
         setThumbnail(data.programs[0].thumbnail);
         setSlug(data.programs[0].slug);
         setContent(data.programs[0].content);
+        setCategory(data.programs[0].category);
         setLoading(false);
       } catch (err) {
         setError(true);
@@ -249,6 +262,7 @@ function editProgram({ program }) {
         pageContent: reactHtml,
         thumbnail,
         slug,
+        category,
       };
       let response = await fetch(`../../../api/programs`, {
         method: "PUT",
@@ -268,15 +282,15 @@ function editProgram({ program }) {
         progress: undefined,
       });
     } catch (error) {
-        toast.error(`Slug Already Exist Please Check The URL`, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+      toast.error(`Slug Already Exist Please Check The URL`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -578,6 +592,31 @@ function editProgram({ program }) {
                   </div>
                 </div>
               </div> */}
+              <div className="bg-white p-4 mt-4 rounded-xl">
+                <div>
+                  <h4>Program Category</h4>
+                  <div>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(loc) => {
+                        setCategory(loc.target.value);
+                      }}
+                      className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg mt-3"
+                      value={category}
+                    >
+                      <option value="">Select Category</option>
+                      {categories.map((cat) => {
+                        return (
+                          <option value={cat.category} key={cat._id}>
+                            {cat.category}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </div>
               <div className="bg-white p-4 mt-4 rounded-xl">
                 <div>
                   <h4>Add Thumbnail</h4>

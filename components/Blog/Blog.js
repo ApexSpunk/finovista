@@ -3,14 +3,20 @@ import { useEffect, useState } from "react";
 import SingleBlog from "./SingleBlog";
 import BlogSkeleton from "./BlogSkeleton";
 
+
 function Blog() {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  
 
   useEffect(() => {
     setLoading(true);
     const getEvents = async () => {
       try {
+        const cate = await fetch("/api/eventcategory");
+        let cateRes = await cate.json();
+        setCategories(cateRes.category);
         const response = await fetch("/api/posts");
         let ress = await response.json();
         setBlogs(ress.posts);
@@ -49,9 +55,19 @@ function Blog() {
           </div>
         ) : (
           <div className="allBlogs">
-            {blogs.map((blog) => (
-              <SingleBlog key={blog._id} blog={blog} />
-            ))}
+            {blogs.map((blog) => {
+              let category = categories.find(
+                (category) => category.category === blog.category
+              );
+              return (
+                <SingleBlog
+                  key={blog._id}
+                  blog={blog}
+                  categoryColor={category.categoryColor}
+                />
+                
+              );
+            })}
           </div>
         )}
       </div>

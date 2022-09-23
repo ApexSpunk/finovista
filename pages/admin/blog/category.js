@@ -92,11 +92,13 @@ function category() {
           onChange={(e) =>
             setCategory({ ...category, category: e.target.value })
           }
+            value={category.category}
         />
         <input
           type="text"
           placeholder="Slug"
           onChange={(e) => setCategory({ ...category, slug: e.target.value })}
+          value={category.slug}
         />
         <input
           type="text"
@@ -104,6 +106,7 @@ function category() {
           onChange={(e) =>
             setCategory({ ...category, categoryColor: e.target.value })
           }
+          value={category.categoryColor}
         />
         <button onClick={addCategory}>Add Category</button>
       </div>

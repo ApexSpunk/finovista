@@ -25,6 +25,8 @@ function editPost({ posts }) {
   const editor = null;
   const [content, setContent] = useState("");
 
+  
+
   let config = {
     zIndex: 0,
     readonly: false,
@@ -209,6 +211,8 @@ function editPost({ posts }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const fetchPost = async () => {
     setLoading(true);
@@ -223,6 +227,8 @@ function editPost({ posts }) {
         setThumbnail(data.posts[0].thumbnail);
         setSlug(data.posts[0].slug);
         setContent(data.posts[0].content);
+        setCategory(data.posts[0].category);
+        console.log(data.posts[0].category);
         setLoading(false);
       } catch (err) {
         setError(true);
@@ -239,16 +245,28 @@ function editPost({ posts }) {
     setShowModal(!showModal);
   }
 
+  const fetchCategories = async () => {
+    const res = await fetch("/api/eventcategory");
+    const categories = await res.json();
+    setCategories(categories.category);
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    console.log(categories);
+  }, []);
+
   async function updatePost() {
     const reactElement = htmlToReactParser.parse(content);
     const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
     try {
-      const postData= {
+      const postData = {
         id: postid,
         postTitle,
         pageContent: reactHtml,
         thumbnail,
         slug,
+        category,
       };
       let response = await fetch(`../../../api/posts`, {
         method: "PUT",
@@ -268,15 +286,15 @@ function editPost({ posts }) {
         progress: undefined,
       });
     } catch (error) {
-        toast.error(`Slug Already Exist Please Check The URL`, {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+      toast.error(`Slug Already Exist Please Check The URL`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   }
 
@@ -578,6 +596,31 @@ function editPost({ posts }) {
                   </div>
                 </div>
               </div> */}
+              <div className="bg-white p-4 mt-4 rounded-xl">
+                <div>
+                  <h4>Event Category</h4>
+                  <div>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(loc) => {
+                        setCategory(loc.target.value);
+                      }}
+                      value={category}
+                      className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg mt-3"
+                    >
+                      <option value="">Select Category</option>
+                      {categories.map((cat) => {
+                        return (
+                          <option value={cat.category} key={cat._id}>
+                            {cat.category}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </div>
               <div className="bg-white p-4 mt-4 rounded-xl">
                 <div>
                   <h4>Add Thumbnail</h4>

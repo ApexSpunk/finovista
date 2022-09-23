@@ -1,4 +1,3 @@
-import { error } from "console";
 import React from "react";
 import connectDB from "../../middleware/mongoose";
 import Program from "../../models/Program";
@@ -10,13 +9,14 @@ const handler = async (req, res) => {
   }
 
   if (req.method == "POST") {
-    const { programTitle, pageContent, thumbnail, slug } = req.body;
+    const { programTitle, pageContent, thumbnail, slug, category } = req.body;
     let e = new Program({
       title: programTitle,
       content: pageContent,
       thumbnail,
       created: Date.now(),
       slug,
+      category
     });
 
     await e.save();
@@ -37,12 +37,14 @@ const handler = async (req, res) => {
       pageContent,
       thumbnail,
       slug,
+      category
     } = req.body;
     await Program.findByIdAndUpdate(id, {
       title: programTitle,
       content: pageContent,
       thumbnail,
       slug,
+      category
     });
     res.status(200).json({ success: true });
   }

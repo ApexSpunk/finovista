@@ -9,6 +9,7 @@ const HtmlToReactParser = require("html-to-react").Parser;
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+
 const htmlToReactParser = new HtmlToReactParser();
 
 const importJodit = () => import("jodit-react");
@@ -23,6 +24,8 @@ function addPost() {
   const [content, setContent] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState('');
+  const [categoryColor, setCategoryColor] = useState('');
   const [thumbnail, setThumbnail] = useState(
     "https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png"
   );
@@ -208,20 +211,28 @@ function addPost() {
   }
 
   const fetchCategories = async () => {
-    const res = await fetch("/api/eventcategories");
+    const res = await fetch("/api/eventcategory");
     const categories = await res.json();
-    setCategories(categories);
+    setCategories(categories.category);
   };
 
   useEffect(() => {
     fetchCategories();
+    console.log(categories);
   }, []);
 
   async function publishPost() {
     const reactElement = htmlToReactParser.parse(content);
     const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
     try {
-      const postData = { postTitle, pageContent: reactHtml, thumbnail, slug };
+      const postData = {
+        postTitle,
+        pageContent: reactHtml,
+        thumbnail,
+        slug,
+        category,
+        categoryColor
+      };
       let response = await fetch(`../../api/posts`, {
         method: "POST",
         headers: {
@@ -399,14 +410,17 @@ function addPost() {
                     <select
                       name=""
                       id=""
-                      onChange={(loc) => setEventType(loc.target.value)}
+                      onChange={(loc) => {setCategory(loc.target.value)}}
                       className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg mt-3"
                     >
                       <option value="">Select Category</option>
-                      {categories.map((cat) => (
-                        <option value={cat._id}>{cat.name}</option>
-                      ))}
-                      
+                      {categories.map((cat) => {
+                        return (
+                          <option value={cat.category} key={cat._id}>
+                            {cat.category}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
                 </div>

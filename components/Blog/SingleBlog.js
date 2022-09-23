@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLocationDot,
@@ -7,11 +7,12 @@ import {
 import Router from "next/router";
 
 function SingleBlog(props) {
-  const { blog } = props;
+  const { blog, categoryColor } = props;
 
   const handleClick = () => {
     Router.push(`/blog/${blog.slug}`);
   };
+
   return (
     <div onClick={handleClick}>
       <div>
@@ -21,11 +22,10 @@ function SingleBlog(props) {
             <div
               className="blogCategory"
               style={{
-                backgroundColor:
-                  "#" + Math.floor(Math.random() * 16777215).toString(16),
+                backgroundColor: categoryColor,
               }}
             >
-              <p>{"category"}</p>
+              <p>{blog.category}</p>
             </div>
             <p>{new Date(blog.created).toDateString()}</p>
           </div>
