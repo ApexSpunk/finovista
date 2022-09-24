@@ -552,6 +552,32 @@ header {
 }
 
 
+.titleContent a{
+    color: white;
+    text-decoration: none;
+    background-color: #1a213e;
+    padding: 7px 20px;
+    border-radius: 5px;
+}
+
+tr td.tableLink a{
+    text-decoration: none;
+}
+
+
+
+.contentTable a{
+    text-decoration: none;
+    color: rgb(0, 106, 255);
+    border-radius: 5px;
+}
+
+.contentTable a:visited{
+    color: rgb(0, 106, 255);
+}
+
+
+
 @media screen and (min-width: 1500px) {
     .allEvents img {
         border-radius: 0 10px 0 0;
