@@ -9,7 +9,7 @@ function FormElements(props) {
     let [form, setForm] = useState({})
 
     formElements.forEach(element => {
-        form[element] = element
+        element[element.length - 1] == '*' ? form[element.slice(0, element.length - 1)] = element : form[element] = element
     });
 
 
@@ -1358,7 +1358,8 @@ function FormElements(props) {
 
     let date = getCurrentDate()
 
-    let handleSubmit = async () => {
+    let handleSubmit = async (e) => {
+        e.preventDefault()
         try {
             const data = {
                 "sal": sal,
@@ -1486,12 +1487,12 @@ function FormElements(props) {
                                             </span>
                                         </button>
                                     </div>
-                                    {/*body*/}
+                                    {/* {console.log(form.lastName[form.lastName.length - 1] == "*" ? 'required' : 'not required')} */}
                                     <div className="relative p-6 flex-auto formElementsBody">
                                         <div>
                                             <section className="text-gray-600 body-font">
                                                 <div className="container mx-auto">
-                                                    <form >
+                                                    <form onSubmit={handleSubmit}>
                                                         <div className="mx-auto">
                                                             <div className="">
                                                                 <div className='grid grid-cols-2'>
@@ -1499,7 +1500,7 @@ function FormElements(props) {
                                                                         <div className="p-2">
                                                                             <div className="">
                                                                                 <label className="leading-7 text-sm text-gray-600">Sal</label>
-                                                                                <input onChange={(e) => setSal(e.target.value)} placeholder='Sal' value={sal} type="text" id="sal" name="sal" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                <input onChange={(e) => setSal(e.target.value)} placeholder='Sal' value={sal} type="text" id="sal" name="sal" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.sal[form.sal.length - 1] == "*" ? true : false} />
                                                                             </div>
                                                                         </div>
                                                                     ) : null}
@@ -1507,7 +1508,7 @@ function FormElements(props) {
                                                                         <div className="p-2">
                                                                             <div className="">
                                                                                 <label className="leading-7 text-sm text-gray-600">First Name</label>
-                                                                                <input onChange={(e) => setFirstName(e.target.value)} value={firstName} placeholder='Enter First Name' type="text" id="firstName" name="firstName" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                <input onChange={(e) => setFirstName(e.target.value)} value={firstName} placeholder='Enter First Name' type="text" id="firstName" name="firstName" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.firstName[form.firstName.length - 1] == "*" ? true : false} />
                                                                             </div>
                                                                         </div>
                                                                     ) : null}
@@ -1516,7 +1517,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Last Name</label>
-                                                                                    <input onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder='Enter Last Name' type="text" id="lastName" name="lastName" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setLastName(e.target.value)} value={lastName} placeholder='Enter Last Name' type="text" id="lastName" name="lastName" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.lastName[form.lastName.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1526,7 +1527,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Email</label>
-                                                                                    <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder='Enter Email' type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setEmail(e.target.value)} value={email} placeholder='Enter Email' type="email" id="email" name="email" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.email[form.email.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1536,7 +1537,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Second Email</label>
-                                                                                    <input onChange={(e) => setEmail2(e.target.value)} value={email2} placeholder='Enter Second Email' type="email" id="email2" name="email2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setEmail2(e.target.value)} value={email2} placeholder='Enter Second Email' type="email" id="email2" name="email2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.secondEmail[form.secondEmail.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1546,7 +1547,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Mobile No.</label>
-                                                                                    <input onChange={(e) => setMobile(e.target.value)} value={mobile} placeholder='Enter Phone No' type="number" id="mobile" name="mobile" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setMobile(e.target.value)} value={mobile} placeholder='Enter Phone No' type="number" id="mobile" name="mobile" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.phone[form.phone.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1557,7 +1558,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Landline No.</label>
-                                                                                    <input onChange={(e) => setTel(e.target.value)} value={tel} placeholder='Landline No' type="number" id="tel" name="tel" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setTel(e.target.value)} value={tel} placeholder='Landline No' type="number" id="tel" name="tel" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.tel[form.tel.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1575,7 +1576,7 @@ function FormElements(props) {
                                                                                             setStateData('')
                                                                                             setCityData()
                                                                                         }
-                                                                                    }}>
+                                                                                    }} required={form.country[form.country.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select Country</option>
                                                                                         <option value="Afghanistan">Afghanistan</option>
                                                                                         <option value="Åland Islands">Åland Islands</option>
@@ -1834,7 +1835,7 @@ function FormElements(props) {
                                                                                     <select name="state" id="state" value={state} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => {
                                                                                         setState(e.target.value)
                                                                                         setCityData(stateData[e.target.value])
-                                                                                    }}>
+                                                                                    }} required={form.state[form.tel.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select State</option>
                                                                                         {Object.entries(stateData).map((stateName, k) => <option key={k} value={stateName[0]}>{stateName[0]}</option>)}
                                                                                     </select>
@@ -1847,7 +1848,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">City</label>
-                                                                                    <select name="state" id="state" value={city} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => setCity(e.target.value)}>
+                                                                                    <select name="state" id="state" value={city} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => setCity(e.target.value)} required={form.city[form.tel.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select City</option>
                                                                                         {cityData.map((cityName, k) => { return <option key={k} value={cityName}>{cityName}</option> })}
                                                                                     </select>
@@ -1860,7 +1861,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Designation</label>
-                                                                                    <input onChange={(e) => setDesignation(e.target.value)} value={designation} placeholder='Designation' type="text" id="deg" name="deg" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setDesignation(e.target.value)} value={designation} placeholder='Designation' type="text" id="deg" name="deg" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.designation[form.designation.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1870,7 +1871,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Organization Name</label>
-                                                                                    <input onChange={(e) => setOrganization(e.target.value)} value={organization} placeholder='Organisation Name' type="text" id="org" name="org" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setOrganization(e.target.value)} value={organization} placeholder='Organisation Name' type="text" id="org" name="org" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.organizationName[form.organizationName.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1880,7 +1881,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Organization Type</label>
-                                                                                    <select name="" id="orgType" className='p-2 rounded-md border border-gray-300 w-full bg-transparent' value={organizationType} onChange={(e) => { setOrganizationType(e.target.value) }}>
+                                                                                    <select name="" id="orgType" className='p-2 rounded-md border border-gray-300 w-full bg-transparent' value={organizationType} onChange={(e) => { setOrganizationType(e.target.value) }} required={form.organizationType[form.organizationType.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Organization Type</option>
                                                                                         <option value="Innovator">Innovator</option>
                                                                                         <option value="Startup and SME">Startup and SME</option>
@@ -1903,7 +1904,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Organization Profile</label>
-                                                                                    <input onChange={(e) => setOrganizationProfile(e.target.value)} value={organizationProfile} placeholder='Organisation Profile' type="text" id="orgProfile" name="orgProfile" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input onChange={(e) => setOrganizationProfile(e.target.value)} value={organizationProfile} placeholder='Organisation Profile' type="text" id="orgProfile" name="orgProfile" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.organizationProfile[form.organizationProfile.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1913,7 +1914,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Sector</label>
-                                                                                    <select name="" id="sector" value={sector} className='p-2 rounded-md border border-gray-300 w-full bg-transparent' onChange={(e) => { setSector(e.target.value); setSubSecData(sectorData[e.target.value]); }}>
+                                                                                    <select name="" id="sector" value={sector} className='p-2 rounded-md border border-gray-300 w-full bg-transparent' onChange={(e) => { setSector(e.target.value); setSubSecData(sectorData[e.target.value]); }} required={form.sector[form.sector.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select Sector</option>
                                                                                         {Object.entries(sectorData).map((stateName, k) => <option key={k} value={stateName[0]}>{stateName[0]}</option>)}
                                                                                     </select>
@@ -1926,7 +1927,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Sub Sector</label>
-                                                                                    <select name="" value={subSector} id="subSector" className='p-2 rounded-md border border-gray-300 w-full bg-transparent' onChange={(e) => { setSubSector(e.target.value); }}>
+                                                                                    <select name="" value={subSector} id="subSector" className='p-2 rounded-md border border-gray-300 w-full bg-transparent' onChange={(e) => { setSubSector(e.target.value); }} required={form.subSector[form.subSector.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select SubSector</option>
                                                                                         {subSecData.map((cityName, k) => { return <option key={k} value={cityName}>{cityName}</option> })}
                                                                                     </select>
@@ -1939,7 +1940,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Sub Sector L2</label>
-                                                                                    <input value={subSectorL2} placeholder='Enter Sub Sector L2' onChange={(e) => setSubSectorL2(e.target.value)} type="text" id="subSector2" name="subSector2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input value={subSectorL2} placeholder='Enter Sub Sector L2' onChange={(e) => setSubSectorL2(e.target.value)} type="text" id="subSector2" name="subSector2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.subSector2[form.subSector2.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1950,7 +1951,7 @@ function FormElements(props) {
                                                                                 <div className="p-2">
                                                                                     <div className="">
                                                                                         <label className="leading-7 text-sm text-gray-600">Website</label>
-                                                                                        <input value={website} placeholder='Enter Website Link' onChange={(e) => setWebsite(e.target.value)} type="text" id="website" name="website" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                        <input value={website} placeholder='Enter Website Link' onChange={(e) => setWebsite(e.target.value)} type="text" id="website" name="website" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"  required={form.website[form.website.length - 1] == "*" ? true : false} />
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -1961,7 +1962,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Remark1</label>
-                                                                                    <input value={remark1} placeholder='Remark 1' onChange={(e) => setRemark1(e.target.value)} type="text" id="remark1" name="remark1" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input value={remark1} placeholder='Remark 1' onChange={(e) => setRemark1(e.target.value)} type="text" id="remark1" name="remark1" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"  required={form.remark1[form.remark1.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1971,7 +1972,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Remark2</label>
-                                                                                    <input value={remark2} placeholder='Remark 2' onChange={(e) => setRemark2(e.target.value)} type="text" id="remark2" name="remark2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input value={remark2} placeholder='Remark 2' onChange={(e) => setRemark2(e.target.value)} type="text" id="remark2" name="remark2" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.remark2[form.remark2.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1981,7 +1982,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">Remark3</label>
-                                                                                    <input value={remark3} placeholder='Remark 3' onChange={(e) => setRemark3(e.target.value)} type="text" id="remark3" name="remark3" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
+                                                                                    <input value={remark3} placeholder='Remark 3' onChange={(e) => setRemark3(e.target.value)} type="text" id="remark3" name="remark3" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" required={form.remark3[form.remark3.length - 1] == "*" ? true : false} />
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
@@ -1989,21 +1990,20 @@ function FormElements(props) {
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        <div className="flex items-center justify-center p-6 border-t  border-slate-200 rounded-b">
+                                                            <button
+                                                                className="bg-emerald-500 text-white active:bg-emerald-600 border-none font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 -mb-2 ease-linear transition-all duration-150"
+                                                                type="submit">
+                                                                Register Now
+                                                            </button>
+                                                        </div>
                                                     </form>
                                                 </div>
                                             </section>
                                         </div>
                                     </div>
                                     {/*footer*/}
-                                    <div className="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-                                        <button
-                                            className="bg-emerald-500 text-white active:bg-emerald-600 border-none font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                            type="button"
-                                            onClick={handleSubmit}
-                                        >
-                                            Register Now
-                                        </button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

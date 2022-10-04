@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { useState, useRef, useMemo, useEffect} from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,9 +24,10 @@ function texteditor() {
     const router = useRouter();
     const editor = null
     const [content, setContent] = useState('')
-    // const [permalink, setPermalink] = useState(null)
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
+    const [required, setRequired] = useState(false)
+    const [reqList, setReqList] = useState([])
 
 
     function updateFields(value) {
@@ -313,7 +314,8 @@ function texteditor() {
                                     <div>
                                         <div className={'flex flex-wrap optionList mt-4 ' + optionClass} id={optionClass}>
                                             {optionsArr.map((option, k) => {
-                                                return <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                return <>{option[option.length - 1] == "*" ? <div key={k} className='reqOption bg-red-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                    </div> : <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
                                                     <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
                                                         onClick={() => {
                                                             let newArr = [...optionsArr]
@@ -321,6 +323,7 @@ function texteditor() {
                                                             setOptionsArr(newArr)
                                                         }}
                                                     >X</button></div>
+                                                }</>
                                             })}
                                             <check className='w-full flex'>
                                                 <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
@@ -329,13 +332,41 @@ function texteditor() {
                                                     >&#8634;</button></div>
                                                 <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
                                                     <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
-                                                        onClick={() => { setOptionClass('optionSel') }}
+                                                        onClick={() => { setOptionClass('optionSel'); setRequired(true); setReqList(optionsArr) }}
                                                     >&#10004;</button></div>
                                             </check>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {required ? <div className='bg-white p-4 mt-4 rounded-xl'>
+                                <div>
+                                    <h4>Required Form List</h4>
+                                    <div>
+                                        <div className={'flex flex-wrap optionList mt-4 '}>
+                                            {reqList.map((option, k) => {
+                                                return <>{option[option.length - 1] == "*" ? null : <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
+                                                        onClick={() => {
+                                                            let newArr = [...reqList]
+                                                            newArr[k] = newArr[k] + '*'
+
+                                                            setOptionsArr(newArr)
+                                                            setReqList(newArr)
+                                                        }}
+                                                    >X</button></div>
+                                                }</>
+                                            })}
+                                            <check className='w-full flex'>
+                                                <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
+                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
+                                                        onClick={() => { setRequired(false); setReqList(optionsArr) }}
+                                                    >&#10004;</button></div>
+                                            </check>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> : ''}
                             <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
                                     <h4>Add Thumbnail</h4>

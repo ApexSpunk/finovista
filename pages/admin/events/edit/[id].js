@@ -25,7 +25,7 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function editevent({ event }) {
+function editevent() {
     const router = useRouter();
 
 
@@ -34,6 +34,8 @@ function editevent({ event }) {
     const [content, setContent] = useState('')
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
+    const [required, setRequired] = useState(false)
+    const [reqList, setReqList] = useState([])
 
 
     function updateFields(value) {
@@ -127,7 +129,7 @@ function editevent({ event }) {
 
     };
 
-    const [eventid , setEventid] = useState('')
+    const [eventid, setEventid] = useState('')
     const [eventTitle, setEventTitle] = useState('')
     const [location, setLocation] = useState('')
     const [fromDate, setFromDate] = useState('')
@@ -143,8 +145,8 @@ function editevent({ event }) {
     const [error, setError] = useState(false);
     const [image, setImage] = useState(null);
     const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
-    
-    
+
+
     const fetchEvent = async () => {
         setLoading(true)
         if (router.isReady) {
@@ -197,7 +199,7 @@ function editevent({ event }) {
         const reactElement = htmlToReactParser.parse(content);
         const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { id:eventid, eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
+            const eventData = { id: eventid, eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
             let response = await fetch(`../../../api/events`, {
                 method: 'PUT',
                 headers: {
@@ -311,7 +313,7 @@ function editevent({ event }) {
                     <div className='grid grid-cols-12 gap-6 font-[Poppins] pt-8 w-[95%] mx-auto'>
                         <div className='col-span-9'>
                             <div>
-                                <input type="text" value={eventTitle} onChange={(eve)=>{setEventTitle(eve.target.value)}} className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
+                                <input type="text" value={eventTitle} onChange={(eve) => { setEventTitle(eve.target.value) }} className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
                                 <div className='flex justify-between'>
                                     <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
                                     <button onClick={handleClick}>Add Media</button>
@@ -337,7 +339,7 @@ function editevent({ event }) {
                                     <p className='py-2'>visibility: {"public"}</p>
                                     {/* Delete Post Button with fontAwseome Icon*/}
                                     <button onClick={deleteEvent} className='rdBtn flex justify-center content-center gap-2'><FontAwesomeIcon icon={faTrashAlt} height='20px' /> Delete</button>
-                                    
+
                                 </div>
                                 <div className='grid mt-4 grid-cols-2 gap-2'>
                                     <button className='previewBtn w-full' onClick={publishEvent}>Update Event</button>
@@ -395,7 +397,8 @@ function editevent({ event }) {
                                     <div>
                                         <div className={'flex flex-wrap optionList mt-4 ' + optionClass} id={optionClass}>
                                             {optionsArr.map((option, k) => {
-                                                return <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                return <>{option[option.length - 1] == "*" ? <div key={k} className='reqOption bg-red-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                </div> : <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
                                                     <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
                                                         onClick={() => {
                                                             let newArr = [...optionsArr]
@@ -403,6 +406,7 @@ function editevent({ event }) {
                                                             setOptionsArr(newArr)
                                                         }}
                                                     >X</button></div>
+                                                }</>
                                             })}
                                             <check className='w-full flex'>
                                                 <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
@@ -411,13 +415,41 @@ function editevent({ event }) {
                                                     >&#8634;</button></div>
                                                 <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
                                                     <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
-                                                        onClick={() => { setOptionClass('optionSel') }}
+                                                        onClick={() => { setOptionClass('optionSel'); setRequired(true); setReqList(optionsArr) }}
                                                     >&#10004;</button></div>
                                             </check>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {required ? <div className='bg-white p-4 mt-4 rounded-xl'>
+                                <div>
+                                    <h4>Required Form List</h4>
+                                    <div>
+                                        <div className={'flex flex-wrap optionList mt-4 '}>
+                                            {reqList.map((option, k) => {
+                                                return <>{option[option.length - 1] == "*" ? null : <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
+                                                        onClick={() => {
+                                                            let newArr = [...reqList]
+                                                            newArr[k] = newArr[k] + '*'
+
+                                                            setOptionsArr(newArr)
+                                                            setReqList(newArr)
+                                                        }}
+                                                    >X</button></div>
+                                                }</>
+                                            })}
+                                            <check className='w-full flex'>
+                                                <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
+                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
+                                                        onClick={() => { setRequired(false); setReqList(optionsArr) }}
+                                                    >&#10004;</button></div>
+                                            </check>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> : ''}
                             <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
                                     <h4>Add Thumbnail</h4>

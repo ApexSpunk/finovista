@@ -68,6 +68,19 @@
 .optionSel>div:last-child {
     display: none;
 }
+.reqOption>button {
+    display: none;
+}
+
+
+.reqOption{
+    background-color: rgb(222, 0, 114) !important;
+    padding: 4px 20px;
+}
+
+.reqOption:last-child {
+    display: none;
+}
 
 /* Navbar Css */
 .banner {
