@@ -17,7 +17,7 @@ function Navbar() {
         </div>
         <div className="menu">
           <div className="menu-div">
-            <a href="/">
+            <a href="/" className="ml-6 sm:ml-0">
               <div className="menu-logo">
                 <img
                   src="../img/finovistaLogo.png"

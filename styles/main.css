@@ -598,6 +598,19 @@ tr td.tableLink a {
         gap: 15px;
         margin: 20px 3%;
     }
+    .skeleton {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 20px 3%;
+    }
+    .allEvents {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin: 20px 3%;
+    
+    }
 }
 
 @media screen and (max-width: 900px) {
@@ -613,6 +626,19 @@ tr td.tableLink a {
         gap: 15px;
         margin: 20px 5%;
     }
+    .skeleton {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        margin: 20px 5%;
+    }
+    .allEvents {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        margin: 20px 5%;
+    
+    }
 }
 @media screen and (max-width: 768px) {
     .allBlogs {
@@ -620,6 +646,19 @@ tr td.tableLink a {
         grid-template-columns: repeat(1, 1fr);
         gap: 30px;
         margin: 20px 5%;
+    }
+    .skeleton {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 30px;
+        margin: 20px 5%;
+    }
+    .allEvents {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 30px;
+        margin: 20px 5%;
+    
     }
 }
 
