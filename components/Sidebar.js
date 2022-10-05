@@ -6,7 +6,7 @@ import LatestPosts from './LatestPosts'
 function Sidebar() {
   return (
     <div className='mt-4'>
-      <div>
+      <div className='hidden md:block'>
         <h2>Follow Us</h2>
         <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
         <div className=''>
