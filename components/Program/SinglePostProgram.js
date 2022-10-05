@@ -1,18 +1,11 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLocationDot,
-  faCalendarAlt,
-  faPlus,
-  faClock,
-} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Parser from "html-react-parser";
 import SingleProgramSkeleton from "./SingleProgramSkeleton";
+import SingleProgram from "./SingleProgram";
 
 function SinglePostProgram(props) {
-  const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -23,6 +16,28 @@ function SinglePostProgram(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [programs, setPrograms] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+
+  useEffect(() => {
+    setLoading(true);
+    const getEvents = async () => {
+      try {
+        const cate = await fetch("/api/category");
+        let cateRes = await cate.json();
+        setCategories(cateRes.category);
+        const response = await fetch("/api/programs");
+        let ress = await response.json();
+        setPrograms(ress.programs);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
+    };
+    getEvents();
+  }, []);
 
   const fetchEvent = async () => {
     setLoading(true);
@@ -57,7 +72,7 @@ function SinglePostProgram(props) {
         </div>
       ) : error ? (
         <div className="error">{error}</div>
-      ) : (
+      ) : (<>
         <div className="eventPost">
           <div className="programPost__banner">
             <img src={thumbnail} alt="" />
@@ -75,7 +90,24 @@ function SinglePostProgram(props) {
               </div>
             </div>
           </div>
+
         </div>
+        <div className="grid grid-cols-3 gap-6">
+          {programs.map((program) => {
+            let category = categories.find(
+              (category) => category.category === program.category
+            );
+            return (
+              <SingleProgram
+                key={program._id}
+                blog={program}
+                categoryColor={category ? category.categoryColor : "#2067ff"}
+              />
+
+            );
+          })}
+        </div>
+      </>
       )}
     </>
   );

@@ -14,7 +14,7 @@ function Blog() {
     setLoading(true);
     const getEvents = async () => {
       try {
-        const cate = await fetch("/api/eventcategory");
+        const cate = await fetch("/api/category");
         let cateRes = await cate.json();
         setCategories(cateRes.category);
         const response = await fetch("/api/posts");
@@ -63,7 +63,7 @@ function Blog() {
                 <SingleBlog
                   key={blog._id}
                   blog={blog}
-                  categoryColor={category.categoryColor}
+                  categoryColor={category ? category.categoryColor : "#2067ff"}
                 />
                 
               );

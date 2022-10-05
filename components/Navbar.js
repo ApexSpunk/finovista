@@ -32,7 +32,7 @@ function Navbar() {
             <div className="menu-links">
               <a href="#">About Us</a>
               <a href="#">Services</a>
-              <a href="#">Programs</a>
+              <Link href="/program">Programs</Link>
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
               <a href="#">Industry</a>

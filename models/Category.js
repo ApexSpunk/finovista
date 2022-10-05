@@ -9,4 +9,4 @@ const CategorySchema = new mongoose.Schema(
   { timeStamp: true }
 );
 mongoose.models = {};
-export default mongoose.model("EventCategory", CategorySchema);
+export default mongoose.model("category", CategorySchema);

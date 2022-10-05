@@ -85,7 +85,7 @@ function index() {
                         <div className="flex items-center justify-between titleContent">
                           <h1>All Programs</h1>
                           <div className="flex items-center gap-4">
-                            <Link href="/admin/programs/category">Category</Link>
+                            <Link href="/admin/category">Category</Link>
                             <Link href="/admin/programs/add">Add</Link>
                           </div>
                         </div>

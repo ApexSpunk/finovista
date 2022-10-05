@@ -209,7 +209,7 @@ function addProgram() {
   }
 
   const fetchCategories = async () => {
-    const res = await fetch("/api/programcategory");
+    const res = await fetch("/api/category");
     const cate = await res.json();
     setCategories(cate.category);
   };

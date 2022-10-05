@@ -211,7 +211,7 @@ function addPost() {
   }
 
   const fetchCategories = async () => {
-    const res = await fetch("/api/eventcategory");
+    const res = await fetch("/api/category");
     const categories = await res.json();
     setCategories(categories.category);
   };
