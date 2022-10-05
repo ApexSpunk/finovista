@@ -1,5 +1,5 @@
 import connectDB from "../../middleware/mongoose";
-import Category from "../../models/category";
+import Category from "../../models/Category";
 
 const handler = async (req, res) => {
   if (req.method == "GET") {
