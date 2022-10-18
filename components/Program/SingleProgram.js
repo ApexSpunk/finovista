@@ -22,7 +22,6 @@ function SingleProgram(props) {
             >
               <p>{blog.category}</p>
             </div>
-            <p>{new Date(blog.created).toDateString()}</p>
           </div>
           <h4>{blog.title}</h4>
         </div>

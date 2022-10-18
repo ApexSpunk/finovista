@@ -20,7 +20,7 @@ function EventRegister(props) {
 
     return (
         <>
-            <div className='eventPostDetails my-12' >
+            <div className='eventPostDetails grid-cols-2 my-12' >
                 <ToastContainer
                     position="top-center"
                     autoClose={5000}
@@ -31,8 +31,8 @@ function EventRegister(props) {
                     pauseOnFocusLoss
                     draggable
                     pauseOnHover />
-                <div>
-                    <div className='eventPostDetailsData'>
+                <div className='grid grid-cols-2 gap-[5%] mx-auto justify-center'>
+                    <div className='eventPostDetailsData hidden col-span-1 md:grid'>
                         <div className="eventPost__content__left__bottom">
                             <h2>Event Title</h2>
                             <div className="flex gap-2">
@@ -49,7 +49,7 @@ function EventRegister(props) {
                             </div>
                         </div>
                     </div>
-                    <div className='eventDateTime w-[300px]'>
+                    <div className='eventDateTime col-span-2 md:col-span-1 w-full'>
                         <div>
                             <h2 className='text-center'>Register Now</h2>
                             <div className="w-24 h-[3px] bg-gray-500 mb-8 mt-2 mx-auto"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>

@@ -116,9 +116,7 @@ function SinlePostEvent(props) {
                         <div className="eventPost__content">
                             <div className="eventPost__content__left">
                                 <div className="eventPost__content__left__top">
-
                                     {content && Parser(content)}
-
                                 </div>
                                 <EventRegister event={event} Register={Register} handleRegistor={handleRegistor} />
                             </div>

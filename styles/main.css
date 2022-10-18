@@ -398,7 +398,6 @@ header {
 
 .eventPost__banner img {
     width: 100%;
-    height: 400px;
     background-size: cover;
     background-position: center;
     display: grid;
@@ -408,7 +407,6 @@ header {
 
 .programPost__banner img {
     width: 100%;
-    height: 400px;
     background-size: cover;
     background-position: center;
     display: grid;
@@ -451,14 +449,12 @@ header {
 }
 
 .eventPostDetails>div {
-    display: flex;
     width: 80%;
     margin: auto;
     justify-content: space-between;
 }
 
 .eventPostDetailsData {
-    display: grid;
     align-items: center;
 }
 
@@ -498,7 +494,6 @@ header {
 }
 
 .allBlogs>div img {
-    height: 250px;
     object-fit: cover;
     width: 100%;
 }
