@@ -1,6 +1,7 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function ImageUploader() {
 
@@ -42,6 +43,11 @@ function ImageUploader() {
 
     const copyToClipboard = (text, e) => {
         navigator.clipboard.writeText(text);
+        toast.success("Image copied successfully",{
+            position: "top-center",
+            autoClose: 500,
+            hideProgressBar: true,
+        });
     };
 
 

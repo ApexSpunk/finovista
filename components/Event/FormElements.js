@@ -1828,6 +1828,9 @@ function FormElements(props) {
                                                                         ) : null
                                                                     }
                                                                     {
+                                                                        console.log(form)
+                                                                    }
+                                                                    {
                                                                         form.state ? (
                                                                             <div className="p-2">
                                                                                 <div className="">
@@ -1835,7 +1838,7 @@ function FormElements(props) {
                                                                                     <select name="state" id="state" value={state} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => {
                                                                                         setState(e.target.value)
                                                                                         setCityData(stateData[e.target.value])
-                                                                                    }} required={form.state[form.tel.length - 1] == "*" ? true : false}>
+                                                                                    }} required={form.state[form.state.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select State</option>
                                                                                         {Object.entries(stateData).map((stateName, k) => <option key={k} value={stateName[0]}>{stateName[0]}</option>)}
                                                                                     </select>
@@ -1848,7 +1851,7 @@ function FormElements(props) {
                                                                             <div className="p-2">
                                                                                 <div className="">
                                                                                     <label className="leading-7 text-sm text-gray-600">City</label>
-                                                                                    <select name="state" id="state" value={city} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => setCity(e.target.value)} required={form.city[form.tel.length - 1] == "*" ? true : false}>
+                                                                                    <select name="state" id="state" value={city} className="p-2 rounded-md border border-gray-300 w-full bg-transparent" onChange={(e) => setCity(e.target.value)} required={form.city[form.state.length - 1] == "*" ? true : false}>
                                                                                         <option value="">Select City</option>
                                                                                         {cityData.map((cityName, k) => { return <option key={k} value={cityName}>{cityName}</option> })}
                                                                                     </select>

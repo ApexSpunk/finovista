@@ -13,8 +13,9 @@ const handler = async (req, res) => {
     }
 
     if (req.method == 'POST') {
-        const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements } = req.body
-        let e = new Event({ title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, created: Date.now(), isCompleted, slug, formElements })
+        console.log(res.body)
+        const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements,registrationType, formLink  } = req.body
+        let e = new Event({ title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, created: Date.now(), isCompleted, slug, formElements,registrationType, formLink  })
 
         await e.save()
 
@@ -28,8 +29,8 @@ const handler = async (req, res) => {
     }
 
     if (req.method == 'PUT') {
-        const { id, eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements } = req.body
-        await Event.findByIdAndUpdate(id, { title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, isCompleted, slug, formElements })
+        const { id, eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements,registrationType, formLink } = req.body
+        await Event.findByIdAndUpdate(id, { title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, isCompleted, slug, formElements ,registrationType, formLink})
         res.status(200).json({ success: true })
     }
 }

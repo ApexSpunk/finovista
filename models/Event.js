@@ -16,6 +16,8 @@ const EventSchema = new mongoose.Schema(
     isCompleted: String,
     slug: { type: String, required: true, unique: true },
     formElements: Array,
+    registrationType: String,
+    formLink: String,
   },
   { timeStamp: true }
 );

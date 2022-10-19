@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faCalendarAlt, faPlus, faClock } from '@fortawesome/free-solid-svg-icons'
 import EventRegister from './EventRegister'
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import Parser from 'html-react-parser';
 import SingleEventSkeleton from './SingleEventSkeleton'
 
@@ -29,7 +29,9 @@ function SinlePostEvent(props) {
     const [mode, setMode] = useState('')
     const [isCompleted, setIsCompleted] = useState('')
     const [formElements, setFormElements] = useState([])
-    
+    const [registrationType, setRegistrationType] = useState(null)
+    const [formLink, setFormLink] = useState(null)
+
     const [fromYear, fromMonth, fromDay] = fromDate.split("-");
     const [toYear, toMonth, toDay] = toDate.split("-")
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -44,6 +46,7 @@ function SinlePostEvent(props) {
             try {
                 const res = await fetch(`/api/singleEvent?slug=${slug}`)
                 const data = await res.json()
+                console.log(data.events[0])
                 setEvent(data.events[0])
                 setTitle(data.events[0].title)
                 setContent(data.events[0].content)
@@ -57,6 +60,8 @@ function SinlePostEvent(props) {
                 setMode(data.events[0].mode)
                 setIsCompleted(data.events[0].isCompleted)
                 setFormElements(data.events[0].formElements)
+                setRegistrationType(data.events[0].registrationType)
+                setFormLink(data.events[0].formLink)
                 setLoading(false)
             }
             catch (err) {
@@ -77,8 +82,13 @@ function SinlePostEvent(props) {
 
     const [Register, setRegister] = useState(false)
 
-    const handleRegistor = () => {
-        setRegister(!Register)
+    const handleRegistor = (type) => {
+        if (type === 'Google') {
+            console.log(formLink)
+            router.push(formLink)
+        } else {
+            setRegister(!Register)
+        }
     }
 
 
@@ -97,7 +107,7 @@ function SinlePostEvent(props) {
                                 <div className='grid content-center'>
                                     <div className="flex gap-2">
                                         <FontAwesomeIcon icon={faCalendarAlt} className="w-3" />
-                                        <p>{fromDay} {fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]} {fromYear} to {toDay} {toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]} {toYear}</p>
+                                        <p>{fromDay} {fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1] - 1] : months[fromMonth - 1]} {fromYear} to {toDay} {toDate[0] == 0 ? months[toMonth[toMonth.length - 1] - 1] : months[toMonth - 1]} {toYear}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <FontAwesomeIcon icon={faLocationDot} className="w-3" />
@@ -105,7 +115,9 @@ function SinlePostEvent(props) {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700' onClick={handleRegistor}>Register</button>
+                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700' onClick={()=>handleRegistor(registrationType)}>
+                                        Register
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -118,7 +130,9 @@ function SinlePostEvent(props) {
                                 <div className="eventPost__content__left__top">
                                     {content && Parser(content)}
                                 </div>
-                                <EventRegister event={event} Register={Register} handleRegistor={handleRegistor} />
+                                {
+                                    registrationType == 'Google' ? <></> : <EventRegister event={event} Register={Register} handleRegistor={handleRegistor} />
+                                }
                             </div>
                         </div>
                     </div>

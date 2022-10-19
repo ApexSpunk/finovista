@@ -132,6 +132,14 @@ function texteditor() {
     const [eventMode, setEventMode] = useState('')
     const [slug, setSlug] = useState('')
     const [showModal, setShowModal] = useState(false);
+    const [isCopied, setIsCopied] = useState(false);
+    const [embedVideo, setEmbedVideo] = useState("");
+    const [registrationType, setRegistrationType] = useState("Google")
+    const [formLink, setFormLink] = useState("")
+
+    const copyToClipboard = (text, e) => {
+        navigator.clipboard.writeText(text);
+    };
 
     function handleClick() {
         setShowModal(!showModal)
@@ -141,7 +149,7 @@ function texteditor() {
         const reactElement = htmlToReactParser.parse(content);
         const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr }
+            const eventData = { eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr, registrationType, formLink }
             let response = await fetch(`../../api/events`, {
                 method: 'POST',
                 headers: {
@@ -238,8 +246,8 @@ function texteditor() {
                             <div>
                                 <input type="text" className='font-[Poppins] w-full p-2 rounded-lg border text-xl box-border' placeholder='Event Title' onBlur={(cou) => { handleTitleInput(cou.target.value) }} />
                                 <div className='flex justify-between'>
-                                    <h4 className='font-[500] my-2'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
-                                    <button onClick={handleClick}>Add Media</button>
+                                    <h4 className='font-[500] mt-4'>Permalink: &nbsp;<a href="#">{slug}</a></h4>
+                                    <button className='border-0 rounded-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer my-2 w-40 p-3' onClick={handleClick}>Add Media</button>
                                 </div>
                             </div>
                             <JoditEditor
@@ -310,34 +318,46 @@ function texteditor() {
                             </div>
                             <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
-                                    <h4>Registration Form List</h4>
-                                    <div>
-                                        <div className={'flex flex-wrap optionList mt-4 ' + optionClass} id={optionClass}>
-                                            {optionsArr.map((option, k) => {
-                                                return <>{option[option.length - 1] == "*" ? <div key={k} className='reqOption bg-red-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
+                                    <h4>Registration Type</h4>
+                                    <select name="" id="" onChange={(loc) => setRegistrationType(loc.target.value)} className='p-2 my-3 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
+                                        <option value="Google">Google</option>
+                                        <option value="FinoMail">FinoMail</option>
+                                    </select>
+                                </div>
+                                {
+                                    registrationType === "Google" ? <div>
+                                    <h4>Registration Form Link</h4>
+                                        <input className="mt-4 mb-2 p-[6px] w-full rounded-md border pl-3 text-lg" placeholder='Google Form Link' onChange={(e) => { setFormLink(e.target.value) }} value={formLink} />
+                                    </div> : <div>
+                                        <h4>Registration Form List</h4>
+                                        <div>
+                                            <div className={'flex flex-wrap optionList mt-4 ' + optionClass} id={optionClass}>
+                                                {optionsArr.map((option, k) => {
+                                                    return <>{option[option.length - 1] == "*" ? <div key={k} className='reqOption bg-red-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
                                                     </div> : <div key={k} className=' bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white'>{option}
-                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
-                                                        onClick={() => {
-                                                            let newArr = [...optionsArr]
-                                                            newArr.splice(k, 1)
-                                                            setOptionsArr(newArr)
-                                                        }}
-                                                    >X</button></div>
-                                                }</>
-                                            })}
-                                            <check className='w-full flex'>
-                                                <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
-                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-red-500 text-2xl h-8 w-8 hover:bg-red-600 cursor-pointer'
-                                                        onClick={() => { setOptionsArr(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3']); setOptionClass('') }}
-                                                    >&#8634;</button></div>
-                                                <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
-                                                    <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
-                                                        onClick={() => { setOptionClass('optionSel'); setRequired(true); setReqList(optionsArr) }}
-                                                    >&#10004;</button></div>
-                                            </check>
+                                                        <button className='border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer'
+                                                            onClick={() => {
+                                                                let newArr = [...optionsArr]
+                                                                newArr.splice(k, 1)
+                                                                setOptionsArr(newArr)
+                                                            }}
+                                                        >X</button></div>
+                                                    }</>
+                                                })}
+                                                <check className='w-full flex'>
+                                                    <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
+                                                        <button className='border-none bg-transparent rounded-3xl text-white bg-red-500 text-2xl h-8 w-8 hover:bg-red-600 cursor-pointer'
+                                                            onClick={() => { setOptionsArr(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3']); setOptionClass('') }}
+                                                        >&#8634;</button></div>
+                                                    <div className=' bg-blue-400 m-1 w-fit rounded-3xl  text-white block'>
+                                                        <button className='border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer '
+                                                            onClick={() => { setOptionClass('optionSel'); setRequired(true); setReqList(optionsArr) }}
+                                                        >&#10004;</button></div>
+                                                </check>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             </div>
                             {required ? <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
@@ -350,7 +370,6 @@ function texteditor() {
                                                         onClick={() => {
                                                             let newArr = [...reqList]
                                                             newArr[k] = newArr[k] + '*'
-
                                                             setOptionsArr(newArr)
                                                             setReqList(newArr)
                                                         }}
@@ -369,6 +388,27 @@ function texteditor() {
                             </div> : ''}
                             <div className='bg-white p-4 mt-4 rounded-xl'>
                                 <div>
+                                    <h4>Embed Video</h4>
+                                    <div>
+                                        <input className="mt-4 mb-2 p-[6px] w-full rounded-md border pl-3 text-lg" placeholder='Video Link' onChange={(e) => { setEmbedVideo(e.target.value) }} value={embedVideo} />
+                                        <button
+                                            disabled={embedVideo === '' ? true : false}
+                                            className=" border-0 rounded-3xl uppercase text-md bg-blue-700 text-white font-semibold cursor-pointer my-2 w-full p-3 disabled:opacity-30 disabled:cursor-not-allowed"
+                                            type="submit" onClick={() => {
+                                                copyToClipboard(`<div class="responsiveFrame"><iframe class="responsive-iframe" src="${embedVideo}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""><br /></iframe></div>`)
+                                                setIsCopied(true)
+                                                setTimeout(() => {
+                                                    setIsCopied(false)
+                                                    setEmbedVideo('')
+                                                    console.log('Copied video to clipboard');
+                                                }, 2000);
+                                            }}><span>{isCopied ? 'Copied!' : 'Copy'}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='bg-white p-4 mt-4 rounded-xl'>
+                                <div>
                                     <h4>Add Thumbnail</h4>
                                     <div>
                                         <img src={thumbnail} alt="" className='w-full' />
@@ -383,7 +423,6 @@ function texteditor() {
                             </div>
                         </div>
                     </div>
-                    <button onClick={handleClick}>hi</button>
                 </div>
             </div>
             <AddMedia handleClick={handleClick} showModal={showModal} />
