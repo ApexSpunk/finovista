@@ -7,7 +7,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <nav className=" sticky top-0">
+    <nav className=" sticky top-0 z-10" >
       <div className="nav-wrapper">
         <div className="banner">
           <p>
