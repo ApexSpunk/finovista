@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Home from "../components/Home";
+import Footer from "../components/Footer";
 import { signIn } from "next-auth/react";
 
 function home() {
@@ -20,6 +21,7 @@ function home() {
       <div>
         <Navbar />
         <Home />
+        <Footer />
       </div>
     </div>
   );
