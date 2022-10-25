@@ -575,7 +575,7 @@ tr td.tableLink a {
     width: 100%;
     overflow: hidden;
     padding-top: 56.25%;
-    
+
 }
 
 .responsive-iframe {
@@ -587,29 +587,68 @@ tr td.tableLink a {
     width: 100%;
     height: 100%;
     /* z-index: -999; */
-  }
+}
 
-  .homeServices >div{
+.homeServices>div {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     border-radius: 10px;
-  }
+}
 
-  .servicesHover:hover > div{
+.servicesHover:hover>div {
     height: 12rem;
     margin-top: -200px;
     padding: 24px;
-    --tw-translate-y: -0.5rem/* -8px */;
+    --tw-translate-y: -0.5rem
+        /* -8px */
+    ;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     --tw-bg-opacity: 0.9;
-  }
+}
 
- .servicesHover:hover div>div> img{
+.servicesHover:hover div>div>img {
     margin-top: 40px;
-  }
+}
 
-  .servicesHover div>div>img{
+.servicesHover div>div>img {
     margin-top: 15px;
-  }
+}
+
+.homeBlog>div {
+    cursor: pointer;
+}
+
+.homeBlog>div:hover {
+    transform: scale(1.03);
+    transition: all 0.3s ease-in-out;
+}
+
+.animateLogo {
+    animation: animateLogo 5000ms ease-in-out infinite;
+}
+
+@keyframes animateLogo {
+    0% {
+        transform: translateX(20px);
+        opacity: 0;
+    }
+    5% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    95% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+}
+
 
 
 

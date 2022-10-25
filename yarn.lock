@@ -3457,6 +3457,13 @@
   "resolved" "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   "version" "5.1.1"
 
+"react-awesome-slider@^4.1.0":
+  "integrity" "sha512-cbPI1MTpVLKbEH6gf9bwtJb8Ja6R/YJonKbUQehfq2B2AAJkgDMeHntaa4SgGCRqWd55xKiT+CkjfKau1QRsKw=="
+  "resolved" "https://registry.npmjs.org/react-awesome-slider/-/react-awesome-slider-4.1.0.tgz"
+  "version" "4.1.0"
+  dependencies:
+    "web-animation-club" "^0.6.0"
+
 "react-class@^3.2.2":
   "integrity" "sha512-6mGkYJjqsCyazXfIIjAe3vf+KMsSTgJnyj7UK7tgFYIfv2lBQT9MB7rs8DQxESPNhBDu6UZ1jnTLpLzA2wKn6w=="
   "resolved" "https://registry.npmjs.org/react-class/-/react-class-3.2.2.tgz"
@@ -4180,6 +4187,11 @@
     "assert-plus" "^1.0.0"
     "core-util-is" "1.0.2"
     "extsprintf" "^1.2.0"
+
+"web-animation-club@^0.6.0":
+  "integrity" "sha512-9W+EQu1HiaPLe/7WZlhJ2ULqQ4VL80RPDYW+ZcjfTKp6ayOuT1k3SVO6+tu0VBRmOqueJ/mrG+rjjInIv8Aglg=="
+  "resolved" "https://registry.npmjs.org/web-animation-club/-/web-animation-club-0.6.0.tgz"
+  "version" "0.6.0"
 
 "webidl-conversions@^3.0.0":
   "integrity" "sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="
