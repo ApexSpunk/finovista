@@ -18,7 +18,7 @@ function ImageUploader() {
     const uploadToServer = async (event) => {
         const body = new FormData();
         body.append("file", image);
-        const response = await fetch("https://thefinovista.netlify.app/api/images", {
+        const response = await fetch("/api/images", {
             method: "POST",
             body
         });
