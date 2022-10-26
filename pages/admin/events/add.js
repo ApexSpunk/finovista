@@ -26,13 +26,6 @@ function texteditor() {
 
     const { data: session, status } = useSession()
 
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
     const router = useRouter();
     const editor = null
     const [content, setContent] = useState('')
@@ -232,6 +225,15 @@ function texteditor() {
 
 
     const [optionsArr, setOptionsArr] = useState(['sal', 'firstName', 'lastName', 'email', 'secondEmail', 'phone', 'tel', 'designation', 'organizationName', 'organizationType', 'sector', 'subSector', 'subSector2', 'country', 'state', 'city', 'website', 'organizationProfile', 'remark1', 'remark2', 'remark3'])
+
+
+    if (status === "loading") {
+        return <p>Loading...</p>
+    }
+
+    if (status === "unauthenticated") {
+        return <p>Access Denied</p>
+    }
 
     return (
         <div>

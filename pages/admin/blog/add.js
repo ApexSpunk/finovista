@@ -22,14 +22,6 @@ const JoditEditor = dynamic(importJodit, {
 function addPost() {
 
   const { data: session, status } = useSession()
-
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
   const router = useRouter();
   const editor = null;
   const [content, setContent] = useState("");
@@ -304,6 +296,16 @@ function addPost() {
     postTitle = postTitle.split(" ");
     postTitle = postTitle.join("-").toLowerCase();
     setSlug(postTitle);
+  }
+
+
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
   }
   return (
     <div>

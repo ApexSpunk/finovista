@@ -14,14 +14,6 @@ function index() {
 
   const { data: session, status } = useSession()
 
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
-
   const [programs, setPrograms] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,6 +54,15 @@ function index() {
       console.log(error);
     }
   };
+
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
 
   return (
     <div>

@@ -24,19 +24,12 @@ function editPost({ posts }) {
 
   const { data: session, status } = useSession()
 
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
   const router = useRouter();
 
   const editor = null;
   const [content, setContent] = useState("");
 
-  
+
 
   let config = {
     zIndex: 0,
@@ -359,6 +352,15 @@ function editPost({ posts }) {
     setSlug(postTitle);
   }
 
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
+
   return (
     <div>
       <div className="bg-[#f8f9fb]">
@@ -408,7 +410,7 @@ function editPost({ posts }) {
                 tabIndex={500}
                 config={config}
                 onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                onChange={(newContent) => {}}
+                onChange={(newContent) => { }}
               />
             </div>
             <div className="col-span-3">

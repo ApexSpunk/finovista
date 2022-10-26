@@ -23,14 +23,6 @@ const JoditEditor = dynamic(importJodit, {
 function editProgram({ program }) {
 
   const { data: session, status } = useSession()
-
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
   const router = useRouter();
 
   const editor = null;
@@ -353,6 +345,15 @@ function editProgram({ program }) {
     programTitle = programTitle.split(" ");
     programTitle = programTitle.join("-").toLowerCase();
     setSlug(programTitle);
+  }
+
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
   }
 
   return (
