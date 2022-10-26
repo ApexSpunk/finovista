@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 function LatestPosts({ type }) {
@@ -33,13 +34,15 @@ function LatestPosts({ type }) {
         <div className='latestPosts'>
             {
                 posts.map((post, index) => (
-                    <div>
-                        <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
+                    <Link href={`/blog/${post.slug}`} key={index}>
                         <div>
-                            <h4>{post.title.substring(0, 30)}...</h4>
-                            <span>April 19, 2022</span>
+                            <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
+                            <div>
+                                <h4>{post.title.substring(0, 30)}...</h4>
+                                <span>April 19, 2022</span>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 ))
             }
         </div>

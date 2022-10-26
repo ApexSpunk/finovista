@@ -25,6 +25,7 @@ function SingleBlogPost(props) {
   const [thumbnail, setThumbnail] = useState("");
 
   const fetchPosts = async () => {
+    console.log('first')
     setLoading(true);
     if (router.isReady) {
       const { slug } = router.query;
@@ -47,7 +48,7 @@ function SingleBlogPost(props) {
 
   useEffect(() => {
     fetchPosts();
-  }, [router.isReady]);
+  }, [router.isReady, router.query]);
 
   return (
     <>
