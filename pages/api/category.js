@@ -9,12 +9,12 @@ const handler = async (req, res) => {
     res.status(200).json({ category });
   }
 
-  const session = await getSession({ req });
+  // const session = await getSession({ req });
 
-  if (!session) {
-    res.status(401).json({ message: "Not authenticated" });
-    return;
-  }
+  // if (!session) {
+  //   res.status(401).json({ message: "Not authenticated" });
+  //   return;
+  // }
 
   if (req.method == "POST") {
     const { category, slug, categoryColor } = req.body;

@@ -13,12 +13,12 @@ const handler = async (req, res) => {
         res.status(200).json({ events })
     }
     
-    const session = await getSession({ req });
+    // const session = await getSession({ req });
 
-    if (!session) {
-        res.status(401).json({ message: "Not authenticated" });
-        return;
-    }
+    // if (!session) {
+    //     res.status(401).json({ message: "Not authenticated" });
+    //     return;
+    // }
     if (req.method == 'POST') {
         console.log(res.body)
         const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
