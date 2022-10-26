@@ -38,15 +38,15 @@ function Navbar() {
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
               <a href="#">Industry</a>
-              <a href="#">Resources</a>
+              {/* <a href="#">Resources</a> */}
             </div>
           </div>
           <div className="bottom">
-            <a href="#" className="hidden xl:block">
+            <a href="/contacts" className="hidden xl:block">
               Contact Us
             </a>
-            <a href="Day-5/signup.html" className="hidden lg:block">Sign up for free</a>
-            <a href="Day-5/SignIn.html" className="hidden lg:flex">Sign In</a>
+            {/* <a href="Day-5/SignIn.html" className="hidden lg:flex">Sign In</a>
+            <a href="/contact" className="hidden lg:block">Contact Us</a> */}
             <div className="flex lg:hidden">
               <div className={"ham "+ (isOpen ? "hidden" : "block")} onClick={() => setIsOpen(!isOpen)}>
                 <img
@@ -71,7 +71,7 @@ function Navbar() {
             <Link href='/events'> Events</Link>
             <Link href='/blog'>Blog</Link>
             <a href="#">Industry</a>
-            <a href="#">Resources</a>
+            {/* <a href="#">Resources</a> */}
           </div>
         </div>
       </div>

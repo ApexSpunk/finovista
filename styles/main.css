@@ -177,18 +177,19 @@ nav a {
     background-color: rgb(245, 245, 245);
 }
 
-.bottom a:nth-child(2) {
+.bottom a:nth-child(1) {
     background-color: rgb(0, 123, 255);
     padding: 7px 14px;
     color: white;
     border-radius: 10px;
+    border: none;
 }
 
 .bottom a:nth-child(3) {
     padding: 7px 0px;
 }
 
-.bottom a:nth-child(2):hover {
+.bottom a:nth-child(1):hover {
     background-color: rgb(0, 99, 206);
 }
 

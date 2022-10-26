@@ -1,4 +1,4 @@
-import { Flex, Grid, Img, Spacer } from '@chakra-ui/react'
+import { Flex, Img, Spacer } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -22,7 +22,7 @@ function Home() {
     return (
         <div>
             <div className="w-full h-[600px]">
-                <img src='/img/banner.png' alt="hero" className="w-full h-full object-cover" />
+                <img src='/img/Banner.png' alt="hero" className="w-full h-full object-cover" />
             </div>
             <div>
                 <div className='grid grid-cols-2  gap-10 mt-32 text-gray-700 mx-2 md:mx-20 lg:mx-32 xl:mx-52'>
