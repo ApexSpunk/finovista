@@ -1,6 +1,4 @@
 import { getToken } from 'next-auth/jwt';
-import { getSession } from 'next-auth/react';
-import React from 'react'
 import connectDB from '../../middleware/mongoose';
 import Event from '../../models/Event'
 

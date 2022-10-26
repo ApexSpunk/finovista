@@ -1,5 +1,4 @@
 import { getToken } from "next-auth/jwt";
-import React from "react";
 import connectDB from "../../middleware/mongoose";
 import Program from "../../models/Program";
 
