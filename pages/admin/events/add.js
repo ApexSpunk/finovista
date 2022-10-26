@@ -9,6 +9,7 @@ const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const htmlToReactParser = new HtmlToReactParser();
 
@@ -21,6 +22,17 @@ const JoditEditor = dynamic(importJodit, {
 });
 
 function texteditor() {
+
+
+    const { data: session, status } = useSession()
+
+    if (status === "loading") {
+        return <p>Loading...</p>
+    }
+
+    if (status === "unauthenticated") {
+        return <p>Access Denied</p>
+    }
     const router = useRouter();
     const editor = null
     const [content, setContent] = useState('')
@@ -326,7 +338,7 @@ function texteditor() {
                                 </div>
                                 {
                                     registrationType === "Google" ? <div>
-                                    <h4>Registration Form Link</h4>
+                                        <h4>Registration Form Link</h4>
                                         <input className="mt-4 mb-2 p-[6px] w-full rounded-md border pl-3 text-lg" placeholder='Google Form Link' onChange={(e) => { setFormLink(e.target.value) }} value={formLink} />
                                     </div> : <div>
                                         <h4>Registration Form List</h4>

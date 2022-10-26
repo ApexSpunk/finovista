@@ -3,8 +3,19 @@ import Home from "../../components/admin/Home";
 import Navbar from "../../components/admin/Navbar";
 import Topbar from "../../components/admin/Topbar";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
 
 function index() {
+
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
   return (
     <div>
       <Head>
@@ -33,7 +44,7 @@ function index() {
             <div className="overflow-auto h-screen pb-24 pt-2 pr-2 pl-2 md:pt-0 md:pr-0 md:pl-0">
               <div className="flex flex-col flex-wrap sm:flex-row ">
                 {/* <Home /> */}
-                
+
               </div>
             </div>
           </div>

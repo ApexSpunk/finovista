@@ -7,8 +7,19 @@ import Topbar from "../../../components/admin/Topbar";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "next-auth/react";
 
 function index() {
+
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 

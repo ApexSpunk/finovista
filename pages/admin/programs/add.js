@@ -8,6 +8,7 @@ const ReactDOMServer = require("react-dom/server");
 const HtmlToReactParser = require("html-to-react").Parser;
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const htmlToReactParser = new HtmlToReactParser();
 
@@ -18,6 +19,19 @@ const JoditEditor = dynamic(importJodit, {
 });
 
 function addProgram() {
+
+
+
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
+
   const router = useRouter();
   const editor = null;
   const [content, setContent] = useState("");
@@ -336,7 +350,7 @@ function addProgram() {
                 tabIndex={500}
                 config={config}
                 onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-                onChange={(newContent) => {}}
+                onChange={(newContent) => { }}
               />
             </div>
             <div className="col-span-3">

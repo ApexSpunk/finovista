@@ -8,6 +8,7 @@ import AddMedia from "../../../../components/AddMedia";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 const ReactDOMServer = require("react-dom/server");
 const HtmlToReactParser = require("html-to-react").Parser;
 
@@ -20,6 +21,16 @@ const JoditEditor = dynamic(importJodit, {
 });
 
 function editPost({ posts }) {
+
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
   const router = useRouter();
 
   const editor = null;

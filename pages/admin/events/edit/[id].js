@@ -10,6 +10,7 @@ import AddMedia from '../../../../components/AddMedia';
 import { faCalendarAlt, faClock, faLocationDot, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
 
@@ -26,6 +27,17 @@ const JoditEditor = dynamic(importJodit, {
 });
 
 function editevent() {
+
+
+    const { data: session, status } = useSession()
+
+    if (status === "loading") {
+        return <p>Loading...</p>
+    }
+
+    if (status === "unauthenticated") {
+        return <p>Access Denied</p>
+    }
     const router = useRouter();
 
 
@@ -209,7 +221,7 @@ function editevent() {
         const reactElement = htmlToReactParser.parse(content);
         const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         try {
-            const eventData = { id: eventid, eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr , registrationType, formLink  }
+            const eventData = { id: eventid, eventTitle, pageContent: reactHtml, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, slug, isCompleted: false, formElements: optionsArr, registrationType, formLink }
             let response = await fetch(`../../../api/events`, {
                 method: 'PUT',
                 headers: {

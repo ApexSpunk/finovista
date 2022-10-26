@@ -1,6 +1,19 @@
+import { useSession } from "next-auth/react";
 import React, { useState, useEffect } from "react";
 
 function category() {
+
+  const { data: session, status } = useSession()
+
+  if (status === "loading") {
+    return <p>Loading...</p>
+  }
+
+  if (status === "unauthenticated") {
+    return <p>Access Denied</p>
+  }
+
+
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -9,6 +22,8 @@ function category() {
     slug: "",
     categoryColor: "",
   });
+
+
 
   const addCategory = async () => {
     try {
