@@ -1,3 +1,4 @@
+import { getSession } from "next-auth/react";
 import connectDB from "../../middleware/mongoose";
 import Program from "../../models/Program";
 
@@ -6,6 +7,13 @@ const handler = async (req, res) => {
     const { slug } = req.query;
     let programs = await Program.find({ slug });
     res.status(200).json({ programs });
+  }
+
+  const session = await getSession({ req });
+
+  if (!session) {
+    res.status(401).json({ message: "Not authenticated" });
+    return;
   }
 
   if (req.method == "POST") {

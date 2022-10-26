@@ -5,6 +5,7 @@ import Image from '../../models/Image'
 import formidable from "formidable";
 import fs from "fs";
 import S3 from 'aws-sdk/clients/s3';
+import { getSession } from 'next-auth/react';
 
 export const config = {
     api: {
@@ -24,11 +25,18 @@ console.log(s3, 's3')
 
 const handler = async (req, res) => {
 
+    
     if ((req.method == 'GET')) {
-        let images = await Image.find().limit(8).sort({$natural:-1}) 
+        let images = await Image.find().limit(8).sort({ $natural: -1 })
         res.status(200).json({ images })
     }
+    
+    const session = await getSession({ req });
 
+    if (!session) {
+        res.status(401).json({ message: "Not authenticated" });
+        return;
+    }
     if (req.method == 'POST') {
         const form = new formidable.IncomingForm();
         form.parse(req, async function (err, fields, files) {
