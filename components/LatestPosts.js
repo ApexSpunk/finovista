@@ -1,23 +1,47 @@
-import React from 'react'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
 
-function LatestPosts(props) {
-    const { posts, type } = props
+function LatestPosts({ type }) {
+    const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true)
+            let limit = 3
+            if (type === 'sidebar') {
+                limit = 5
+            }
+            try {
+                const res = await fetch(`/api/posts?limit=${limit}`)
+                const posts = await res.json()
+                console.log(posts)
+                setPosts(posts.posts)
+                setLoading(false)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchPosts()
+    }, [])
+
+    if (loading) {
+        return <p>Loading...</p>
+    }
+
     return (
         <div className='latestPosts'>
-            <div>
-                <img src="https://elementor.zozothemes.com/corpkit/wp-content/uploads/sites/45/2019/04/6-1-100x100.jpg" alt="" width='100%' />
-                <div>
-                    <h4>5 Effective Ways Demo Post Testing</h4>
-                    <span>April 19, 2022</span>
-                </div>
-            </div>
-            <div>
-                <img src="https://elementor.zozothemes.com/corpkit/wp-content/uploads/sites/45/2019/04/6-1-100x100.jpg" alt="" width='100%' />
-                <div>
-                    <h4>5 Effective Ways Demo Post Testing</h4>
-                    <span>April 19, 2022</span>
-                </div>
-            </div>
+            {
+                posts.map((post, index) => (
+                    <div>
+                        <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
+                        <div>
+                            <h4>{post.title.substring(0, 30)}...</h4>
+                            <span>April 19, 2022</span>
+                        </div>
+                    </div>
+                ))
+            }
         </div>
     )
 }

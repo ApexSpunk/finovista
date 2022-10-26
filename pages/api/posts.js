@@ -8,7 +8,12 @@ const handler = async (req, res) => {
   if (token) {
 
     if (req.method == "GET") {
-      let posts = await Post.find();
+      let { limit } = req.query;
+      console.log(limit)
+      if (!limit) {
+        limit = 10;
+      }
+      let posts = await Post.find().limit(parseInt(limit));
       res.status(200).json({ posts });
     }
 
@@ -47,7 +52,11 @@ const handler = async (req, res) => {
     }
   } else {
     if (req.method == "GET") {
-      let posts = await Post.find();
+      let { limit } = req.query;
+      if (!limit) {
+        limit = 10;
+      }
+      let posts = await Post.find().limit(parseInt(limit));
       res.status(200).json({ posts });
     } else {
       res.status(401).json({ message: "Not authenticated" });

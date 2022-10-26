@@ -20,10 +20,9 @@ function Sidebar() {
       </div>
       <div>
         <div className='p-8 bg-gray-50 rounded-2xl mt-8'>
-        <h2>Latest Posts</h2>
-        <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
-        <LatestPosts posts={3} type={'sidebar'} />
-        <LatestPosts posts={3} type={'sidebar'} />
+          <h2>Latest Posts</h2>
+          <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
+          <LatestPosts type={'sidebar'} />
         </div>
       </div>
     </div>

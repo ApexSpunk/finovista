@@ -8,6 +8,9 @@ module.exports = {
       main: 'index'
     }
   ],
+  images: {
+    domains: ['localhost', 'finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com'],
+  },
   async rewrites() {
     return [
       {
