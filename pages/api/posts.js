@@ -1,53 +1,57 @@
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import connectDB from "../../middleware/mongoose";
 import Post from "../../models/Post";
 
 const handler = async (req, res) => {
 
-  
-  if (req.method == "GET") {
-    let posts = await Post.find();
-    res.status(200).json({ posts });
-  }
-  
-  // const session = await getSession({ req });
+  const token = await getToken({ req })
+  if (token) {
 
-  // if (!session) {
-  //   res.status(401).json({ message: "Not authenticated" });
-  //   return;
-  // }
-  if (req.method == "POST") {
-    const { postTitle, pageContent, thumbnail, slug, category } = req.body;
-    let e = new Post({
-      title: postTitle,
-      content: pageContent,
-      thumbnail,
-      created: Date.now(),
-      slug,
-      category,
-    });
+    if (req.method == "GET") {
+      let posts = await Post.find();
+      res.status(200).json({ posts });
+    }
 
-    await e.save();
+    if (req.method == "POST") {
+      const { postTitle, pageContent, thumbnail, slug, category } = req.body;
+      let e = new Post({
+        title: postTitle,
+        content: pageContent,
+        thumbnail,
+        created: Date.now(),
+        slug,
+        category,
+      });
 
-    res.status(200).json({ success: e });
-  }
+      await e.save();
 
-  if (req.method == "DELETE") {
-    const { id } = req.body;
-    await Post.findByIdAndDelete(id);
-    res.status(200).json({ success: true });
-  }
+      res.status(200).json({ success: e });
+    }
 
-  if (req.method == "PUT") {
-    const { id, postTitle, pageContent, thumbnail, slug, category } = req.body;
-    await Post.findByIdAndUpdate(id, {
-      title: postTitle,
-      content: pageContent,
-      thumbnail,
-      slug,
-      category,
-    });
-    res.status(200).json({ success: true });
+    if (req.method == "DELETE") {
+      const { id } = req.body;
+      await Post.findByIdAndDelete(id);
+      res.status(200).json({ success: true });
+    }
+
+    if (req.method == "PUT") {
+      const { id, postTitle, pageContent, thumbnail, slug, category } = req.body;
+      await Post.findByIdAndUpdate(id, {
+        title: postTitle,
+        content: pageContent,
+        thumbnail,
+        slug,
+        category,
+      });
+      res.status(200).json({ success: true });
+    }
+  } else {
+    if (req.method == "GET") {
+      let posts = await Post.find();
+      res.status(200).json({ posts });
+    } else {
+      res.status(401).json({ message: "Not authenticated" });
+    }
   }
 };
 export default connectDB(handler);

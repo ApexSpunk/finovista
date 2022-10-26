@@ -1,5 +1,4 @@
-import { error } from 'console';
-import { getSession } from 'next-auth/react';
+import { getToken } from 'next-auth/jwt';
 import React from 'react'
 import connectDB from '../../middleware/mongoose';
 import Event from '../../models/Event'
@@ -7,38 +6,43 @@ import Event from '../../models/Event'
 
 
 const handler = async (req, res) => {
-    
-    if ((req.method == 'GET')) {
-        let events = await Event.find()
-        res.status(200).json({ events })
-    }
-    
-    // const session = await getSession({ req });
 
-    // if (!session) {
-    //     res.status(401).json({ message: "Not authenticated" });
-    //     return;
-    // }
-    if (req.method == 'POST') {
-        console.log(res.body)
-        const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
-        let e = new Event({ title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, created: Date.now(), isCompleted, slug, formElements, registrationType, formLink })
+    const token = await getToken({ req })
+    if (token) {
 
-        await e.save()
+        if ((req.method == 'GET')) {
+            let events = await Event.find()
+            res.status(200).json({ events })
+        }
 
-        res.status(200).json({ success: e })
-    }
+        if (req.method == 'POST') {
+            console.log(res.body)
+            const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
+            let e = new Event({ title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, created: Date.now(), isCompleted, slug, formElements, registrationType, formLink })
 
-    if (req.method == 'DELETE') {
-        const { id } = req.body
-        await Event.findByIdAndDelete(id)
-        res.status(200).json({ success: true })
-    }
+            await e.save()
 
-    if (req.method == 'PUT') {
-        const { id, eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
-        await Event.findByIdAndUpdate(id, { title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, isCompleted, slug, formElements, registrationType, formLink })
-        res.status(200).json({ success: true })
+            res.status(200).json({ success: e })
+        }
+
+        if (req.method == 'DELETE') {
+            const { id } = req.body
+            await Event.findByIdAndDelete(id)
+            res.status(200).json({ success: true })
+        }
+
+        if (req.method == 'PUT') {
+            const { id, eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
+            await Event.findByIdAndUpdate(id, { title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, isCompleted, slug, formElements, registrationType, formLink })
+            res.status(200).json({ success: true })
+        }
+    } else {
+        if ((req.method == 'GET')) {
+            let events = await Event.find()
+            res.status(200).json({ events })
+        } else {
+            res.status(401).json({ message: "Not authenticated" });
+        }
     }
 }
 export default connectDB(handler)

@@ -1,60 +1,64 @@
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import React from "react";
 import connectDB from "../../middleware/mongoose";
 import Program from "../../models/Program";
 
 const handler = async (req, res) => {
-  
-  if (req.method == "GET") {
-    let programs = await Program.find();
-    res.status(200).json({ programs });
-  }
-  
-  // const session = await getSession({ req });
+  const token = await getToken({ req })
+  if (token) {
 
-  // if (!session) {
-  //   res.status(401).json({ message: "Not authenticated" });
-  //   return;
-  // }
-  if (req.method == "POST") {
-    const { programTitle, pageContent, thumbnail, slug, category } = req.body;
-    let e = new Program({
-      title: programTitle,
-      content: pageContent,
-      thumbnail,
-      created: Date.now(),
-      slug,
-      category
-    });
+    if (req.method == "GET") {
+      let programs = await Program.find();
+      res.status(200).json({ programs });
+    }
 
-    await e.save();
+    if (req.method == "POST") {
+      const { programTitle, pageContent, thumbnail, slug, category } = req.body;
+      let e = new Program({
+        title: programTitle,
+        content: pageContent,
+        thumbnail,
+        created: Date.now(),
+        slug,
+        category
+      });
 
-    res.status(200).json({ success: e });
-  }
+      await e.save();
 
-  if (req.method == "DELETE") {
-    const { id } = req.body;
-    await Program.findByIdAndDelete(id);
-    res.status(200).json({ success: true });
-  }
+      res.status(200).json({ success: e });
+    }
 
-  if (req.method == "PUT") {
-    const {
-      id,
-      programTitle,
-      pageContent,
-      thumbnail,
-      slug,
-      category
-    } = req.body;
-    await Program.findByIdAndUpdate(id, {
-      title: programTitle,
-      content: pageContent,
-      thumbnail,
-      slug,
-      category
-    });
-    res.status(200).json({ success: true });
+    if (req.method == "DELETE") {
+      const { id } = req.body;
+      await Program.findByIdAndDelete(id);
+      res.status(200).json({ success: true });
+    }
+
+    if (req.method == "PUT") {
+      const {
+        id,
+        programTitle,
+        pageContent,
+        thumbnail,
+        slug,
+        category
+      } = req.body;
+      await Program.findByIdAndUpdate(id, {
+        title: programTitle,
+        content: pageContent,
+        thumbnail,
+        slug,
+        category
+      });
+      res.status(200).json({ success: true });
+    }
+  } else {
+    if (req.method == "GET") {
+      let programs = await Program.find();
+      res.status(200).json({ programs });
+    } else {
+      res.status(401).json({ message: "Not authenticated" });
+    }
   }
 };
 export default connectDB(handler);
