@@ -8,6 +8,7 @@ function Home() {
 
     const [images, setImages] = useState(1)
     const [loading, setLoading] = useState(true)
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         let index = 2
@@ -21,10 +22,24 @@ function Home() {
         return () => clearInterval(interval)
     }, [])
 
+    useEffect(() => {
+        const fetchPosts = async () => {
+            setLoading(true)
+            try {
+                const res = await fetch(`/api/posts?limit=3`)
+                const posts = await res.json()
+                setPosts(posts.posts)
+                setLoading(false)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        fetchPosts()
+    }, [])
     return (
         <div>
             <div className="w-full h-[600px]">
-                <img src='/img/Banner.png' alt="hero" className="w-full h-full object-cover" />
+                <img src='./img/MECS 01.jpg' alt="hero" className="w-full h-full object-cover object-bottom" />
             </div>
             <div>
                 <div className='grid grid-cols-2  gap-10 mt-32 text-gray-700 mx-2 md:mx-20 lg:mx-32 xl:mx-52'>
@@ -153,42 +168,37 @@ function Home() {
                                 <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>As a app web crawler expert, I help organizations adjust to the expanding significance of internet promoting or lipsum.</p>
                             </div>
                             <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
-                                <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
-                                    <div>
-                                        <img src='https://www.salesforce.com/content/dam/blogs/ca/Blog%20Posts/anatomy-of-a-blog-post-deconstructed-open-graph.jpg' alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
-                                    </div>
-                                    <div className='p-6'>
-                                        <p className='text-xs mt-[-10px] mb-2 font-semibold text-blue-400'>Design</p>
-                                        <h2 className='text-xl font-semibold'>10 Ways To Take Your UI Design Game To Next Level!</h2>
-                                        <p className='text-[13px] mt-2'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat vitae commodi veritatis assumenda, laborum suscipit magni eius corrupti? Tempore vitae tempora hic ea porro?</p>
-                                    </div>
-                                </div>
-                                <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
-                                    <div>
-                                        <img src='https://www.forbes.com/advisor/wp-content/uploads/2022/09/Start_A_Food_Blog_-_article_image.jpg' alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
-                                    </div>
-                                    <div className='p-6'>
-                                        <p className='text-xs mt-[-10px] mb-2 font-semibold text-green-400'>Design</p>
-                                        <h2 className='text-xl font-semibold'>10 Ways To Take Your UI Design Game To Next Level!</h2>
-                                        <p className='text-[13px] mt-2'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat vitae commodi veritatis assumenda, laborum suscipit magni eius corrupti? Tempore vitae tempora hic ea porro?</p>
-                                    </div>
-                                </div>
-                                <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
-                                    <div>
-                                        <img src='https://blogs.acwits.com/BlogImages/blog-post-ideas-for-digital-marketing.jpeg' alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
-                                    </div>
-                                    <div className='p-6'>
-                                        <p className='text-xs mt-[-10px] mb-2 font-semibold text-orange-400'>Design</p>
-                                        <h2 className='text-xl font-semibold'>10 Ways To Take Your UI Design Game To Next Level!</h2>
-                                        <p className='text-[13px] mt-2'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat vitae commodi veritatis assumenda, laborum suscipit magni eius corrupti? Tempore vitae tempora hic ea porro?</p>
-                                    </div>
-                                </div>
+                                {console.log(posts)}
+                                {
+                                    loading ? <div className='text-center'>Loading...</div> : posts.map((post, index) => (
+                                        <Link href={`/blog/${post.slug}`} key={index}>
+                                        <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
+                                            <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
+                                                <div>
+                                                    <img src={post.thumbnail} alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
+                                                </div>
+                                                <div className='p-6'>
+                                                    <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
+                                                        {post.category}
+                                                    </p>
+                                                    <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
+                                                    {/* <p className='text-[13px] mt-2'>
+                                                    {
+                                                        post.content.length > 100 ? post.content.substring(0, 102) + '...' : post.content
+                                                    }
+                                                    </p> */}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </Link>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     )
 }
