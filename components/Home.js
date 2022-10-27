@@ -3,9 +3,11 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 
+
 function Home() {
 
     const [images, setImages] = useState(1)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         let index = 2
