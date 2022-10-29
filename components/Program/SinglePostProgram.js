@@ -32,8 +32,8 @@ function SinglePostProgram(props) {
         setPrograms(ress.programs);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setLoading(false);
+        setError(true);
       }
     };
     getEvents();
@@ -54,7 +54,6 @@ function SinglePostProgram(props) {
         setLoading(false);
       } catch (err) {
         setError(true);
-        console.log("hi");
         setLoading(true);
       }
     }

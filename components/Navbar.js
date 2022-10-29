@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 function Navbar() {
@@ -32,12 +31,12 @@ function Navbar() {
               </div>
             </a>
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
-              <a href="#">About Us</a>
-              <a href="#">Services</a>
+              <Link href="/about">About Us</Link>
+              <Link href="#">Services</Link>
               <Link href="/program">Programs</Link>
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
-              <a href="#">Industry</a>
+              <Link href="/industry">Industry</Link>
               {/* <a href="#">Resources</a> */}
             </div>
           </div>
@@ -65,12 +64,12 @@ function Navbar() {
         </div>
         <div className={"mobileMenu "+(isOpen ? "grid" : "hidden")}>
           <div>
-            <a href="#">About Us</a>
-            <a href="#">Services</a>
+            <Link href="/about">About Us</Link>
+            <Link href="#">Services</Link>
             <Link href="/program">Programs</Link>
             <Link href='/events'> Events</Link>
             <Link href='/blog'>Blog</Link>
-            <a href="#">Industry</a>
+            <Link href="/industry">Industry</Link>
             {/* <a href="#">Resources</a> */}
           </div>
         </div>
