@@ -24,8 +24,7 @@ console.log(s3, 's3')
 const handler = async (req, res) => {
 
     if (req.method === 'GET') {
-        let t = await getToken({ req })
-        res.status(200).json({ message: t })
+        res.status(200).json({ message: 'GET request received' });
     }
 
     const token = await getToken({ req })
