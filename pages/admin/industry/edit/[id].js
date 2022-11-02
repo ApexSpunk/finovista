@@ -20,7 +20,7 @@ const JoditEditor = dynamic(importJodit, {
   ssr: false,
 });
 
-function editProgram({ program }) {
+function editIndustry({ industry }) {
 
   const { data: session, status } = useSession()
   const router = useRouter();
@@ -202,8 +202,8 @@ function editProgram({ program }) {
     textIcons: false,
   };
 
-  const [programid, setProgramid] = useState("");
-  const [programTitle, setProgramTitle] = useState("");
+  const [industryid, setIndustryid] = useState("");
+  const [industryTitle, setIndustryTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(
     "https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png"
   );
@@ -225,20 +225,20 @@ function editProgram({ program }) {
     fetchCategories();
   }, []);
 
-  const fetchProgram = async () => {
+  const fetchIndustry = async () => {
     setLoading(true);
     if (router.isReady) {
       const { id } = router.query;
       if (!id) return null;
       try {
-        const res = await fetch(`/api/singleProgram?slug=${id}`);
+        const res = await fetch(`/api/singleIndustry?slug=${id}`);
         const data = await res.json();
-        setProgramid(data.programs[0]._id);
-        setProgramTitle(data.programs[0].title);
-        setThumbnail(data.programs[0].thumbnail);
-        setSlug(data.programs[0].slug);
-        setContent(data.programs[0].content);
-        setCategory(data.programs[0].category);
+        setIndustryid(data.industries[0]._id);
+        setIndustryTitle(data.industries[0].title);
+        setThumbnail(data.industries[0].thumbnail);
+        setSlug(data.industries[0].slug);
+        setContent(data.industries[0].content);
+        setCategory(data.industries[0].category);
         setLoading(false);
       } catch (err) {
         setError(true);
@@ -248,34 +248,34 @@ function editProgram({ program }) {
   };
 
   useEffect(() => {
-    fetchProgram();
+    fetchIndustry();
   }, [router.isReady]);
 
   function handleClick() {
     setShowModal(!showModal);
   }
 
-  async function updateProgram() {
+  async function updateIndustry() {
     const reactElement = htmlToReactParser.parse(content);
     const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
     try {
-      const programData = {
-        id: programid,
-        programTitle,
+      const industryData = {
+        id: industryid,
+        industryTitle,
         pageContent: reactHtml,
         thumbnail,
         slug,
         category,
       };
-      let response = await fetch(`../../../api/programs`, {
+      let response = await fetch(`../../../api/industries`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(programData),
+        body: JSON.stringify(industryData),
       });
       let responseData = await response.json();
-      toast.success(`Program ${programTitle} Updated`, {
+      toast.success(`Industry ${industryTitle} Updated`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -315,17 +315,17 @@ function editProgram({ program }) {
     setThumbnail(ress.data.Location);
   };
 
-  const deleteProgram = async () => {
+  const deleteIndustry = async () => {
     try {
-      let response = await fetch(`../../../api/programs`, {
+      let response = await fetch(`../../../api/industries`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: programid }),
+        body: JSON.stringify({ id: industryid }),
       });
       let responseData = await response.json();
-      toast.error(`Program ${programTitle} Deleted`, {
+      toast.error(`Industry ${industryTitle} Deleted`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -334,17 +334,17 @@ function editProgram({ program }) {
         draggable: true,
         progress: undefined,
       });
-      router.push("/admin/programs");
+      router.push("/admin/industries");
     } catch (error) {
       console.log(error);
     }
   };
 
-  function handleTitleInput(programTitle) {
-    setProgramTitle(programTitle);
-    programTitle = programTitle.split(" ");
-    programTitle = programTitle.join("-").toLowerCase();
-    setSlug(programTitle);
+  function handleTitleInput(industryTitle) {
+    setIndustryTitle(industryTitle);
+    industryTitle = industryTitle.split(" ");
+    industryTitle = industryTitle.join("-").toLowerCase();
+    setSlug(industryTitle);
   }
 
 
@@ -382,12 +382,12 @@ function editProgram({ program }) {
               <div>
                 <input
                   type="text"
-                  value={programTitle}
+                  value={industryTitle}
                   onChange={(eve) => {
-                    setProgramTitle(eve.target.value);
+                    setIndustryTitle(eve.target.value);
                   }}
                   className="font-[Poppins] w-full p-2 rounded-lg border text-xl box-border"
-                  placeholder="Programs Title"
+                  placeholder="Industry Title"
                   onBlur={(cou) => {
                     handleTitleInput(cou.target.value);
                   }}
@@ -419,194 +419,25 @@ function editProgram({ program }) {
                   <p className="py-2">visibility: {"public"}</p>
                   {/* Delete Post Button with fontAwseome Icon*/}
                   <button
-                    onClick={deleteProgram}
+                    onClick={deleteIndustry}
                     className="rdBtn flex justify-center content-center gap-2"
                   >
                     <FontAwesomeIcon icon={faTrashAlt} height="20px" /> Delete
                   </button>
                 </div>
                 <div className="grid mt-4  gap-2">
-                  <button className="previewBtn w-full" onClick={updateProgram}>
-                    Update Program
+                  <button className="previewBtn w-full" onClick={updateIndustry}>
+                    Update Industry
                   </button>
-                  <Link href="/admin/programs">
+                  <Link href="/admin/industry">
                     <button className="redBtn w-full">Cancel</button>
                   </Link>
                 </div>
               </div>
-              {/* <div className="bg-white p-4 mt-4 rounded-xl">
-                <div>
-                  <h4>Event Details</h4>
-                  <hr />
-                </div>
-                <div className="grid mt-4">
-                  <div>
-                    <label className="text-sm text-gray-600">
-                      Event Location
-                    </label>
-                    <input
-                      type="text"
-                      name="location"
-                      value={location}
-                      onChange={(loc) => setLocation(loc.target.value)}
-                      placeholder="Event Location"
-                      id="location"
-                      className="p-[6px] w-full rounded-md border pl-3 text-lg"
-                    />
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="text-sm text-gray-600">From Date</label>
-                      <input
-                        type="date"
-                        value={fromDate}
-                        onChange={(loc) => setFromDate(loc.target.value)}
-                        className="p-[6px] w-full rounded-md border pl-3 text-lg"
-                      />{" "}
-                    </div>
-                    <div>
-                      <label className="text-sm text-gray-600">To Date</label>
-                      <input
-                        type="date"
-                        value={toDate}
-                        onChange={(loc) => setToDate(loc.target.value)}
-                        className="p-[6px] w-full rounded-md border pl-3 text-lg"
-                      />{" "}
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>
-                      <label className="text-sm text-gray-600">From Time</label>
-                      <input
-                        type="time"
-                        value={fromTime}
-                        onChange={(loc) => setFromTime(loc.target.value)}
-                        className="p-[6px] w-full rounded-md border pl-3 text-lg"
-                      />{" "}
-                    </div>
-                    <div>
-                      <label className="text-sm text-gray-600">To Time</label>
-                      <input
-                        type="time"
-                        value={toTime}
-                        onChange={(loc) => setToTime(loc.target.value)}
-                        className="p-[6px] w-full rounded-md border pl-3 text-lg"
-                      />{" "}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600 ">Event Type</label>
-                    <select
-                      name=""
-                      id=""
-                      value={eventType}
-                      onChange={(loc) => setEventType(loc.target.value)}
-                      className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg"
-                    >
-                      <option value="">Select Type</option>
-                      <option value="internal">Internal</option>
-                      <option value="external">External</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600">Select Mode</label>
-                    <select
-                      name=""
-                      id=""
-                      value={eventMode}
-                      onChange={(loc) => setEventMode(loc.target.value)}
-                      className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg"
-                    >
-                      <option value="">Select Mode</option>
-                      <option value="in-person">In-person</option>
-                      <option value="hybrid">Hybrid</option>
-                      <option value="virtual">Virtual</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
+              
               <div className="bg-white p-4 mt-4 rounded-xl">
                 <div>
-                  <h4>Registration Form List</h4>
-                  <div>
-                    <div
-                      className={
-                        "flex flex-wrap optionList mt-4 " + optionClass
-                      }
-                      id={optionClass}
-                    >
-                      {optionsArr.map((option, k) => {
-                        return (
-                          <div
-                            key={k}
-                            className=" bg-blue-400 m-1 w-fit rounded-3xl pl-2  text-white"
-                          >
-                            {option}
-                            <button
-                              className="border-none bg-transparent rounded-3xl text-white bg-blue-400 h-8 w-8 font-bold text-md hover:bg-blue-600 cursor-pointer"
-                              onClick={() => {
-                                let newArr = [...optionsArr];
-                                newArr.splice(k, 1);
-                                setOptionsArr(newArr);
-                              }}
-                            >
-                              X
-                            </button>
-                          </div>
-                        );
-                      })}
-                      <check className="w-full flex">
-                        <div className=" bg-blue-400 m-1 w-fit rounded-3xl  text-white block">
-                          <button
-                            className="border-none bg-transparent rounded-3xl text-white bg-red-500 text-2xl h-8 w-8 hover:bg-red-600 cursor-pointer"
-                            onClick={() => {
-                              setOptionsArr([
-                                "sal",
-                                "firstName",
-                                "lastName",
-                                "email",
-                                "secondEmail",
-                                "phone",
-                                "tel",
-                                "designation",
-                                "organizationName",
-                                "organizationType",
-                                "sector",
-                                "subSector",
-                                "subSector2",
-                                "country",
-                                "state",
-                                "city",
-                                "website",
-                                "organizationProfile",
-                                "remark1",
-                                "remark2",
-                                "remark3",
-                              ]);
-                              setOptionClass("");
-                            }}
-                          >
-                            &#8634;
-                          </button>
-                        </div>
-                        <div className=" bg-blue-400 m-1 w-fit rounded-3xl  text-white block">
-                          <button
-                            className="border-none bg-transparent rounded-3xl text-white bg-green-500 text-2xl h-8 w-8 hover:bg-green-600 cursor-pointer "
-                            onClick={() => {
-                              setOptionClass("optionSel");
-                            }}
-                          >
-                            &#10004;
-                          </button>
-                        </div>
-                      </check>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-              <div className="bg-white p-4 mt-4 rounded-xl">
-                <div>
-                  <h4>Program Category</h4>
+                  <h4>Industry Category</h4>
                   <div>
                     <select
                       name=""
@@ -660,4 +491,4 @@ function editProgram({ program }) {
   );
 }
 
-export default editProgram;
+export default editIndustry;

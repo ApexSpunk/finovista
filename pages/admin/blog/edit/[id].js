@@ -312,7 +312,7 @@ function editPost({ posts }) {
   const uploadToServer = async (event) => {
     const body = new FormData();
     body.append("file", image);
-    const response = await fetch("/api/images", {
+    const response = await fetch("/api/imageUpload", {
       method: "POST",
       body,
     });

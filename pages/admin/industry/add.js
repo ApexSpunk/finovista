@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 
-
 const htmlToReactParser = new HtmlToReactParser();
 
 const importJodit = () => import("jodit-react");
@@ -19,21 +18,23 @@ const JoditEditor = dynamic(importJodit, {
   ssr: false,
 });
 
-function addPost() {
+function addIndustry() {
+
+
 
   const { data: session, status } = useSession()
+
   const router = useRouter();
   const editor = null;
   const [content, setContent] = useState("");
-  const [postTitle, setPostTitle] = useState("");
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState('');
-  const [categoryColor, setCategoryColor] = useState('');
+  const [industryTitle, setIndustryTitle] = useState("");
   const [thumbnail, setThumbnail] = useState(
     "https://reactnativecode.com/wp-content/uploads/2018/02/Default_Image_Thumbnail.png"
   );
   const [slug, setSlug] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState("");
 
   let config = {
     zIndex: 0,
@@ -215,37 +216,35 @@ function addPost() {
 
   const fetchCategories = async () => {
     const res = await fetch("/api/category");
-    const categories = await res.json();
-    setCategories(categories.category);
+    const cate = await res.json();
+    setCategories(cate.category);
   };
 
   useEffect(() => {
     fetchCategories();
-    console.log(categories);
   }, []);
 
-  async function publishPost() {
+  async function publishIndustry() {
     const reactElement = htmlToReactParser.parse(content);
     const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
     try {
-      const postData = {
-        postTitle,
+      const industryData = {
+        industryTitle,
         pageContent: reactHtml,
         thumbnail,
         slug,
         category,
-        categoryColor
       };
-      let response = await fetch(`../../api/posts`, {
+      let response = await fetch(`../../api/industries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(postData),
+        body: JSON.stringify(industryData),
       });
       let responseData = await response.json();
       console.log(responseData.success);
-      toast.success(`Post ${postTitle} Published`, {
+      toast.success(`Industry ${industryTitle} Published`, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -255,7 +254,7 @@ function addPost() {
         progress: undefined,
       });
       setTimeout(() => {
-        router.push("/admin/blog/edit/" + responseData.success.slug);
+        router.push("/admin/industry/edit/" + responseData.success.slug);
       }, 2000);
     } catch (error) {
       toast.error(`Slug Already Exist Please Check The URL`, {
@@ -291,13 +290,12 @@ function addPost() {
     setThumbnail(ress.data.Location);
   };
 
-  function handleTitleInput(postTitle) {
-    setPostTitle(postTitle);
-    postTitle = postTitle.split(" ");
-    postTitle = postTitle.join("-").toLowerCase();
-    setSlug(postTitle);
+  function handleTitleInput(industryTitle) {
+    setIndustryTitle(industryTitle);
+    industryTitle = industryTitle.split(" ");
+    industryTitle = industryTitle.join("-").toLowerCase();
+    setSlug(industryTitle);
   }
-
 
 
   if (status === "loading") {
@@ -307,6 +305,7 @@ function addPost() {
   if (status === "unauthenticated") {
     return <p>Access Denied</p>
   }
+
   return (
     <div>
       <div className="bg-[#f8f9fb]">
@@ -334,7 +333,7 @@ function addPost() {
                 <input
                   type="text"
                   className="font-[Poppins] w-full p-2 rounded-lg border text-xl box-border"
-                  placeholder="Post Title"
+                  placeholder="Industry Title"
                   onBlur={(cou) => {
                     handleTitleInput(cou.target.value);
                   }}
@@ -363,67 +362,24 @@ function addPost() {
                 </div>
                 <div className="grid mt-4 text-center">
                   <p className="py-2">status: {"Draft"}</p>
-                  <button className="previewBtn" onClick={publishPost}>
-                    Publish Post
+                  <button className="previewBtn" onClick={publishIndustry}>
+                    Publish Industry
                   </button>
-                  <Link href="/admin/blog">
+                  <Link href="/admin/industry">
                     <button className="redBtn mt-4">Cancel</button>
                   </Link>
                 </div>
               </div>
-              {/* <div className='bg-white p-4 mt-4 rounded-xl'>
-                                <div>
-                                    <h4>Program Details</h4>
-                                    <hr />
-                                </div>
-                                <div className='grid mt-4'>
-                                    <div>
-                                        <label className='text-sm text-gray-600'>Pr Location</label>
-                                        <input type="text" name="location" onChange={(loc) => setLocation(loc.target.value)} placeholder="Event Location" id="location" className='p-[6px] w-full rounded-md border pl-3 text-lg' />
-                                    </div>
-                                    <div className='grid grid-cols-2 gap-2'>
-                                        <div>
-                                            <label className='text-sm text-gray-600'>From Date</label>
-                                            <input type="date" onChange={(loc) => setFromDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
-                                        <div>
-                                            <label className='text-sm text-gray-600'>To Date</label>
-                                            <input type="date" onChange={(loc) => setToDate(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
-                                    </div>
-                                    <div className='grid grid-cols-2 gap-2'>
-                                        <div>
-                                            <label className='text-sm text-gray-600'>From Time</label>
-                                            <input type="time" onChange={(loc) => setFromTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
-                                        <div>
-                                            <label className='text-sm text-gray-600'>To Time</label>
-                                            <input type="time" onChange={(loc) => setToTime(loc.target.value)} className='p-[6px] w-full rounded-md border pl-3 text-lg' />                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className='text-sm text-gray-600 '>Event Type</label>
-                                        <select name="" id="" onChange={(loc) => setEventType(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
-                                            <option value="">Select Type</option>
-                                            <option value="internal">Internal</option>
-                                            <option value="external">External</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className='text-sm text-gray-600' >Select Mode</label>
-                                        <select name="" id="" onChange={(loc) => setEventMode(loc.target.value)} className='p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg'>
-                                            <option value="">Select Mode</option>
-                                            <option value="in-person">In-person</option>
-                                            <option value="hybrid">Hybrid</option>
-                                            <option value="virtual">Virtual</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> */}
               <div className="bg-white p-4 mt-4 rounded-xl">
                 <div>
-                  <h4>Event Category</h4>
+                  <h4>Industry Category</h4>
                   <div>
                     <select
                       name=""
                       id=""
-                      onChange={(loc) => { setCategory(loc.target.value) }}
+                      onChange={(loc) => {
+                        setCategory(loc.target.value);
+                      }}
                       className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg mt-3"
                     >
                       <option value="">Select Category</option>
@@ -470,4 +426,4 @@ function addPost() {
   );
 }
 
-export default addPost;
+export default addIndustry;
