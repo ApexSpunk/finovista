@@ -11,7 +11,6 @@ function Industry() {
         const getIndustries = async () => {
             const res = await fetch('/api/industries');
             const data = await res.json();
-            console.log(data, 'industries');
             setIndustries(data.Industries);
             setLoading(false);
         }

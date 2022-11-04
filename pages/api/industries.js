@@ -53,8 +53,8 @@ const handler = async (req, res) => {
     }
   } else {
     if (req.method == "GET") {
-      let Industrys = await Industry.find();
-      res.status(200).json({ Industrys });
+      let Industries = await Industry.find();
+      res.status(200).json({ Industries });
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }
