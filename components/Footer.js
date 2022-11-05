@@ -33,7 +33,7 @@ function Footer() {
                     <h2>Latest Posts</h2>
                     <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                     <div>
-                        <LatestPosts posts={3} type={'sidebar'} />
+                        <LatestPosts posts={3} type={'footer'} />
                     </div>
                 </div>
                 <div className='hidden md:block col-span-3 lg:col-span-2'>

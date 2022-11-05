@@ -11,24 +11,20 @@ export const config = {
     }
 };
 
-const s3 = new S3({
-    accessKeyId: process.env.S3_ACCESS_KEY,
-    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
-    region: process.env.S3_BUCKET_REGION,
-    Bucket: process.env.S3_BUCKET_NAME,
-});
 
-console.log(s3, 's3')
 
 
 const handler = async (req, res) => {
 
-    if (req.method === 'GET') {
-        res.status(200).json({ message: 'GET request received' });
-    }
-
     const token = await getToken({ req })
     if (token) {
+        const s3 = new S3({
+            accessKeyId: process.env.S3_ACCESS_KEY,
+            secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+            region: process.env.S3_BUCKET_REGION,
+            Bucket: process.env.S3_BUCKET_NAME,
+        });
+
 
         if (req.method == 'POST') {
             const form = new formidable.IncomingForm();
@@ -52,6 +48,8 @@ const handler = async (req, res) => {
                     res.status(400).json({ success: false, error });
                 }
             });
+        }else{
+            res.status(200).json({ message: 'This Method is not allowed' })
         }
     } else {
         res.status(401).json({ message: "Not authenticated" });

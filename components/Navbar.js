@@ -32,7 +32,7 @@ function Navbar() {
             </a>
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
               <Link href="/about">About Us</Link>
-              <Link href="#">Services</Link>
+              <Link href="/service">Services</Link>
               <Link href="/program">Programs</Link>
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
@@ -65,7 +65,7 @@ function Navbar() {
         <div className={"mobileMenu "+(isOpen ? "grid" : "hidden")}>
           <div>
             <Link href="/about">About Us</Link>
-            <Link href="#">Services</Link>
+            <Link href="/service">Services</Link>
             <Link href="/program">Programs</Link>
             <Link href='/events'> Events</Link>
             <Link href='/blog'>Blog</Link>
