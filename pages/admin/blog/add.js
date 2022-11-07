@@ -283,7 +283,7 @@ function addPost() {
   const uploadToServer = async (event) => {
     const body = new FormData();
     body.append("file", image);
-    const response = await fetch("/api/imageUpload", {
+    const response = await fetch("/api/media", {
       method: "POST",
       body,
     });
