@@ -18,7 +18,7 @@ module.exports = {
         destination: 'https://finovista.netlify.app/api/contacts',
       },
       {
-        source: '/api/imageUpload',
+        source: '/api/media',
         destination: 'https://thefinovista.netlify.app/api/imageUpload',
       }
     ]
