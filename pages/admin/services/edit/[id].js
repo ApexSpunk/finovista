@@ -312,6 +312,7 @@ function editService({ service }) {
       body,
     });
     let ress = await response.json();
+    console.log(ress, "ress");
     setThumbnail(ress.data.Location);
   };
 
