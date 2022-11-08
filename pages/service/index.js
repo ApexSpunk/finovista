@@ -26,6 +26,7 @@ function industry() {
                     </div>
                 </div>
                 <Footer />
+                <Footer />
             </div>
         </div>
     )

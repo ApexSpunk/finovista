@@ -1,10 +1,10 @@
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import connectDB from "../../middleware/mongoose";
 import Program from "../../models/Program";
 
 const handler = async (req, res) => {
-  const session = await getSession({ req })
-  if (session) {
+  const token = await getToken({ req })
+  if (token) {
 
     if (req.method == "GET") {
       let programs = await Program.find();

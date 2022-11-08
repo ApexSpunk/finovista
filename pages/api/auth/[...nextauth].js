@@ -9,8 +9,7 @@ export default NextAuth({
       name: "credentials",
       // fetch user from database
       async authorize(credentials) {
-        console.log("credentials", credentials);
-        // await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI);
         const user = await User.findOne({ email: credentials.email });
         if (
           user.email === credentials.email &&
@@ -30,7 +29,7 @@ export default NextAuth({
       return baseUrl
     },
     async session({ session, user, token }) {
-      return { ...session, user, token }
+      return session
     },
     async jwt({ token, user, account, profile, isNewUser }) {
       return token
@@ -39,6 +38,5 @@ export default NextAuth({
 
   pages: {
     signIn: "/auth/signin",
-    signOut: "/auth/signout",
   },
 });

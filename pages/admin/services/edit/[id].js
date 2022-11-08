@@ -307,12 +307,11 @@ function editService({ service }) {
   const uploadToServer = async (event) => {
     const body = new FormData();
     body.append("file", image);
-    const response = await fetch("/api/media", {
+    const response = await fetch("/api/imageUpload", {
       method: "POST",
       body,
     });
     let ress = await response.json();
-    console.log(ress, "ress");
     setThumbnail(ress.data.Location);
   };
 

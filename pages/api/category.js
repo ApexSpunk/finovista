@@ -1,11 +1,11 @@
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import connectDB from "../../middleware/mongoose";
 import Category from "../../models/Category";
 
 const handler = async (req, res) => {
 
-  const session = await getSession({ req })
-  if (session) {
+  const token = await getToken({ req })
+  if (token) {
     if (req.method == "GET") {
       let category = await Category.find();
       res.status(200).json({ category });
