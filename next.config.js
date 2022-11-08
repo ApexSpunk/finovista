@@ -19,7 +19,7 @@ module.exports = {
       },
       {
         source: '/api/imageUpload',
-        destination: 'https://thefinovista.netlify.app/api/imageUpload',
+        destination: 'https://thefinovista.netlify.app/api/uploadimage',
       }
     ]
   }
