@@ -18,10 +18,10 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "POST") {
-      const { postTitle, pageContent, thumbnail, slug, category } = req.body;
+      const { title, content, thumbnail, slug, category } = req.body;
       let e = new Post({
-        title: postTitle,
-        content: pageContent,
+        title: title,
+        content: content,
         thumbnail,
         created: Date.now(),
         slug,
@@ -30,7 +30,7 @@ const handler = async (req, res) => {
 
       await e.save();
 
-      res.status(200).json({ success: e });
+      res.status(200).json({ post: e });
     }
 
     if (req.method == "DELETE") {
@@ -40,10 +40,10 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "PUT") {
-      const { id, postTitle, pageContent, thumbnail, slug, category } = req.body;
+      const { id, title, content, thumbnail, slug, category } = req.body;
       await Post.findByIdAndUpdate(id, {
-        title: postTitle,
-        content: pageContent,
+        title: title,
+        content: content,
         thumbnail,
         slug,
         category,

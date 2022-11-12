@@ -77,6 +77,7 @@ function Editor({ api, type, method, singleApi }) {
             body,
         });
         let thumbImage = await thumbResponse.json();
+        console.log(thumbImage);
         setEditorData({ ...editorData, thumbnail: thumbImage.data.Location });
     };
 
@@ -160,6 +161,7 @@ function Editor({ api, type, method, singleApi }) {
                 body: JSON.stringify(postData),
             });
             let responseData = await response.json();
+            console.log(responseData, "response");
             toast.success(`${type} ${editorData.title} Published`, toastConfig);
             setTimeout(() => {
                 router.push(`/admin/${type}/edit/` + responseData.post.slug);

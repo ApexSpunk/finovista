@@ -10,7 +10,12 @@ const handler = async (req, res) => {
     if (token) {
 
         if ((req.method == 'GET')) {
-            let events = await Event.find()
+
+            let { page, limit } = req.query
+            if(!page) page = 1
+            if(!limit) limit = 10
+
+            let events = await Event.find().sort({fromDate: 'desc'}).skip((page - 1) * limit).limit(limit * 1)
             res.status(200).json({ events })
         }
 

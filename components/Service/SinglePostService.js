@@ -74,7 +74,7 @@ function SinglePostService(props) {
       ) : (<>
         <div className="eventPost">
           <div className="programPost__banner">
-            <img src={thumbnail} alt="" />
+            <img src={thumbnail} alt="" className="max-h-[500px] w-full object-cover" />
           </div>
           <div className="eventTitle mt-8">
             <h1>{title}</h1>

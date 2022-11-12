@@ -11,7 +11,7 @@ function SingleProgram(props) {
   return (
     <div onClick={handleClick}>
       <div>
-        <img src={blog.thumbnail} alt="" width='100%' />
+        <img src={blog.thumbnail} alt="" width='100%' className="max-h-[220px] object-cover" />
         <div>
           <div className="flex justify-between content-center">
             <div

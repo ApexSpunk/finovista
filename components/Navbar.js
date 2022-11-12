@@ -37,6 +37,7 @@ function Navbar() {
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
               <Link href="/industry">Industry</Link>
+              <Link href="/privacy-policy">Privacy</Link>
               {/* <a href="#">Resources</a> */}
             </div>
           </div>
@@ -70,6 +71,7 @@ function Navbar() {
             <Link href='/events'> Events</Link>
             <Link href='/blog'>Blog</Link>
             <Link href="/industry">Industry</Link>
+            <Link href="/privacy-policy">Privacy</Link>
             {/* <a href="#">Resources</a> */}
           </div>
         </div>

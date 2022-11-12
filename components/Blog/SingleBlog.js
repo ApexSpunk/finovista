@@ -16,7 +16,7 @@ function SingleBlog(props) {
   return (
     <div onClick={handleClick}>
       <div>
-        <img src={blog.thumbnail} alt="" />
+        <img src={blog.thumbnail} alt="" className="max-h-[220px] w-full object-cover" />
         <div>
           <div className="flex justify-between content-center">
             <div

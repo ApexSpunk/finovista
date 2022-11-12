@@ -73,9 +73,9 @@ function Home() {
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon2.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
                                             </div>
                                             <div>
-                                                <p className='text-xl font-semibold mt-2'>Business Consulting</p>
-                                                <p className='text-sm'>Our holistic approach for the International agencies on research project for implementation of Indian components, translate into guaranteed success</p>
-                                                <Link href='/services/business-consulting'>
+                                                <p className='text-xl font-semibold mt-2'>IN Country Representation</p>
+                                                <p className='text-sm'>Our holistic approach for the International agencies on research project for implementation of Indian components, translate into guaranteed success. We jointly formulate pragmatic strategies and implementing the activities as per the Mandate..</p>
+                                                <Link href='/service/in-country-representation'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>
@@ -90,9 +90,9 @@ function Home() {
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon1.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
                                             </div>
                                             <div>
-                                                <p className='text-xl font-semibold mt-2'>Business Consulting</p>
-                                                <p className='text-sm'>Our holistic approach for the International agencies on research project for implementation of Indian components, translate into guaranteed success</p>
-                                                <Link href='/services/business-consulting'>
+                                                <p className='text-xl font-semibold mt-2'>Capacity Building</p>
+                                                <p className='text-sm'>We provide Research and Analysis in Decision support for the Social and Development Project including Action, Monitoring, Evaluation and Learning (A-MEL).</p>
+                                                <Link href='/service/capacity-development'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>
@@ -107,9 +107,9 @@ function Home() {
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon4.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
                                             </div>
                                             <div>
-                                                <p className='text-xl font-semibold mt-2'>Business Consulting</p>
-                                                <p className='text-sm'>Our holistic approach for the International agencies on research project for implementation of Indian components, translate into guaranteed success</p>
-                                                <Link href='/services/business-consulting'>
+                                                <p className='text-xl font-semibold mt-2'>Technology Management</p>
+                                                <p className='text-sm'>Our Technology Management Group is a Global Technology Aggregator & Accelerator, engaged with innovation ecosystem with myriad stakeholders in various capacities helping them to leverage external sources of R&D and create value from intellectual property.</p>
+                                                <Link href='/service/technology-managemet'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>
@@ -124,9 +124,9 @@ function Home() {
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon3.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
                                             </div>
                                             <div>
-                                                <p className='text-xl font-semibold mt-2'>Business Consulting</p>
-                                                <p className='text-sm'>Our holistic approach for the International agencies on research project for implementation of Indian components, translate into guaranteed success</p>
-                                                <Link href='/services/business-consulting'>
+                                                <p className='text-xl font-semibold mt-2'>Project Management Consultancy</p>
+                                                <p className='text-sm'>We are full service Project Management Consultancy firm – we Conceptualize, Implement and Monitor.</p>
+                                                <Link href='/service/project-management-consultancy'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>

@@ -5,18 +5,19 @@ import EventSkeloton from './EventSkeloton'
 
 function Event() {
 
-  // Fetch all events from the database
-
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(9)
 
   useEffect(() => {
     setLoading(true)
     const getEvents = async () => {
       try {
-        const response = await fetch('/api/events')
+        const response = await fetch(`/api/events?page=${page}&limit=${limit}`)
         let ress = await response.json()
-        setEvents(ress.events)
+        const resData = ress.events
+        setEvents([...events, ...resData])
         setLoading(false)
       } catch (error) {
         console.log(error)
@@ -24,8 +25,7 @@ function Event() {
       }
     }
     getEvents()
-  }, [])
-
+  }, [page])
 
   return (
     <div>
@@ -50,11 +50,14 @@ function Event() {
             <EventSkeloton />
             <EventSkeloton />
           </div> : (
-            <div className='allEvents'>
-             { events.map((event) => (
-              <SingleEvent key={event._id} event={event} />
-              ))}
-            </div>
+            <>
+              <div className='allEvents'>
+                {
+                  events.map((event) => (
+                    event.fromDate > new Date().toISOString() && <SingleEvent key={event._id} event={event} />
+                  ))}
+              </div>
+            </>
           )
         }
       </div>
@@ -67,18 +70,12 @@ function Event() {
           </div>
         </div>
         <div className='allEvents' id='pastEvents'>
-          {/* <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} />
-          <SingleEvent title={'Cyber Week 2019'} fromDate={'30/08/2022'} toDate={'31/08/2022'} image={'https://finovista.com/wp-content/uploads/2020/05/MDP.png'} location={'Tel Aviv University, Israel'} /> */}
+          {events.map((event) => (
+            event.fromDate < new Date().toISOString() && <SingleEvent key={event._id} event={event} />
+          ))}
+        </div>
+        <div className='text-center'>
+          <button className='bg-[#2067ff] cur border-none text-white px-6 py-2 rounded-lg mt-6 mb-12' onClick={() => { setPage(page + 1); setLimit(9) }}>Load More</button>
         </div>
       </div>
     </div>
