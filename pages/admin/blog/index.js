@@ -14,13 +14,14 @@ function index() {
   const { data: session, status } = useSession()
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   // fetch all the events froma api
 
   const fetchPosts = async () => {
     setLoading(true);
     try {
-      const res = await fetch("../../api/posts");
+      const res = await fetch(`../../api/posts?page=${page}`);
       const allPosts = await res.json();
       setPosts(allPosts.posts);
       setLoading(false);
@@ -31,7 +32,7 @@ function index() {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   // delete an event
 
@@ -155,6 +156,13 @@ function index() {
                             </tbody>
                           </table>
                         )}
+                        <div className="flex items-center justify-center mt-4">
+                          <button onClick={() => setPage(page - 1)} disabled={page === 1} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">
+                            Prev
+                          </button>
+                          <p className="text-center w-12 h-2">{page}</p>
+                          <button onClick={() => setPage(page + 1)} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">Next</button>
+                        </div>
                       </div>
                     </div>
                   </div>
