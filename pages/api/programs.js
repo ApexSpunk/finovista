@@ -7,7 +7,10 @@ const handler = async (req, res) => {
   if (token) {
 
     if (req.method == "GET") {
-      let programs = await Program.find();
+      let { page, limit } = req.query
+      if (!page) page = 1
+      if (!limit) limit = 10
+      let programs = await Program.find().sort({ createdAt: "desc" }).skip((page - 1) * limit).limit(limit * 1)
       res.status(200).json({ programs });
     }
 
@@ -53,7 +56,10 @@ const handler = async (req, res) => {
     }
   } else {
     if (req.method == "GET") {
-      let programs = await Program.find();
+      let { page, limit } = req.query
+      if (!page) page = 1
+      if (!limit) limit = 10
+      let programs = await Program.find().sort({ createdAt: "desc" }).skip((page - 1) * limit).limit(limit * 1)
       res.status(200).json({ programs });
     } else {
       res.status(401).json({ message: "Not authenticated" });

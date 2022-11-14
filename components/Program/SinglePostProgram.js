@@ -16,28 +16,8 @@ function SinglePostProgram(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-  const [programs, setPrograms] = useState([]);
-  const [categories, setCategories] = useState([]);
 
 
-  useEffect(() => {
-    setLoading(true);
-    const getEvents = async () => {
-      try {
-        const cate = await fetch("/api/category");
-        let cateRes = await cate.json();
-        setCategories(cateRes.category);
-        const response = await fetch("/api/programs");
-        let ress = await response.json();
-        setPrograms(ress.programs);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setError(true);
-      }
-    };
-    getEvents();
-  }, []);
 
   const fetchEvent = async () => {
     setLoading(true);
@@ -91,7 +71,7 @@ function SinglePostProgram(props) {
           </div>
 
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {programs.map((program) => {
             let category = categories.find(
               (category) => category.category === program.category
@@ -105,7 +85,7 @@ function SinglePostProgram(props) {
 
             );
           })}
-        </div>
+        </div> */}
       </>
       )}
     </>

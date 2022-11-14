@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Parser from "html-react-parser";
 import SingleServiceSkeleton from "./SingleServiceSkeleton";
-import SingleService from "./SingleService";
+
 
 function SinglePostService(props) {
   const [loading, setLoading] = useState(true);
@@ -16,28 +16,10 @@ function SinglePostService(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-  const [services, setServices] = useState([]);
-  const [categories, setCategories] = useState([]);
+  
 
 
-  useEffect(() => {
-    setLoading(true);
-    const getEvents = async () => {
-      try {
-        const cate = await fetch("/api/category");
-        let cateRes = await cate.json();
-        setCategories(cateRes.category);
-        const response = await fetch("/api/services");
-        let ress = await response.json();
-        setServices(ress.services);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setError(true);
-      }
-    };
-    getEvents();
-  }, []);
+  
 
   const fetchEvent = async () => {
     setLoading(true);
@@ -91,21 +73,7 @@ function SinglePostService(props) {
           </div>
 
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((service) => {
-            let category = categories.find(
-              (category) => category.category === service.category
-            );
-            return (
-              <SingleService
-                key={service._id}
-                blog={service}
-                categoryColor={category ? category.categoryColor : "#2067ff"}
-              />
-
-            );
-          })}
-        </div>
+        
       </>
       )}
     </>

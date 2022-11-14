@@ -29,6 +29,7 @@ const programPost = () => {
             <Sidebar />
           </div>
         </div>
+        
         <Footer />
       </div>
     </div>

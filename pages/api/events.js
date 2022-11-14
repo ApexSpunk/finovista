@@ -12,10 +12,10 @@ const handler = async (req, res) => {
         if ((req.method == 'GET')) {
 
             let { page, limit } = req.query
-            if(!page) page = 1
-            if(!limit) limit = 10
+            if (!page) page = 1
+            if (!limit) limit = 10
 
-            let events = await Event.find().sort({fromDate: 'desc'}).skip((page - 1) * limit).limit(limit * 1)
+            let events = await Event.find().sort({ fromDate: 'desc' }).skip((page - 1) * limit).limit(limit * 1)
             res.status(200).json({ events })
         }
 
@@ -42,7 +42,11 @@ const handler = async (req, res) => {
         }
     } else {
         if ((req.method == 'GET')) {
-            let events = await Event.find()
+            let { page, limit } = req.query
+            if (!page) page = 1
+            if (!limit) limit = 10
+
+            let events = await Event.find().sort({ fromDate: 'desc' }).skip((page - 1) * limit).limit(limit * 1)
             res.status(200).json({ events })
         } else {
             res.status(401).json({ message: "Not authenticated" });

@@ -4,9 +4,35 @@ import Head from "next/head";
 import Footer from "../../components/Footer";
 import Sidebar from "../../components/Sidebar";
 import SinglePostService from "../../components/Service/SinglePostService";
+import { useEffect, useState } from "react";
+import SingleService from "../../components/Service/SingleService";
+import Link from "next/link";
+import RelatedPost from "../../components/RelatedPost";
 
 const servicePost = () => {
   const router = useRouter();
+  const [services, setServices] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    const getEvents = async () => {
+      try {
+        const cate = await fetch("/api/category");
+        let cateRes = await cate.json();
+        setCategories(cateRes.category);
+        const response = await fetch(`/api/services?limit=3`);
+        let ress = await response.json();
+        setServices(ress.services);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(true);
+      }
+    };
+    getEvents();
+  }, []);
 
   const { slug } = router.query;
 
@@ -29,6 +55,7 @@ const servicePost = () => {
             <Sidebar />
           </div>
         </div>
+        <RelatedPost type={"services"} link='service' data={services} loading={loading} />
         <Footer />
       </div>
     </div>
