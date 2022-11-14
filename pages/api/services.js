@@ -10,7 +10,7 @@ const handler = async (req, res) => {
       let { page, limit } = req.query
       if (!page) page = 1
       if (!limit) limit = 10
-      let services = await Service.find().sort({ createdAt: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+      let services = await Service.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
       res.status(200).json({ services });
     }
 
@@ -57,7 +57,7 @@ const handler = async (req, res) => {
       let { page, limit } = req.query
       if (!page) page = 1
       if (!limit) limit = 10
-      let services = await Service.find().sort({ createdAt: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+      let services = await Service.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
       res.status(200).json({ services });
     } else {
       res.status(401).json({ message: "Not authenticated" });

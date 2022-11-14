@@ -7,7 +7,7 @@ const handler = async (req, res) => {
   if (token) {
 
     if (req.method == "GET") {
-      let Industries = await Industry.find();
+      let Industries = await Industry.find().sort({ created: "desc" })
       res.status(200).json({ Industries });
     }
 
@@ -53,7 +53,7 @@ const handler = async (req, res) => {
     }
   } else {
     if (req.method == "GET") {
-      let Industries = await Industry.find();
+      let Industries = await Industry.find().sort({ created: "desc" })
       res.status(200).json({ Industries });
     } else {
       res.status(401).json({ message: "Not authenticated" });
