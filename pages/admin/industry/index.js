@@ -24,7 +24,7 @@ function index() {
     try {
       const res = await fetch("../../api/industries");
       const indus = await res.json();
-      setIndustries(indus.Industries);
+      setIndustries(indus.industries);
       setLoading(false);
     } catch (error) {
       console.log(error);
