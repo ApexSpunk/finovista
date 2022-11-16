@@ -39,7 +39,7 @@ function GridPost({ type, api, item, link }) {
                         posts.map((post) => (
                             <Link href={`/${link}/${post.slug}`} key={post.id}>
                                 <div className='bg-gray-100 p-4 transition duration-500 ease-in-out transform hover:scale-105 rounded-xl cursor-pointer'>
-                                    <img src={post.thumbnail} alt='' className="max-h-[220px] w-full object-cover" />
+                                    <img src={post.thumbnail} alt='' className="w-full object-cover" />
                                     <p className='text-xl font-semibold mt-4'>{post.title}</p>
                                 </div>
                             </Link>

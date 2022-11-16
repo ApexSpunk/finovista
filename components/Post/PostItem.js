@@ -11,7 +11,7 @@ function PostItem(props) {
   return (
     <div onClick={handleClick}>
       <div>
-        <img src={post.thumbnail} alt="" className="max-h-[220px] w-full object-cover" />
+        <img src={post.thumbnail} alt="" className="w-full object-cover" />
         <div>
           <div className="flex justify-between content-center">
             <div
