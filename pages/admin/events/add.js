@@ -3,8 +3,7 @@ import React, { useState, useRef, useMemo, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import ImageUploader from '../../../components/ImageUploader';
-import AddMedia from '../../../components/AddMedia';
+import AddMedia from '../../../components/Media/AddMedia'
 const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
 import { useRouter } from 'next/router';

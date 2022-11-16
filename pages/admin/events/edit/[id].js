@@ -1,13 +1,11 @@
 import Head from 'next/head'
-import React, { useState, useRef, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic';
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-import { Router } from 'next/router';
-import ImageUploader from '../../../../components/ImageUploader';
-import AddMedia from '../../../../components/AddMedia';
-import { faCalendarAlt, faClock, faLocationDot, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import AddMedia from '../../../../components/Media/AddMedia';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
