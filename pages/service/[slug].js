@@ -47,7 +47,7 @@ const servicePost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-          <SinglePost api={'services'} type={'services'} />
+          <SinglePost api={'singleService'} type={'services'} />
           </div>
           <div className="">
             <Sidebar />
