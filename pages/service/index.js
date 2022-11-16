@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-import Sidebar from '../../components/Sidebar'
-import Service from '../../components/Service/Service'
+import Navbar from '../../components/Utils/Navbar'
+import Footer from '../../components/Utils/Footer'
+import Sidebar from '../../components/Utils/Sidebar'
+import GridPost from '../../components/Post/GridPost'
 
 function industry() {
     return (
@@ -19,7 +19,7 @@ function industry() {
                 <Navbar />
                 <div className="eventPostMain">
                     <div>
-                        <Service />
+                    <GridPost type={'services'} api={'services'} link='service' item='service' />
                     </div>
                     <div className="">
                         <Sidebar />

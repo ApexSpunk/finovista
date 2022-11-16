@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Router from "next/router";
 
-function SingleProgram(props) {
-  const { blog, categoryColor } = props;
+function PostItem(props) {
+  const { post, categoryColor, link } = props;
 
   const handleClick = () => {
-    Router.push(`/program/${blog.slug}`);
+    Router.push(`/${link}/${post.slug}`);
   };
 
   return (
     <div onClick={handleClick}>
       <div>
-        <img src={blog.thumbnail} alt="" width='100%' className="max-h-[220px] object-cover" />
+        <img src={post.thumbnail} alt="" className="max-h-[220px] w-full object-cover" />
         <div>
           <div className="flex justify-between content-center">
             <div
@@ -20,14 +20,15 @@ function SingleProgram(props) {
                 backgroundColor: categoryColor,
               }}
             >
-              <p>{blog.category}</p>
+              <p>{post.category}</p>
             </div>
+            <p>{new Date(post.created).toDateString()}</p>
           </div>
-          <h4>{blog.title}</h4>
+          <h4>{post.title}</h4>
         </div>
       </div>
     </div>
   );
 }
 
-export default SingleProgram;
+export default PostItem;

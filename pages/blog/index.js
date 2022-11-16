@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-import Blog from '../../components/Blog/Blog'
+import Navbar from '../../components/Utils/Navbar'
+import Footer from '../../components/Utils/Footer'
+import Post from '../../components/Post/Post'
 
-function events() {
+function blog() {
     return (
         <div>
             <Head>
@@ -16,11 +16,11 @@ function events() {
             </Head>
             <div>
                 <Navbar />
-                <Blog />
+                <Post type='posts' link='blog' api='posts' item='blog' />
                 <Footer />
             </div>
         </div>
     )
 }
 
-export default events
+export default blog

@@ -1,5 +1,4 @@
 import React from "react";
-import Home from "../../components/admin/Home";
 import Navbar from "../../components/admin/Navbar";
 import Topbar from "../../components/admin/Topbar";
 import Head from "next/head";

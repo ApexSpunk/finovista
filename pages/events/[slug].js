@@ -1,9 +1,9 @@
 import { useRouter, useState } from 'next/router'
-import Navbar from '../../components/Navbar'
 import Head from 'next/head'
-import Footer from '../../components/Footer'
-import Sidebar from '../../components/Sidebar'
+import Footer from '../../components/Utils/Footer'
+import Sidebar from '../../components/Utils/Sidebar'
 import SinlePostEvent from '../../components/Event/SinglePostEvent'
+import Navbar from '../../components/Utils/Navbar'
 
 const eventPost = () => {
 

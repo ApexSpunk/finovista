@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
 import Event from '../../components/Event/Event'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
+import Navbar from '../../components/Utils/Navbar'
+import Footer from '../../components/Utils/Footer'
 
 function events() {
     return (

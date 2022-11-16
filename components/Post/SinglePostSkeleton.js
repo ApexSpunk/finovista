@@ -2,7 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faCalendarAlt, faPlus, faClock } from '@fortawesome/free-solid-svg-icons'
 
-function SingleEventSkeleton() {
+function SinglePostSkeleton() {
     return (
         <div className=''>
             <div className="animate-pulse">
@@ -50,4 +50,4 @@ function SingleEventSkeleton() {
     )
 }
 
-export default SingleEventSkeleton
+export default SinglePostSkeleton

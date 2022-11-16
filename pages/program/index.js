@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
-import Navbar from '../../components/Navbar'
-import Footer from '../../components/Footer'
-import Program from '../../components/Program/program'
+import Navbar from '../../components/Utils/Navbar'
+import Footer from '../../components/Utils/Footer'
+import Post from '../../components/Post/Post'
 
 function events() {
     return (
@@ -16,7 +16,7 @@ function events() {
             </Head>
             <div>
                 <Navbar />
-                <Program />
+                <Post type='programs' link='program' api='programs' item='programs' />
                 <Footer />
             </div>
         </div>

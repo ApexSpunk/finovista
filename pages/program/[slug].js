@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Utils/Navbar";
 import Head from "next/head";
-import Footer from "../../components/Footer";
-import Sidebar from "../../components/Sidebar";
-import SinglePostProgram from "../../components/Program/SinglePostProgram";
-import RelatedPost from "../../components/RelatedPost";
+import Footer from "../../components/Utils/Footer";
+import Sidebar from "../../components/Utils/Sidebar";
+import RelatedPost from "../../components/Utils/RelatedPost";
+import SinglePost from "../../components/Post/SinglePost";
 import { useEffect, useState } from "react";
 
 const programPost = () => {
@@ -47,7 +47,7 @@ const programPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePostProgram />
+            <SinglePost api='programs' type='programs' />
           </div>
           <div className="">
             <Sidebar />

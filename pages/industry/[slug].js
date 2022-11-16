@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Utils/Navbar";
 import Head from "next/head";
-import Footer from "../../components/Footer";
-import Sidebar from "../../components/Sidebar";
-import SinglePostIndustry from "../../components/Industry/SinglePostIndustry";
+import Footer from "../../components/Utils/Footer";
+import Sidebar from "../../components/Utils/Sidebar";
+import SinglePost from "../../components/Post/SinglePost";
 
 const industryPost = () => {
   const router = useRouter();
@@ -23,7 +23,7 @@ const industryPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePostIndustry />
+            <SinglePost api={'singleIndustry'} type={'industries'} />
           </div>
           <div className="">
             <Sidebar />

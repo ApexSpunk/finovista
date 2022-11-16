@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Home from "../components/Home";
-import Footer from "../components/Footer";
+import Navbar from "../components/Utils/Navbar";
+import Footer from "../components/Utils/Footer";
+import Home from "../components/Pages/Home";
 
 function home() {
   return (

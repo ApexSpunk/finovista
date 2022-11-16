@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddMedia from "../AddMedia";
+import AddMedia from "../Media/AddMedia";
 const ReactDOMServer = require("react-dom/server");
 const HtmlToReactParser = require("html-to-react").Parser;
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import EditorConfig from "./config";
+import slugify from "slugify";
 
 
 const htmlToReactParser = new HtmlToReactParser();
@@ -37,7 +38,8 @@ function Editor({ api, type, method, singleApi }) {
 
 
     const [editorData, setEditorData] = useState({
-        thumbnail: "",
+        id: "",
+        thumbnail: "https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/admin-ajax.png",
         title: "",
         content: "",
         slug: "",
@@ -48,9 +50,6 @@ function Editor({ api, type, method, singleApi }) {
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState(null);
-    const handleInput = (e) => {
-        setEditorData({ ...editorData, [e.target.name]: e.target.value });
-    };
 
     function handleClick() {
         setShowModal(!showModal);
@@ -72,13 +71,12 @@ function Editor({ api, type, method, singleApi }) {
     const uploadToServer = async (event) => {
         const body = new FormData();
         body.append("file", image);
-        const thumbResponse = await fetch("/api/imageUpload", {
+        const response = await fetch("/api/imageUpload", {
             method: "POST",
             body,
         });
-        let thumbImage = await thumbResponse.json();
-        console.log(thumbImage);
-        setEditorData({ ...editorData, thumbnail: thumbImage.data.Location });
+        let ress = await response.json();
+        setEditorData({ ...editorData, thumbnail: ress.data.Location });
     };
 
     useEffect(() => {
@@ -86,39 +84,52 @@ function Editor({ api, type, method, singleApi }) {
     }, []);
 
     function handleTitleInput(postTitle) {
-        const slug = postTitle
-            .toLowerCase()
-            .replace(/ /g, "-")
-            .replace(/[^\w-]+/g, "");
-        setEditorData({ ...editorData, title: postTitle, slug });
+        const slug = slugify(postTitle, {
+            replacement: '-',
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: 'vi'
+        })
+        setEditorData({ ...editorData, title: postTitle, slug: slug });
     }
 
-    if (method == "edit") {
-        console.log('sdsdsd')
+
+    if (method === "edit") {
+        const fetchPost = async () => {
+            setLoading(true);
+            if (router.isReady) {
+                const { id } = router.query;
+                if (!id) return null;
+                try {
+                    const res = await fetch(`/api/${singleApi}?slug=${id}`);
+                    const post = await res.json();
+                    setEditorData({
+                        ...editorData,
+                        title: post[api][0].title,
+                        content: post[api][0].content,
+                        thumbnail: post[api][0].thumbnail,
+                        slug: post[api][0].slug,
+                        category: post[api][0].category,
+                        id: post[api][0]._id,
+                    });
+                    setLoading(false);
+                } catch (err) {
+                    setError(true);
+                    setLoading(true);
+                }
+            }
+        };
+
         useEffect(() => {
-            const fetchPost = async () => {
-                const res = await fetch(`/api/${singleApi}?slug=${router.query.id}`);
-                const post = await res.json();
-                console.log(api, post, 'posts')
-                console.log(post[api][0], "post")
-                // setEditorData({
-                //     ...editorData,
-                //     title: post[api][0].title,
-                //     content: post[api][0].content,
-                //     thumbnail: post[api][0].thumbnail,
-                //     slug: post[api][0].slug,
-                //     category: post[api][0].category,
-                // });
-            };
             fetchPost();
-        }, []);
+        }, [router.isReady && router.query.id]);
     }
 
-    {
-        console.log(editorData);
-    }
 
     async function updatePost() {
+        const reactElement = htmlToReactParser.parse(editorData.content);
+        const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
         setLoading(true);
         const res = await fetch(`/api/${api}`, {
             method: "PUT",
@@ -126,9 +137,9 @@ function Editor({ api, type, method, singleApi }) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                id: router.query.id,
-                postTitle: editorData.title,
-                pageContent: editorData.content,
+                id: editorData.id,
+                title: editorData.title,
+                content: reactHtml,
                 thumbnail: editorData.thumbnail,
                 slug: editorData.slug,
                 category: editorData.category,
@@ -161,10 +172,9 @@ function Editor({ api, type, method, singleApi }) {
                 body: JSON.stringify(postData),
             });
             let responseData = await response.json();
-            console.log(responseData, "response");
             toast.success(`${type} ${editorData.title} Published`, toastConfig);
             setTimeout(() => {
-                router.push(`/admin/${type}/edit/` + responseData.post.slug);
+                router.push(`/admin/${type}/edit/` + editorData.slug);
             }, 2000);
         } catch (error) {
             toast.error(`Slug Already Exist Please Check The URL`, toastConfig);
@@ -207,17 +217,19 @@ function Editor({ api, type, method, singleApi }) {
                                     type="text"
                                     className="font-[Poppins] w-full p-2 rounded-lg border text-xl box-border"
                                     placeholder="Post Title"
+                                    value={editorData.title}
                                     onBlur={(cou) => {
                                         handleTitleInput(cou.target.value);
                                     }}
                                     name="title"
-                                    // value={editorData.title}
+                                    onChange={(cou) => setEditorData({ ...editorData, title: cou.target.value })}
+                                // value={editorData.title}
                                 />
                                 <div className="flex justify-between">
-                                    <h4 className="font-[500] my-2">
+                                    <h4 className="font-[500] my-5">
                                         Permalink: &nbsp;<a href="#">{editorData.slug}</a>
                                     </h4>
-                                    <button onClick={handleClick}>Add Media</button>
+                                    <button onClick={() => setShowModal(!showModal)} className="bg-blue-500 border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-2 font-[500] text-white">Add Media</button>
                                 </div>
                             </div>
                             <JoditEditor
@@ -257,6 +269,7 @@ function Editor({ api, type, method, singleApi }) {
                                             id=""
                                             onChange={(loc) => { setEditorData({ ...editorData, category: loc.target.value }); }}
                                             className="p-2 rounded-md border border-gray-300 w-full bg-transparent text-lg mt-3"
+                                            value={editorData.category}
                                         >
                                             <option value="">Select Category</option>
                                             {categories.map((cat) => {
@@ -274,7 +287,7 @@ function Editor({ api, type, method, singleApi }) {
                                 <div>
                                     <h4>Add Thumbnail</h4>
                                     <div>
-                                        <img src='./Default_Image_Thumbnail.png' alt="" className="w-full" />
+                                        <img src={editorData.thumbnail} alt="" className="w-full max-h-44 object-cover" />
                                         <input
                                             name="myImage"
                                             onChange={uploadThumbnail}

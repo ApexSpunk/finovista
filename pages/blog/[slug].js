@@ -1,9 +1,9 @@
 import { useRouter, useState } from "next/router";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Utils/Navbar";
 import Head from "next/head";
-import Footer from "../../components/Footer";
-import Sidebar from "../../components/Sidebar";
-import SingleBlogPost from "../../components/Blog/SingleBlogPost";
+import Footer from "../../components/Utils/Footer";
+import Sidebar from "../../components/Utils/Sidebar";
+import SinglePost from "../../components/Post/SinglePost";
 
 const programPost = () => {
   const router = useRouter();
@@ -23,13 +23,13 @@ const programPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SingleBlogPost />
+            <SinglePost api='singlePost' type='posts' />
           </div>
           <div className="">
             <Sidebar />
           </div>
         </div>
-        
+
         <Footer />
       </div>
     </div>

@@ -15,10 +15,10 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "POST") {
-      const { programTitle, pageContent, thumbnail, slug, category } = req.body;
+      const { title, content, thumbnail, slug, category } = req.body;
       let e = new Program({
-        title: programTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         created: Date.now(),
         slug,
@@ -39,15 +39,15 @@ const handler = async (req, res) => {
     if (req.method == "PUT") {
       const {
         id,
-        programTitle,
-        pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category
       } = req.body;
       await Program.findByIdAndUpdate(id, {
-        title: programTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category

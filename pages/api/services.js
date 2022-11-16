@@ -15,10 +15,10 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "POST") {
-      const { serviceTitle, pageContent, thumbnail, slug, category } = req.body;
+      const { title, content, thumbnail, slug, category } = req.body;
       let e = new Service({
-        title: serviceTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         created: Date.now(),
         slug,
@@ -37,15 +37,15 @@ const handler = async (req, res) => {
     if (req.method == "PUT") {
       const {
         id,
-        serviceTitle,
-        pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category
       } = req.body;
       await Service.findByIdAndUpdate(id, {
-        title: serviceTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category

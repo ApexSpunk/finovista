@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AboutUs from "../components/AboutUs";
+import Navbar from "../components/Utils/Navbar";
+import Footer from "../components/Utils/Footer";
+import AboutUs from "../components/Pages/AboutUs";
 
 function About() {
     return (
@@ -132,7 +132,7 @@ function About() {
                                 <p className='mt-1 text-md text-gray-500 mx-5 text-left'>
                                     Our aim is to provide seamless services through a multidisciplinary team that brings unmatchable skills, global network & deep industry knowledge
                                 </p>
-                                <p className='mt-1 text-md text-gray-500 mx-5 text-left mt-12'>
+                                <p className='text-md text-gray-500 mx-5 text-left mt-12'>
                                     Finovista’s core strength lies in its: –
                                 </p>
                                 <li className='mt-1 text-md text-gray-500 mx-5 text-left'>

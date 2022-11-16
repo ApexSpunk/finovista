@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import React from 'react'
-import Footer from '../components/Footer'
-import Navbar from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
+import Footer from '../components/Utils/Footer'
+import Navbar from '../components/Utils/Navbar'
+import Sidebar from '../components/Utils/Sidebar'
 
 function privacy() {
     return (

@@ -8,14 +8,14 @@ const handler = async (req, res) => {
 
     if (req.method == "GET") {
       let Industries = await Industry.find().sort({ created: "desc" })
-      res.status(200).json({ Industries });
+      res.status(200).json({ industries: Industries });
     }
 
     if (req.method == "POST") {
-      const { industryTitle, pageContent, thumbnail, slug, category } = req.body;
+      const { title, content, thumbnail, slug, category } = req.body;
       let e = new Industry({
-        title: industryTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         created: Date.now(),
         slug,
@@ -36,15 +36,15 @@ const handler = async (req, res) => {
     if (req.method == "PUT") {
       const {
         id,
-        industryTitle,
-        pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category
       } = req.body;
       await Industry.findByIdAndUpdate(id, {
-        title: industryTitle,
-        content: pageContent,
+        title,
+        content,
         thumbnail,
         slug,
         category
@@ -54,7 +54,7 @@ const handler = async (req, res) => {
   } else {
     if (req.method == "GET") {
       let Industries = await Industry.find().sort({ created: "desc" })
-      res.status(200).json({ Industries });
+      res.status(200).json({ industries: Industries });
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }

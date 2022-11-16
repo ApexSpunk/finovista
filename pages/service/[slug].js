@@ -1,13 +1,11 @@
 import { useRouter } from "next/router";
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Utils/Navbar";
 import Head from "next/head";
-import Footer from "../../components/Footer";
-import Sidebar from "../../components/Sidebar";
-import SinglePostService from "../../components/Service/SinglePostService";
+import Footer from "../../components/Utils/Footer";
+import Sidebar from "../../components/Utils/Sidebar";
 import { useEffect, useState } from "react";
-import SingleService from "../../components/Service/SingleService";
-import Link from "next/link";
-import RelatedPost from "../../components/RelatedPost";
+import RelatedPost from "../../components/Utils/RelatedPost";
+import SinglePost from "../../components/Post/SinglePost";
 
 const servicePost = () => {
   const router = useRouter();
@@ -49,7 +47,7 @@ const servicePost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePostService />
+          <SinglePost api={'services'} type={'services'} />
           </div>
           <div className="">
             <Sidebar />
