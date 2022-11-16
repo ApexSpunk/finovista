@@ -47,7 +47,7 @@ const programPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePost api='programs' type='programs' />
+            <SinglePost api='singleProgram' type='programs' />
           </div>
           <div className="">
             <Sidebar />
