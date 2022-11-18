@@ -42,7 +42,7 @@ function Navbar() {
               {/* <a href="#">Resources</a> */}
             </div>
             <div className="bottom mt-2">
-              <a href="/contacts" className="hidden xl:block">
+              <a href="/contact" className="hidden xl:block">
                 Contact Us
               </a>
               {/* <a href="Day-5/SignIn.html" className="hidden lg:flex">Sign In</a>
