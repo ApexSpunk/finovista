@@ -30,6 +30,8 @@ function Navbar() {
                 />
               </div>
             </a>
+          </div>
+          <div className="menu-div gap-8">
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
               <Link href="/about">About Us</Link>
               <Link href="/service">Services</Link>
@@ -37,33 +39,33 @@ function Navbar() {
               <Link href='/events'> Events</Link>
               <Link href='/blog'>Blog</Link>
               <Link href="/industry">Industry</Link>
-              <Link href="/privacy-policy">Privacy</Link>
               {/* <a href="#">Resources</a> */}
             </div>
-          </div>
-          <div className="bottom">
-            <a href="/contacts" className="hidden xl:block">
-              Contact Us
-            </a>
-            {/* <a href="Day-5/SignIn.html" className="hidden lg:flex">Sign In</a>
+            <div className="bottom mt-2">
+              <a href="/contacts" className="hidden xl:block">
+                Contact Us
+              </a>
+              {/* <a href="Day-5/SignIn.html" className="hidden lg:flex">Sign In</a>
             <a href="/contact" className="hidden lg:block">Contact Us</a> */}
-            <div className="flex lg:hidden">
-              <div className={"ham "+ (isOpen ? "hidden" : "block")} onClick={() => setIsOpen(!isOpen)}>
-                <img
-                  src="https://static.thenounproject.com/png/1614628-200.png"
-                  alt=""
-                />
-              </div>
-              <div className={"ham1 " + (isOpen ? "block" : "hidden")} onClick={() => setIsOpen(!isOpen)}>
-                <img
-                  src="https://p.kindpng.com/picc/s/67-679368_black-cross-png-transparent-png.png"
-                  alt=""
-                />
+              <div className="flex lg:hidden">
+                <div className={"ham " + (isOpen ? "hidden" : "block")} onClick={() => setIsOpen(!isOpen)}>
+                  <img
+                    src="https://static.thenounproject.com/png/1614628-200.png"
+                    alt=""
+                  />
+                </div>
+                <div className={"ham1 " + (isOpen ? "block" : "hidden")} onClick={() => setIsOpen(!isOpen)}>
+                  <img
+                    src="https://p.kindpng.com/picc/s/67-679368_black-cross-png-transparent-png.png"
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
           </div>
+
         </div>
-        <div className={"mobileMenu "+(isOpen ? "grid" : "hidden")}>
+        <div className={"mobileMenu " + (isOpen ? "grid" : "hidden")}>
           <div>
             <Link href="/about">About Us</Link>
             <Link href="/service">Services</Link>

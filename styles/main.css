@@ -133,6 +133,7 @@
 .bottom {
     display: flex;
     gap: 20px;
+    justify-content: center;
 }
 
 .menu-links {

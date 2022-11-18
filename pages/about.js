@@ -36,20 +36,21 @@ function About() {
                                                     <div>
                                                         <img
                                                             className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
-                                                            src='https://girlsinc.org/app/uploads/2017/06/rebecca_thumb-1.jpg'
+                                                            src='./team/team1.jpg'
                                                             alt=''
                                                         />
                                                     </div>
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Tom Cook
+                                                        Dr. Anshika Singh
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>CEO</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Research and Programme Management Associate</p>
 
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-base text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa libero labore natus.</dd>
+                                                        <dd className='text-sm text-gray-500'>Anshika Singh did Master’s in Environmental Sciences from Banaras Hindu University and PhD in Biological Sciences She has been involved in number of R&D projects at CSIR_NEERI including, Biological Assessment under EIA study
+                                                        </dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -60,19 +61,23 @@ function About() {
                                                     <div>
                                                         <img
                                                             className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
-                                                            src='https://girlsinc.org/app/uploads/2017/06/rebecca_thumb-1.jpg'
+                                                            src='./team/team2.jpeg'
                                                             alt=''
                                                         />
                                                     </div>
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Tom Cook
+                                                    Gautam Kumar Jha
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>CEO</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Public Relation</p>
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-base text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa libero labore natus.</dd>
+                                                        <dd className='text-sm text-gray-500'>My name is Gautam Kumar Jha, and I specialise in marketing. I have prior expertise with
+                                                            digital and social media marketing, In my present position, I am in charge of public relations, which includes creating strategic
+                                                            alliances.
+
+                                                        </dd>
                                                     </dl>
                                                 </div>
                                             </div>
@@ -83,19 +88,19 @@ function About() {
                                                     <div>
                                                         <img
                                                             className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
-                                                            src='https://girlsinc.org/app/uploads/2017/06/rebecca_thumb-1.jpg'
+                                                            src='./team/team3.jpeg'
                                                             alt=''
                                                         />
                                                     </div>
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Tom Cook
+                                                    Vandana Seth
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>CEO</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Assistant Manager – HR & Admin</p>
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-base text-gray-500'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa libero labore natus.</dd>
+                                                        <dd className='text-sm text-gray-500'>Vandana did B.Com from Bharti College, Delhi University, Master’s in Computer Application from IGNOU . She has been involved in HR and Customer Care Executive role.  She is currently working as an Assistant Manager HR & Admin at Finovista.</dd>
                                                     </dl>
                                                 </div>
                                             </div>

@@ -23,7 +23,7 @@ function Footer() {
                     <div>
                         <a href="#">Services</a>
                         <a href="#">Testimonials</a>
-                        <a href="#">Privacy Policy</a>
+                        <a href="/privacy-policy">Privacy Policy</a>
                         <a href="#">BLogs And Stories</a>
                         <a href="#">Job Opporunity</a>
                         <a href="#">Business Analysis</a>
