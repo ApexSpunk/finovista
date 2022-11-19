@@ -35,7 +35,7 @@ function LatestPosts({ type }) {
             {
                 posts.map((post, index) => (
                     <Link href={`/blog/${post.slug}`} key={index}>
-                        <div>
+                        <div className='cursor-pointer'>
                             <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
                             <div>
                                 <h4>{post.title.substring(0, 30)}...</h4>

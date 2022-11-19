@@ -26,7 +26,7 @@ function About() {
                             <div className='mt-12 text-center'>
                                 <h2 className='text-3xl font-extrabold text-gray-900 sm:text-4xl'> Our Team </h2>
                                 <p className='mt-4 text-lg text-gray-500'>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa libero labore natus.
+                                    We are a team of passionate and dedicated individuals who are committed to helping you achieve your goals.
                                 </p>
                                 <div className='mt-6'>
                                     <div className='grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3'>
@@ -187,7 +187,7 @@ function About() {
                             </div>
                         </div>
                         <div className='mt-12 text-center'>
-                            <img src="/img/about.jpg" alt="about" className="w-full object-cover" />
+                            <img src="/team/teamm.jpg" alt="about" className="w-full object-cover" />
                         </div>
                         <div className='mt-12 text-center'>
                             <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>
@@ -200,7 +200,7 @@ function About() {
                                     <div>
                                         <h2 className='text-3xl font-bold text-gray-900 sm:text-4xl'> Our Vision </h2>
                                         <p className='mt-4 text-lg text-gray-500 mx-5'>
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa libero labore natus.
+                                            Vision is to be a leading global consulting firm, providing innovative solutions to our clients and helping them to achieve their goals. We are committed to provide the best quality services to our clients and to be a trusted partner to them.
                                         </p>
                                     </div>
                                 </div>
@@ -276,7 +276,7 @@ function About() {
                             </div>
 
                         </div>
-                        <img src='https://circaworks.com/wp-content/uploads/2020/12/what-makes-a-good-team.jpg' alt='about' className='w-full h-96 object-cover my-12' />
+                        <img src='./img/about.jpg' alt='about' className='w-full h-96 object-cover my-12' />
                     </div>
                 </div>
 

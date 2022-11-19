@@ -10,8 +10,7 @@ function Navbar() {
       <div className="nav-wrapper">
         <div className="banner">
           <p>
-            Learn how to build visual and interactive apps using Interface
-            Designer
+            We Helped Over 25 Programs And Supported Over 300 Startups & Entrepreneurs.
           </p>
         </div>
         <div className="menu">

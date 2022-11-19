@@ -43,7 +43,7 @@ function Footer() {
             <div className='footer-bottom text-center'>
                 <div className='grid grid-cols-1 md:flex mx-[5%] xl:mx-[10%]'>
                     <a href="/"><img src="../img/finovistaLogo.png" alt="" className='filter brightness-0 invert mx-0 md:my-5' /></a>
-                    <p>Copyrights © 2022 <span className=' text-blue-400'>Finovista.</span> All Right Reserved <span className=' text-blue-400'>♥</span></p>
+                    <p>Copyrights © 2022 <span className=' text-blue-400'>Finovista.</span> Designed By <span className=' text-blue-400'><a className='text-blue-400 no-underline' href="https://www.linkedin.com/in/indspunk/" target="_blank">IndSpunk ♥</a></span></p>
                 </div>
             </div>
         </div>
