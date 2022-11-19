@@ -23,7 +23,7 @@ function PostItem(props) {
               <p>{post.category}</p>
             </div>
             {
-              link === "blog" ? ( <p>{new Date(post.created).toDateString()}</p>) : null
+              link === "blog" ? ( <p>{new Date(post.created).toDateString().substring(3, 15)}</p>) : null
             }
           </div>
           <h4>{post.title}</h4>
