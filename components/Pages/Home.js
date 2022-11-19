@@ -67,7 +67,7 @@ function Home() {
                             <div className='grid grid-cols-2 gap-6 mt-10 homeServices'>
                                 <div className='col-span-2 md:col-span-1'>
                                     <div className='text-center rounded-lg overflow-hidden scroll-smooth h-72 servicesHover'>
-                                        <img src='https://img.etimg.com/thumb/width-1200,height-900,imgsize-26482,resizemode-1,msid-87959405/news/economy/indicators/business-optimism-in-india-at-near-8-year-high-report.jpg' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
+                                        <img src='https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/IN%20Country%20Representation.png' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
                                         <div className='px-6 mt-[-100px] cursor-pointer flex h-24 bg-red transition-all duration-500 ease-in-out transform  bg-white'>
                                             <div className='w-[40%] flex justify-center content-center'>
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon2.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
@@ -84,13 +84,13 @@ function Home() {
                                 </div>
                                 <div className='col-span-2 md:col-span-1'>
                                     <div className='text-center rounded-lg overflow-hidden scroll-smooth h-72 servicesHover'>
-                                        <img src='https://s37564.pcdn.co/wp-content/uploads/2022/04/Setting-up-a-business-1568x1046.jpeg.optimal.jpeg' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
+                                        <img src='https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/Untitled%20%281200%20%C3%97%20630px%29%20%281%29.png' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
                                         <div className='px-6 mt-[-100px] cursor-pointer flex h-24 bg-red transition-all duration-500 ease-in-out transform  bg-white'>
                                             <div className='w-[40%] flex justify-center content-center'>
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon1.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
                                             </div>
                                             <div>
-                                                <p className='text-xl font-semibold mt-2'>Capacity Building</p>
+                                                <p className='text-xl font-semibold mt-2'>Capacity Development</p>
                                                 <p className='text-sm'>We provide Research and Analysis in Decision support for the Social and Development Project including Action, Monitoring, Evaluation and Learning (A-MEL).</p>
                                                 <Link href='/service/capacity-development'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
@@ -101,7 +101,7 @@ function Home() {
                                 </div>
                                 <div className='col-span-2 md:col-span-1'>
                                     <div className='text-center rounded-lg overflow-hidden scroll-smooth h-72 servicesHover'>
-                                        <img src='https://www.incimages.com/uploaded_files/image/1920x1080/getty_180152187_970679970450042_64007.jpg' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
+                                        <img src='https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/Technology%20Management.png' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
                                         <div className='px-6 mt-[-100px] cursor-pointer flex h-24 bg-red transition-all duration-500 ease-in-out transform  bg-white'>
                                             <div className='w-[40%] flex justify-center content-center'>
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon4.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
@@ -109,7 +109,7 @@ function Home() {
                                             <div>
                                                 <p className='text-xl font-semibold mt-2'>Technology Management</p>
                                                 <p className='text-sm'>Our Technology Management Group is a Global Technology Aggregator & Accelerator, engaged with innovation ecosystem with myriad stakeholders in various capacities helping them to leverage external sources of R&D and create value from intellectual property.</p>
-                                                <Link href='/service/technology-managemet'>
+                                                <Link href='/service/technology-management'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>
@@ -118,7 +118,7 @@ function Home() {
                                 </div>
                                 <div className='col-span-2 md:col-span-1'>
                                     <div className='text-center rounded-lg overflow-hidden scroll-smooth h-72 servicesHover'>
-                                        <img src='https://www.freshbooks.com/wp-content/uploads/how-long-does-it-take-business-to-be-successful.jpg' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
+                                        <img src='https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/Untitled%20%281200%20%C3%97%20630px%29%20%282%29.png' alt="3" className="w-full object-cover h-[300px] rounded-t-lg" />
                                         <div className='px-6 mt-[-100px] cursor-pointer flex h-24 bg-red transition-all duration-500 ease-in-out transform  bg-white'>
                                             <div className='w-[40%] flex justify-center content-center'>
                                                 <img src='https://demo.casethemes.net/consultio-agency/wp-content/uploads/2020/03/service-img-icon3.png' alt="3" className="w-12 my-auto transition-all duration-500 ease-in-out transform" />
@@ -126,7 +126,7 @@ function Home() {
                                             <div>
                                                 <p className='text-xl font-semibold mt-2'>Project Management Consultancy</p>
                                                 <p className='text-sm'>We are full service Project Management Consultancy firm – we Conceptualize, Implement and Monitor.</p>
-                                                <Link href='/service/project-management-consultancy'>
+                                                <Link href='/service/programme-management-consultancy'>
                                                     <p className='text-blue-700 mt-2'>Read More</p>
                                                 </Link>
                                             </div>
