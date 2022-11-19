@@ -35,21 +35,21 @@ function About() {
                                                 <div className=''>
                                                     <div>
                                                         <img
-                                                            className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
-                                                            src='./team/team1.jpg'
+                                                            className='mt-6 mx-auto h-20 w-20 object-cover object-top rounded-full xl:w-24 xl:h-24'
+                                                            src='./team/vimal.png'
                                                             alt=''
                                                         />
                                                     </div>
-                                                    <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Dr. Anshika Singh
+                                                    <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
+                                                        Mr Vimal Kumar
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>Research and Programme Management Associate</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Director, Finovista and India Lead MECS Programme</p>
 
-                                                    <dl className='mt-8 space-y-4'>
+                                                    <dl className='mt-5 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-sm text-gray-500'>Anshika Singh did Master’s in Environmental Sciences from Banaras Hindu University and PhD in Biological Sciences She has been involved in number of R&D projects at CSIR_NEERI including, Biological Assessment under EIA study
+                                                        <dd className='text-sm text-gray-500'>Vimal holds strong expertise in Program & Fund Management, Multi-stake Program Management, In Country Representation, Sustainable Finance, International Trade & Investment, Strategy and Corporate Development for Startup/Spinoff & MSME.
                                                         </dd>
                                                     </dl>
                                                 </div>
@@ -60,15 +60,90 @@ function About() {
                                                 <div className=''>
                                                     <div>
                                                         <img
+                                                            className='mt-6 mx-auto object-cover h-20 w-20 rounded-full xl:w-24 xl:h-24'
+                                                            src='./team/sheetal.png'
+                                                            alt=''
+                                                        />
+                                                    </div>
+                                                    <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
+                                                        Ms Sheetal Rastogi
+                                                    </h3>
+                                                    <p className='mt-1 text-sm text-gray-500'>Co-founder, Lead Strategy & Outreach,  Finovista</p>
+                                                    <dl className='mt-5 space-y-4'>
+                                                        <dt>
+                                                            <span className='sr-only'>Title</span>
+                                                        </dt>
+                                                        <dd className='text-sm text-gray-500'>Mr. Sheetal Rastogi, holds a Master’s Degree in Business Administration with a major in Marketing from NMIMS Mumbai with over 10 years of experience in marketing & communications with leading brands across the Banking & Financial Services.
+
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='pt-6'>
+                                            <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                                                <div className=''>
+                                                    <div>
+                                                        <img
+                                                            className='mt-6 mx-auto object-cover h-20 w-20 rounded-full xl:w-24 xl:h-24'
+                                                            src='./team/kksinha.png'
+                                                            alt=''
+                                                        />
+                                                    </div>
+                                                    <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
+                                                        Mr Krishna Kumar Sinha
+                                                    </h3>
+                                                    <p className='mt-1 text-sm text-gray-500'>Advisor Finovista &
+                                                        Former Industrial Advisor, Department of Industrial Policy and Promotion (DIPP), Govt of India
+                                                    </p>
+                                                    <dl className='mt-5 space-y-4'>
+                                                        <dt>
+                                                            <span className='sr-only'>Title</span>
+                                                        </dt>
+                                                        <dd className='text-sm text-gray-500'>A graduate in Mechanical Engineering and post graduate in Production Engineering from IITD, he joined Ministry of Commerce and Industry, Government of India as an Indian Engineering Services officer.</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                                                <div className=''>
+                                                    <div>
+                                                        <img
+                                                            className='mt-6 mx-auto h-20 w-20 object-cover object-top rounded-full xl:w-24 xl:h-24'
+                                                            src='./team/team1.jpg'
+                                                            alt=''
+                                                        />
+                                                    </div>
+                                                    <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
+                                                        Dr. Anshika Singh
+                                                    </h3>
+                                                    <p className='mt-1 text-sm text-gray-500'>Research and Programme Management Associate</p>
+
+                                                    <dl className='mt-5 space-y-4'>
+                                                        <dt>
+                                                            <span className='sr-only'>Title</span>
+                                                        </dt>
+                                                        <dd className='text-sm text-gray-500'>Anshika Singh did Master’s in Environmental Sciences from Banaras Hindu University and PhD in Biological Sciences She has been involved in number of R&D projects at CSIR_NEERI including, Biological Assessment under EIA study
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
+                                                <div className=''>
+                                                    <div>
+                                                        <img
                                                             className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
                                                             src='./team/team2.jpeg'
                                                             alt=''
                                                         />
                                                     </div>
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                    Gautam Kumar Jha
+                                                        Gautam Kumar Jha
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>Public Relation</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Executive - Outreach & Promotion</p>
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
@@ -82,25 +157,27 @@ function About() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className='pt-6'>
+                                        <div>
                                             <div className='flow-root bg-gray-50 rounded-lg px-6 pb-8'>
                                                 <div className=''>
                                                     <div>
                                                         <img
                                                             className='mt-6 mx-auto h-20 w-20 rounded-full xl:w-24 xl:h-24'
-                                                            src='./team/team3.jpeg'
+                                                            src='./team/team4.jpeg'
                                                             alt=''
                                                         />
                                                     </div>
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
-                                                    Vandana Seth
+                                                        Chandan Kumar
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>Assistant Manager – HR & Admin</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>SDE - Web Development</p>
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-sm text-gray-500'>Vandana did B.Com from Bharti College, Delhi University, Master’s in Computer Application from IGNOU . She has been involved in HR and Customer Care Executive role.  She is currently working as an Assistant Manager HR & Admin at Finovista.</dd>
+                                                        <dd className='text-sm text-gray-500'>Solution Driven and responsible full-stack web developer
+                                                            capable of developing customer-focused websites using HTML,
+                                                            CSS, JavaScript & React. I enjoy learning new things. I'm currently working on my skills and learning new technologies.</dd>
                                                     </dl>
                                                 </div>
                                             </div>

@@ -30,7 +30,7 @@ function SingleEvent(props) {
             <div>
                 <img src={event.thumbnail} alt="" />
                 <div>
-                    <h4>{event.title}</h4>
+                    <h4>{event.title.substring(0, 70)}...</h4>
                     <div className='flex gap-2'>
                         <FontAwesomeIcon icon={faLocationDot} className='w-3' />
                         <p>{event.location}</p>

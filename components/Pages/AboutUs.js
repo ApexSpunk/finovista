@@ -10,16 +10,16 @@ function AboutUs() {
                 <div className='col-span-2 md:col-span-1'>
                     <p className='font-bold text-blue-700 mt-2'>\ About Us \</p>
                     <p className='text-3xl mt-4 font-semibold'>One Of The Fastest Way To Gain Business Success</p>
-                    <p className='text-sm mt-8'>Finovista, is a Program Management Consulting, IN Country Partner, Technology Management & Capacity Building firm engaged extensively with Developmental Agencies, Government Bodies, Academia and Industry for Research Projects</p>
-                    <div className='flex mt-8'>
+                    <p className='text-sm mt-8'>Finovista is a New Delhi-based Program Management Agency that operates as an In-country Representative and Capacity Building Programs viz Innovation Challenge, Entrepreneurship Development Program, Investor Pitching & Connect and Training. A sector agnostics consulting firm focuses on Clean Cooking, Energy, Environment, Low Carbon Growth Technology, Clean Energy, Green Finance, Result Based Finance, Carbon Finance and Social Enterprise Development. We work with the Government, International Agency, Development Agency, Academia and Corporate from India and across the Globe and Conceptualise, Design, Develop and Implement their Programs in India.</p>
+                    <div className='flex mt-4'>
                         <div className='h-16 w-2 bg-blue-700'></div>
-                        <div className='ml-4'>
-                            <p className='xl:text-xl lg:text-lg mt-1'>Helped Fund <span className='text-blue-700'>78,743</span> Projects in <span className='text-blue-700'>30</span> Countries, Benefiting Over <span className='text-blue-700'>7.6</span> Million People.</p>
+                        <div className='ml-8'> 
+                            <p className='xl:text-xl lg:text-lg mt-1'>Over <span className='text-blue-700'>25</span> Programs executed and supported over  <span className='text-blue-700'>300</span> Startups & Entrepreneurs.</p>
                         </div>
                     </div>
-                    <div className='flex mt-6 sm:hidden md:hidden lg:hidden xl:flex'>
+                    {/* <div className='flex mt-6 sm:hidden md:hidden lg:hidden xl:flex'>
                         <img src='https://elementor.zozothemes.com/corpkit/wp-content/uploads/sites/45/2021/08/signn-1.png' alt="2" className="w-24" />
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

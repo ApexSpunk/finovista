@@ -369,7 +369,6 @@ header {
 
 .allEvents img {
     border-radius: 0 10px 0 0;
-    height: 150px;
     object-fit: cover;
     width: 100%;
 }
@@ -658,7 +657,6 @@ tr td.tableLink a {
 @media screen and (min-width: 1500px) {
     .allEvents img {
         border-radius: 0 10px 0 0;
-        height: 200px;
         object-fit: cover;
         width: 100%;
 
