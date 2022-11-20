@@ -87,7 +87,7 @@
 .banner {
     background-color: #e1eaf8;
     display: flex;
-    height: 0px;
+    height: 5px;
     text-align: center;
     align-items: center;
     justify-content: center;

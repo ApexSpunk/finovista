@@ -41,7 +41,7 @@ function About() {
                                                         />
                                                     </div>
                                                     <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Mr Vimal Kumar
+                                                        Vimal Kumar
                                                     </h3>
                                                     <p className='mt-1 text-sm text-gray-500'>Director, Finovista and India Lead MECS Programme</p>
 
@@ -66,14 +66,14 @@ function About() {
                                                         />
                                                     </div>
                                                     <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Ms Sheetal Rastogi
+                                                        Sheetal Rastogi
                                                     </h3>
                                                     <p className='mt-1 text-sm text-gray-500'>Co-founder, Lead Strategy & Outreach,  Finovista</p>
                                                     <dl className='mt-5 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
-                                                        <dd className='text-sm text-gray-500'>Mr. Sheetal Rastogi, holds a Master’s Degree in Business Administration with a major in Marketing from NMIMS Mumbai with over 10 years of experience in marketing & communications with leading brands across the Banking & Financial Services.
+                                                        <dd className='text-sm text-gray-500'>Sheetal Rastogi, holds a Master’s Degree in Business Administration with a major in Marketing from NMIMS Mumbai with over 10 years of experience in marketing & communications with leading brands across the Banking & Financial Services.
 
                                                         </dd>
                                                     </dl>
@@ -91,7 +91,7 @@ function About() {
                                                         />
                                                     </div>
                                                     <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Mr Krishna Kumar Sinha
+                                                        Krishna Kumar Sinha
                                                     </h3>
                                                     <p className='mt-1 text-sm text-gray-500'>Advisor Finovista &
                                                         Former Industrial Advisor, Department of Industrial Policy and Promotion (DIPP), Govt of India
@@ -116,7 +116,7 @@ function About() {
                                                         />
                                                     </div>
                                                     <h3 className='mt-6 text-lg font-medium text-gray-900 tracking-tight'>
-                                                        Dr. Anshika Singh
+                                                        Anshika Singh
                                                     </h3>
                                                     <p className='mt-1 text-sm text-gray-500'>Research and Programme Management Associate</p>
 
