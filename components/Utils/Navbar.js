@@ -9,9 +9,9 @@ function Navbar() {
     <nav className=" sticky top-0 z-10" >
       <div className="nav-wrapper">
         <div className="banner">
-          <p>
+          {/* <p>
             We Helped Over 25 Programs And Supported Over 300 Startups & Entrepreneurs.
-          </p>
+          </p> */}
         </div>
         <div className="menu">
           <div className="menu-div">
