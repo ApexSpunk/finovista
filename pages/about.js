@@ -149,8 +149,7 @@ function About() {
                                                             <span className='sr-only'>Title</span>
                                                         </dt>
                                                         <dd className='text-sm text-gray-500'>My name is Gautam Kumar Jha, and I specialise in marketing. I have prior expertise with
-                                                            digital and social media marketing, In my present position, I am in charge of public relations, which includes creating strategic
-                                                            alliances.
+                                                            digital and social media marketing, In my present position
 
                                                         </dd>
                                                     </dl>
@@ -170,7 +169,7 @@ function About() {
                                                     <h3 className='mt-8 text-lg font-medium text-gray-900 tracking-tight'>
                                                         Chandan Kumar
                                                     </h3>
-                                                    <p className='mt-1 text-sm text-gray-500'>SDE - Web Development</p>
+                                                    <p className='mt-1 text-sm text-gray-500'>Tech Engineer</p>
                                                     <dl className='mt-8 space-y-4'>
                                                         <dt>
                                                             <span className='sr-only'>Title</span>
