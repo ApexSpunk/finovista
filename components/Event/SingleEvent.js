@@ -13,24 +13,25 @@ function SingleEvent(props) {
 
     const handleClick = () => {
         Router.push(`/events/${event.slug}`)
+
     }
     return (
         <div onClick={handleClick}>
             <div>
                 <div className='eventDate'>
                     <h2>{fromDay}</h2>
-                    <p>{fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1]-1] : months[fromMonth-1]}</p>
+                    <p>{fromDate[0] == 0 ? months[fromMonth[fromMonth.length - 1] - 1] : months[fromMonth - 1]}</p>
                     <p>{fromYear}</p>
                     <span>To</span>
                     <h2>{toDay}</h2>
-                    <p>{toDate[0] == 0 ? months[toMonth[toMonth.length - 1]-1] : months[toMonth-1]}</p>
+                    <p>{toDate[0] == 0 ? months[toMonth[toMonth.length - 1] - 1] : months[toMonth - 1]}</p>
                     <p>{toYear}</p>
                 </div>
             </div>
             <div>
-                <img src={event.thumbnail} alt="" />
+                <img src={event.thumbnail} alt="" className='max-h-[230px]' />
                 <div>
-                    <h4>{event.title.substring(0, 70)}...</h4>
+                    <h4>{event.title.substring(0, 60)}...</h4>
                     <div className='flex gap-2'>
                         <FontAwesomeIcon icon={faLocationDot} className='w-3' />
                         <p>{event.location}</p>

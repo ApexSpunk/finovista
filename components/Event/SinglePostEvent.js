@@ -85,7 +85,7 @@ function SinlePostEvent(props) {
     const handleRegistor = (type) => {
         if (type === 'Google') {
             console.log(formLink)
-            router.push(formLink)
+            window.open(formLink, '_blank')
         } else {
             setRegister(!Register)
         }
@@ -115,9 +115,13 @@ function SinlePostEvent(props) {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700' onClick={()=>handleRegistor(registrationType)}>
+                                    {
+                                        new Date(fromDate) > new Date() ? <button className='border-none p-3 mt-4 w-44 bg-blue-600 text-lg text-white rounded-lg cursor-pointer hover:bg-blue-800 font-semibold duration-700' onClick={()=>handleRegistor(registrationType)}>
                                         Register
+                                    </button> : <button className="border-none p-3 mt-4 w-44 bg-gray-400 text-md text-white rounded-lg cursor-not-allowed font-semibold duration-700">
+                                        Registration Closed
                                     </button>
+                                    }
                                 </div>
                             </div>
                         </div>
