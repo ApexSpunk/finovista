@@ -32,7 +32,16 @@ function Navbar() {
           </div>
           <div className="menu-div gap-8">
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
-              <Link href="/about">About Us</Link>
+            {/* Create dropdown menu for about */}
+              <div className="dropdown">
+                <button className="dropbtn">
+                  <a href="/about">About</a>
+                </button>
+                <div className="dropdown-content">
+                  <a href="/about">About Us</a>
+                  <a href="/partners">Our Partners</a>
+                </div>
+              </div>
               <Link href="/service">Services</Link>
               <Link href="/program">Programs</Link>
               <Link href='/events'> Events</Link>

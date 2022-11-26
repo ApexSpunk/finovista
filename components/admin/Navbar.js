@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { BsAlignTop, BsDelete, BsInfoSquareFill } from "react-icons/bs";
 
 function Navbar() {
   return (
@@ -94,6 +95,16 @@ function Navbar() {
               </svg>
             </span>
             <span className="mx-4 text-sm font-normal">Industries</span>
+          </a>
+        </Link>
+        <Link href="/admin/partners">
+          <a
+            className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
+          >
+            <span className="text-left">
+              <BsInfoSquareFill />
+            </span>
+            <span className="mx-4 text-sm font-normal">Partners</span>
           </a>
         </Link>
         <Link href="/admin/services">

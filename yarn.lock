@@ -704,7 +704,7 @@
   dependencies:
     "@chakra-ui/utils" "2.0.10"
 
-"@chakra-ui/react@^2.3.4":
+"@chakra-ui/react@^2.3.4", "@chakra-ui/react@>=1.0.0":
   "integrity" "sha512-b1jbDwl6EZICTh8IaMlsrYAATpT2SvZi2za+asBdDexmnP6ooW3NTKm/HaTikuQCaysfMUhztrbERmenWvOXzA=="
   "resolved" "https://registry.npmjs.org/@chakra-ui/react/-/react-2.3.4.tgz"
   "version" "2.3.4"
@@ -1603,6 +1603,11 @@
   "integrity" "sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw=="
   "resolved" "https://registry.npmjs.org/caseless/-/caseless-0.12.0.tgz"
   "version" "0.12.0"
+
+"chakra-icons@^0.0.0":
+  "integrity" "sha512-Y40ErB3X1hFUBecEsGZBghlHys5IunGAQ3ZJAE09zP44rFPuJkX8AS2pMcD+i2JheJTikQSf5KNg/7mGN3Wlog=="
+  "resolved" "https://registry.npmjs.org/chakra-icons/-/chakra-icons-0.0.0.tgz"
+  "version" "0.0.0"
 
 "chalk@^2.0.0":
   "integrity" "sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ=="
@@ -3587,6 +3592,11 @@
   "integrity" "sha512-4Vc0W5EvXAXUN/wWyxvsAKDLLgtJ3oLmhYYssx+YzphJpejtOst6cbIHCIyF50Fdxuf5DDKqRYny24yJ2y7GFQ=="
   "resolved" "https://registry.npmjs.org/react-ga/-/react-ga-3.3.1.tgz"
   "version" "3.3.1"
+
+"react-icons@^4.6.0":
+  "integrity" "sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g=="
+  "resolved" "https://registry.npmjs.org/react-icons/-/react-icons-4.6.0.tgz"
+  "version" "4.6.0"
 
 "react-is@^16.13.1", "react-is@^16.7.0":
   "integrity" "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="
