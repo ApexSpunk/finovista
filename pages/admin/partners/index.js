@@ -5,9 +5,9 @@ import Topbar from "../../../components/admin/Topbar";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEdit } from "@fortawesome/free-solid-svg-icons";
-import PartnersIndex from "./partnersIndex";
+import PartnersIndex from "./PartnersIndex";
 
-function index() {
+function index() { 
     return (
         <div>
             <Head>
