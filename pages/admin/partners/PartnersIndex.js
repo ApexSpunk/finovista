@@ -245,7 +245,7 @@ function PartnersIndex() {
                                                     setModal(true)
                                                     setUPartner(partner)
                                                 }}>Edit</button>
-                                                <button className='bg-red-500 border-none hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full ml-4' onClick={() => deletePartner(partner._id)}>Delete</button>
+                                                <button className='bg-red-500 border-none hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full ml-4' onClick={() => confirm("Are you sure?") && deletePartner(partner._id)}>Delete</button>
                                             </div>
                                         </div>
                                     </div>

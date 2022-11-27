@@ -479,7 +479,7 @@ import Editor from '../../../components/Editor/Editor'
 function add() {
   return (
     <div>
-      <Editor api='posts' type='blog' method='add' singleApi='singlePost' />
+      <Editor api='posts' type='blog' method='add' singleApi='singlePost' link="blog"  />
     </div>
   )
 }

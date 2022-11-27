@@ -4,7 +4,7 @@ import Editor from '../../../components/Editor/Editor'
 function add() {
   return (
     <div>
-      <Editor api='industries' type='industry' method='add' singleApi='singleIndustry' />
+      <Editor api='industries' type='industry' method='add' singleApi='singleIndustry' link="industry"  />
     </div>
   )
 }

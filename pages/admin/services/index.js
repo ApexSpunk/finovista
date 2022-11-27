@@ -146,7 +146,7 @@ function index() {
                                   </td>
                                   <td className="px-4 py-2 text-center">
                                     <button
-                                      onClick={() => deleteService(service._id)}
+                                      onClick={() => confirm("Are you sure?") && deleteService(service._id)}
                                       className="px-4 py-[4px] bg-red-500 text-white rounded-md border-none cursor-pointer m-auto text-[16px]"
                                     >
                                       Delete

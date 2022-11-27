@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import EditorConfig from "./config";
 import slugify from "slugify";
+import { Button } from "@chakra-ui/react";
 
 
 const htmlToReactParser = new HtmlToReactParser();
@@ -21,7 +22,7 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function Editor({ api, type, method, singleApi }) {
+function Editor({ api, type, method, singleApi, link }) {
 
     const { data: session, status } = useSession()
     const router = useRouter();
@@ -50,6 +51,7 @@ function Editor({ api, type, method, singleApi }) {
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState(null);
+    const [whatsNew, setWhatsNew] = useState({ _id: "", title: "", link: "", image: "" });
 
     function handleClick() {
         setShowModal(!showModal);
@@ -79,6 +81,50 @@ function Editor({ api, type, method, singleApi }) {
         setEditorData({ ...editorData, thumbnail: ress.data.Location });
     };
 
+    const fetchWhatsNew = async () => {
+        if (router.isReady) {
+            const { id } = router.query;
+            if (!id) return null;
+            const res = await fetch('/api/singleWhatsnew?slug=' + link + "/" + id);
+            const whatsNew = await res.json();
+            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew[0]) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
+        }
+    };
+
+    const addWhatsNew = async () => {
+        setLoading(true);
+        const res = await fetch('/api/whatsnew', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: editorData.title,
+                link: link + "/" + editorData.slug,
+                image: editorData.thumbnail,
+                created: Date.now(),
+            }),
+        });
+        const whatsNew = await res.json();
+        setLoading(false);
+        setWhatsNew(whatsNew.whatsnew);
+        toast.success("Whats New Added Successfully", toastConfig);
+    };
+
+    const removeWhatsNew = async () => {
+        setLoading(true);
+        const res = await fetch('/api/whatsnew', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: whatsNew._id }),
+        });
+        setLoading(false);
+        setWhatsNew({ _id: "", title: "", link: "", image: "" });
+        toast.warning("Whats New Removed Successfully", toastConfig);
+    };
+
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -93,7 +139,6 @@ function Editor({ api, type, method, singleApi }) {
         })
         setEditorData({ ...editorData, title: postTitle, slug: slug });
     }
-
 
     if (method === "edit") {
         const fetchPost = async () => {
@@ -123,6 +168,7 @@ function Editor({ api, type, method, singleApi }) {
 
         useEffect(() => {
             fetchPost();
+            fetchWhatsNew();
         }, [router.isReady && router.query.id]);
     }
 
@@ -283,6 +329,29 @@ function Editor({ api, type, method, singleApi }) {
                                     </div>
                                 </div>
                             </div>
+                            {
+                                method == "edit" ? <div className="bg-white p-4 mt-4 rounded-xl">
+                                    <div>
+                                        <h4>Whats New</h4>
+                                        <div>
+                                            {
+                                                whatsNew._id == "" ? (
+                                                    <Button onClick={
+                                                        () => {
+                                                            addWhatsNew();
+                                                        }
+                                                    } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
+                                                ) : (
+                                                    <Button onClick={() => {
+                                                        removeWhatsNew();
+                                                    }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
+
+                                                )
+                                            }
+                                        </div>
+                                    </div>
+                                </div> : null
+                            }
                             <div className="bg-white p-4 mt-4 rounded-xl">
                                 <div>
                                     <h4>Add Thumbnail</h4>

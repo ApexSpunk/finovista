@@ -24,7 +24,7 @@ function index() {
     try {
       const res = await fetch(`../../api/events?page=${page}`);
       const events = await res.json();
-      if(events.events.length === 0){
+      if (events.events.length === 0) {
         setPage(1);
       }
       setEvents(events.events);
@@ -145,25 +145,24 @@ function index() {
                                   </td>
                                   <td className="px-4 py-2 text-center">
                                     <button
-                                      onClick={() => deleteEvent(event._id)}
-                                      className="px-4 py-[4px] bg-red-500 text-white rounded-md border-none cursor-pointer m-auto text-[16px]"
+                                      onClick={() => confirm("Are you sure?") && deleteEvent(event._id)}
+                                    className="px-4 py-[4px] bg-red-500 text-white rounded-md border-none cursor-pointer m-auto text-[16px]"
                                     >
-                                      Delete
-                                    </button>
-                                  </td>
+                                    Delete
+                                  </button>
+                                </td>
                                 </tr>
                               ))}
-                            </tbody>
+                          </tbody>
                           </table>
                         )}
-                      </div>
-                      <div className="flex items-center justify-center mt-4">
-                          <button onClick={() => setPage(page - 1)} disabled={page === 1} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">
-                            Prev
-                          </button>
-                          <p className="text-center w-12 h-2">{page}</p>
-                          <button onClick={() => setPage(page + 1)} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">Next</button>
-                        </div>
+                    </div>
+                    <div className="flex items-center justify-center mt-4">
+                      <button onClick={() => setPage(page - 1)} disabled={page === 1} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">
+                        Prev
+                      </button>
+                      <p className="text-center w-12 h-2">{page}</p>
+                      <button onClick={() => setPage(page + 1)} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">Next</button>
                     </div>
                   </div>
                 </div>
@@ -171,8 +170,9 @@ function index() {
             </div>
           </div>
         </div>
-      </main>
     </div>
+      </main >
+    </div >
   );
 }
 
