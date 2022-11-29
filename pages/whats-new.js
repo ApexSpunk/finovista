@@ -62,6 +62,9 @@ function whatsnew() {
                                                                 <img src={post.image} alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
                                                             </div>
                                                             <div className='p-6'>
+                                                                <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
+                                                                    {post.category}
+                                                                </p>
                                                                 <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
                                                                 {/* <p className='text-[13px] mt-2'>
                                                     {

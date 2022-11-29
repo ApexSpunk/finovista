@@ -16,6 +16,10 @@ const WhatsNewSchema = new mongoose.Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    category: {
+        type: String,
+        required: true
     }
 });
 

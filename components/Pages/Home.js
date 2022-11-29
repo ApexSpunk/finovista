@@ -148,7 +148,6 @@ function Home() {
                                 <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>As a app web crawler expert, I help organizations adjust to the expanding significance of internet promoting or lipsum.</p>
                             </div>
                             <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
-                                {console.log(posts)}
                                 {
                                     loading ? <div className='text-center'>Loading...</div> : posts.map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={index}>

@@ -103,6 +103,7 @@ function Editor({ api, type, method, singleApi, link }) {
                 link: link + "/" + editorData.slug,
                 image: editorData.thumbnail,
                 created: Date.now(),
+                category: link,
             }),
         });
         const whatsNew = await res.json();
