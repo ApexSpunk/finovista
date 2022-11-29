@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
+import config from '../../../../components/Editor/config';
+import { Button } from '@chakra-ui/react';
 
 
 
@@ -29,108 +31,12 @@ function editevent() {
 
     const { data: session, status } = useSession()
     const router = useRouter();
-
-
-
     const editor = null
     const [content, setContent] = useState('')
     const [optionClass, setOptionClass] = useState('')
     const [registrationFormList, setregistrationFormList] = useState([])
     const [required, setRequired] = useState(false)
     const [reqList, setReqList] = useState([])
-
-
-    function updateFields(value) {
-        let fieldsArr = registrationFormList
-        fieldsArr.push(value)
-        setregistrationFormList(fieldsArr)
-    }
-
-
-
-    let config = {
-        zIndex: 0,
-        readonly: false,
-        activeButtonsInReadOnly: ['source', 'fullsize', 'print', 'about', 'dots'],
-        toolbarButtonSize: 'middle',
-        theme: 'default',
-        saveModeInCookie: false,
-        spellcheck: true,
-        editorCssClass: false,
-        triggerChangeEvent: true,
-        width: 'auto',
-        height: 1600,
-        minHeight: 100,
-        direction: '',
-        language: 'auto',
-        debugLanguage: false,
-        i18n: 'en',
-        tabIndex: -1,
-        toolbar: true,
-        enter: "P",
-        useSplitMode: false,
-        colors: {
-            greyscale: ['#000000', '#434343', '#666666', '#999999', '#B7B7B7', '#CCCCCC', '#D9D9D9', '#EFEFEF', '#F3F3F3', '#FFFFFF'],
-            palette: ['#980000', '#FF0000', '#FF9900', '#FFFF00', '#00F0F0', '#00FFFF', '#4A86E8', '#0000FF', '#9900FF', '#FF00FF'],
-            full: [
-                '#E6B8AF', '#F4CCCC', '#FCE5CD', '#FFF2CC', '#D9EAD3', '#D0E0E3', '#C9DAF8', '#CFE2F3', '#D9D2E9', '#EAD1DC',
-                '#DD7E6B', '#EA9999', '#F9CB9C', '#FFE599', '#B6D7A8', '#A2C4C9', '#A4C2F4', '#9FC5E8', '#B4A7D6', '#D5A6BD',
-                '#CC4125', '#E06666', '#F6B26B', '#FFD966', '#93C47D', '#76A5AF', '#6D9EEB', '#6FA8DC', '#8E7CC3', '#C27BA0',
-                '#A61C00', '#CC0000', '#E69138', '#F1C232', '#6AA84F', '#45818E', '#3C78D8', '#3D85C6', '#674EA7', '#A64D79',
-                '#85200C', '#990000', '#B45F06', '#BF9000', '#38761D', '#134F5C', '#1155CC', '#0B5394', '#351C75', '#733554',
-                '#5B0F00', '#660000', '#783F04', '#7F6000', '#274E13', '#0C343D', '#1C4587', '#073763', '#20124D', '#4C1130'
-            ]
-        },
-        colorPickerDefaultTab: 'background',
-        imageDefaultWidth: 300,
-        removeButtons: [],
-        disablePlugins: [],
-        extraButtons: [],
-        sizeLG: 900,
-        sizeMD: 700,
-        sizeSM: 400,
-        sizeSM: 400,
-        buttons: [
-            'source', '|',
-            'bold',
-            'strikethrough',
-            'underline',
-            'italic', '|',
-            'ul',
-            'ol', '|',
-            'outdent', 'indent', '|',
-            'font',
-            'fontsize',
-            'brush',
-            'paragraph', '|',
-            'image',
-            'video',
-            'table',
-            'link', '|',
-            'align', 'undo', 'redo', '|',
-            'hr',
-            'eraser',
-            'copyformat', '|',
-            'symbol',
-            'fullsize',
-            'print',
-            'about'
-        ],
-        buttonsXS: [
-            'bold',
-            'image', '|',
-            'brush',
-            'paragraph', '|',
-            'align', '|',
-            'undo', 'redo', '|',
-            'eraser',
-            'dots'
-        ],
-        events: {},
-        textIcons: false,
-
-    };
-
     const [eventid, setEventid] = useState('')
     const [eventTitle, setEventTitle] = useState('')
     const [location, setLocation] = useState('')
@@ -151,6 +57,65 @@ function editevent() {
     const [formLink, setFormLink] = useState(null)
     const [isCopied, setIsCopied] = useState(false);
     const [embedVideo, setEmbedVideo] = useState("");
+    const [whatsNew, setWhatsNew] = useState([]);
+    const toastConfig = {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+    }
+
+    const fetchWhatsNew = async () => {
+        if (router.isReady) {
+            const { id } = router.query;
+            if (!id) return null;
+            const res = await fetch('/api/singleWhatsnew?slug=' + "/events" + "/" + id);
+            const whatsNew = await res.json();
+            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew[0]) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
+        }
+    };
+
+    const addWhatsNew = async () => {
+        const res = await fetch('/api/whatsnew', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: eventTitle,
+                link: "/events/" + slug,
+                image: thumbnail,
+                created: Date.now(),
+                category: "Event"
+            }),
+        });
+        const whatsNew = await res.json();
+        setWhatsNew(whatsNew.whatsnew);
+        toast.success("Whats New Added Successfully", toastConfig);
+    };
+
+    const removeWhatsNew = async () => {
+        const res = await fetch('/api/whatsnew', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: whatsNew._id }),
+        });
+        setWhatsNew({ _id: "", title: "", link: "", image: "" });
+        toast.warning("Whats New Removed Successfully", toastConfig);
+    };
+
+    function updateFields(value) {
+        let fieldsArr = registrationFormList
+        fieldsArr.push(value)
+        setregistrationFormList(fieldsArr)
+    }
+
+
 
     const copyToClipboard = (text, e) => {
         navigator.clipboard.writeText(text);
@@ -162,7 +127,6 @@ function editevent() {
         if (router.isReady) {
             const { id } = router.query;
             if (!id) return null;
-            console.log('first')
             try {
                 const res = await fetch(`/api/singleEvent?slug=${id}`)
                 const data = await res.json()
@@ -200,6 +164,7 @@ function editevent() {
 
     useEffect(() => {
         fetchEvent()
+        fetchWhatsNew()
     }, [router.isReady])
 
 
@@ -500,6 +465,27 @@ function editevent() {
                                                 }, 2000);
                                             }}><span>{isCopied ? 'Copied!' : 'Copy'}</span>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 mt-4 rounded-xl">
+                                <div>
+                                    <h4>Whats New</h4>
+                                    <div>
+                                        {
+                                            whatsNew._id == "" ? (
+                                                <Button onClick={
+                                                    () => {
+                                                        addWhatsNew();
+                                                    }
+                                                } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
+                                            ) : (
+                                                <Button onClick={() => {
+                                                    removeWhatsNew();
+                                                }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
+
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>

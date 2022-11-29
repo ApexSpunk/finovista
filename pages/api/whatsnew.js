@@ -15,12 +15,13 @@ const handler = async (req, res) => {
         }
 
         if (req.method == "POST") {
-            let { title, link, image } = req.body;
+            let { title, link, image, category } = req.body;
             let whatsnew = new WhatsNew({
                 title,
                 link,
                 image,
                 created: new Date(),
+                category
             });
             await whatsnew.save();
             res.status(200).json({ success: true, message: "Whats new created", whatsnew });
