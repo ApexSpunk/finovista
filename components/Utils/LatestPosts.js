@@ -16,7 +16,6 @@ function LatestPosts({ type }) {
             try {
                 const res = await fetch(`/api/posts?limit=${limit}`)
                 const posts = await res.json()
-                console.log(posts)
                 setPosts(posts.posts)
                 setLoading(false)
             } catch (error) {

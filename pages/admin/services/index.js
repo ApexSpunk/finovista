@@ -26,7 +26,6 @@ function index() {
       const services = await res.json();
       setServices(services.services);
       setLoading(false);
-      console.log(services);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +47,6 @@ function index() {
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      console.log(data);
       fetchServices();
     } catch (error) {
       console.log(error);

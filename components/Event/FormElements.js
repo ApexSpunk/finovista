@@ -1396,7 +1396,6 @@ function FormElements(props) {
                 body: JSON.stringify(data)
             })
             let response = await res.json()
-            console.log(response)
             if (response.success) {
                 setShowModal(false);
                 handleRegistor();
@@ -1433,7 +1432,6 @@ function FormElements(props) {
             }
 
         } catch (err) {
-            console.log(err, 'sdsdas')
             toast.error('Please Try Again!', {
                 position: "top-center",
                 autoClose: 5000,
@@ -1487,7 +1485,6 @@ function FormElements(props) {
                                             </span>
                                         </button>
                                     </div>
-                                    {/* {console.log(form.lastName[form.lastName.length - 1] == "*" ? 'required' : 'not required')} */}
                                     <div className="relative p-6 flex-auto formElementsBody">
                                         <div>
                                             <section className="text-gray-600 body-font">
@@ -1826,9 +1823,6 @@ function FormElements(props) {
                                                                                 </div>
                                                                             </div>
                                                                         ) : null
-                                                                    }
-                                                                    {
-                                                                        console.log(form)
                                                                     }
                                                                     {
                                                                         form.state ? (

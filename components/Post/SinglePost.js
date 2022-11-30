@@ -15,11 +15,9 @@ function SinglePost({ api, type }) {
         if (router.isReady) {
             const { slug } = router.query;
             if (!slug) return null;
-            console.log(slug, "slug");
             try {
                 const res = await fetch(`/api/${api}?slug=${slug}`);
                 const data = await res.json();
-                console.log(data, "data");
                 setPostData(data[type][0]);
                 setLoading(false);
             } catch (err) {

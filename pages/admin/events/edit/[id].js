@@ -130,7 +130,6 @@ function editevent() {
             try {
                 const res = await fetch(`/api/singleEvent?slug=${id}`)
                 const data = await res.json()
-                console.log(data)
                 setEventid(data.events[0]._id)
                 setEventTitle(data.events[0].title)
                 setLocation(data.events[0].location)
@@ -461,7 +460,6 @@ function editevent() {
                                                 setTimeout(() => {
                                                     setIsCopied(false)
                                                     setEmbedVideo('')
-                                                    console.log('Copied video to clipboard');
                                                 }, 2000);
                                             }}><span>{isCopied ? 'Copied!' : 'Copy'}</span>
                                         </button>

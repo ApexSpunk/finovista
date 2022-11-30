@@ -162,7 +162,6 @@ function texteditor() {
                 body: JSON.stringify(eventData)
             })
             let responseData = await response.json()
-            console.log(responseData.success)
             toast.success(`Event ${eventTitle} Published`, {
                 position: "top-center",
                 autoClose: 5000,
@@ -413,7 +412,6 @@ function texteditor() {
                                                 setTimeout(() => {
                                                     setIsCopied(false)
                                                     setEmbedVideo('')
-                                                    console.log('Copied video to clipboard');
                                                 }, 2000);
                                             }}><span>{isCopied ? 'Copied!' : 'Copy'}</span>
                                         </button>

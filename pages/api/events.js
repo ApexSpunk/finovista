@@ -20,7 +20,6 @@ const handler = async (req, res) => {
         }
 
         if (req.method == 'POST') {
-            console.log(res.body)
             const { eventTitle, pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, eventType, eventMode, isCompleted, slug, formElements, registrationType, formLink } = req.body
             let e = new Event({ title: eventTitle, content: pageContent, location, fromDate, toDate, fromTime, toTime, thumbnail, type: eventType, mode: eventMode, created: Date.now(), isCompleted, slug, formElements, registrationType, formLink })
 

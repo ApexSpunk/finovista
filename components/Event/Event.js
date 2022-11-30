@@ -20,7 +20,6 @@ function Event() {
         setEvents([...events, ...resData])
         setLoading(false)
       } catch (error) {
-        console.log(error)
         setLoading(false)
       }
     }

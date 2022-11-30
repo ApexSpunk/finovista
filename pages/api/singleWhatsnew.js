@@ -7,7 +7,6 @@ const handler = async (req, res) => {
     if (token) {
         if (req.method == "GET") {
             const { slug } = req.query;
-            console.log(slug);
             let whatsnew = await WhatsNew.find({ link:slug });
             res.status(200).json({ whatsnew });
         }

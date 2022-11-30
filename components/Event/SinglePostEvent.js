@@ -46,7 +46,6 @@ function SinlePostEvent(props) {
             try {
                 const res = await fetch(`/api/singleEvent?slug=${slug}`)
                 const data = await res.json()
-                console.log(data.events[0])
                 setEvent(data.events[0])
                 setTitle(data.events[0].title)
                 setContent(data.events[0].content)
@@ -84,7 +83,6 @@ function SinlePostEvent(props) {
 
     const handleRegistor = (type) => {
         if (type === 'Google') {
-            console.log(formLink)
             window.open(formLink, '_blank')
         } else {
             setRegister(!Register)

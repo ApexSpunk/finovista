@@ -31,7 +31,6 @@ const handler = async (req, res) => {
 
         if (req.method == "PUT") {
             const { id, name, logo, link } = req.body;
-            console.log(id, name, logo, link);
             const partner = await Partner.findByIdAndUpdate(id, { name, logo, link }, { new: true });
             res.status(200).json({ success: true, partner });
         }

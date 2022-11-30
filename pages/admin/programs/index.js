@@ -26,7 +26,6 @@ function index() {
       const programs = await res.json();
       setPrograms(programs.programs);
       setLoading(false);
-      console.log(programs);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +47,6 @@ function index() {
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      console.log(data);
       fetchPrograms();
     } catch (error) {
       console.log(error);

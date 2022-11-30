@@ -17,7 +17,6 @@ function GridPost({ type, api, item, link }) {
                 setCategories(cateRes.category);
                 const response = await fetch(`/api/${api}`);
                 let ress = await response.json();
-                console.log(ress);
                 setPosts(ress[type]);
                 setLoading(false);
             } catch (error) {

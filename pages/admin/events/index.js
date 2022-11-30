@@ -29,7 +29,6 @@ function index() {
       }
       setEvents(events.events);
       setLoading(false);
-      console.log(events);
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +50,6 @@ function index() {
         body: JSON.stringify({ id }),
       });
       const data = await res.json();
-      console.log(data);
       fetchEvents();
     } catch (error) {
       console.log(error);
