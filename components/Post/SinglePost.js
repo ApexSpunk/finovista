@@ -3,27 +3,18 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Parser from "html-react-parser";
 import SinglePostSkeleton from "./SinglePostSkeleton";
+import { getPost } from "../../redux/post/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-function SinglePost({ api, type }) {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [postData, setPostData] = useState({});
+function SinglePost({ api, getData }) {
     const router = useRouter();
-
+    const { post: { data, loading, error } } = useSelector(state => state.post);
+    const dispatch = useDispatch();
+    
     const fetchPosts = async () => {
-        setLoading(true);
         if (router.isReady) {
             const { slug } = router.query;
-            if (!slug) return null;
-            try {
-                const res = await fetch(`/api/${api}?slug=${slug}`);
-                const data = await res.json();
-                setPostData(data[type][0]);
-                setLoading(false);
-            } catch (err) {
-                setError(true);
-                setLoading(true);
-            }
+            dispatch(getPost(slug, api, getData));
         }
     };
 
@@ -41,10 +32,10 @@ function SinglePost({ api, type }) {
             ) : (
                 <div className="eventPost">
                     <div className="programPost__banner">
-                        <img src={postData.thumbnail} alt="" />
+                        <img src={data.thumbnail} alt="" />
                     </div>
                     <div className="eventTitle mt-8">
-                        <h1>{postData.title}</h1>
+                        <h1>{data.title}</h1>
                         <div className="w-24 h-[4px] bg-gray-500 mb-8 mt-2">
                             <div className="w-12 h-[4px] bg-[#2067ff]"></div>
                         </div>
@@ -52,7 +43,7 @@ function SinglePost({ api, type }) {
                     <div className="eventPost__content">
                         <div className="eventPost__content__left">
                             <div className="eventPost__content__left__top">
-                                {postData.content && Parser(postData.content)}
+                                {data.content && Parser(data.content)}
                             </div>
                         </div>
                     </div>

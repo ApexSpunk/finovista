@@ -9,29 +9,6 @@ import SinglePost from "../../components/Post/SinglePost";
 
 const servicePost = () => {
   const router = useRouter();
-  const [services, setServices] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const getEvents = async () => {
-      try {
-        const cate = await fetch("/api/category");
-        let cateRes = await cate.json();
-        setCategories(cateRes.category);
-        const response = await fetch(`/api/services?limit=3`);
-        let ress = await response.json();
-        setServices(ress.services);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        setError(true);
-      }
-    };
-    getEvents();
-  }, []);
-
   const { slug } = router.query;
 
   return (
@@ -47,13 +24,13 @@ const servicePost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-          <SinglePost api={'singleService'} type={'services'} />
+          <SinglePost api='services' getData='service' />
           </div>
           <div className="">
             <Sidebar />
           </div>
         </div>
-        <RelatedPost type={"services"} link='service' data={services} loading={loading} />
+        <RelatedPost api='services' type="services" link='service' getData='services' />
         <Footer />
       </div>
     </div>

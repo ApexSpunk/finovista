@@ -19,7 +19,7 @@ function industry() {
                 <Navbar />
                 <div className="eventPostMain">
                     <div>
-                        <GridPost type={'industries'} api={'industries'} link='industry' item='blog' />
+                        <GridPost type='industries' api='industries' link='industry' getData='industries' />
                     </div>
                     <div className="">
                         <Sidebar />

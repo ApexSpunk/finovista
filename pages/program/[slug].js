@@ -9,29 +9,21 @@ import { useEffect, useState } from "react";
 
 const programPost = () => {
   const router = useRouter();
-
   const { slug } = router.query;
-  const [program, setPrograms] = useState([]);
+
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    const getEvents = async () => {
+    const getCategory = async () => {
       try {
         const cate = await fetch("/api/category");
         let cateRes = await cate.json();
         setCategories(cateRes.category);
-        const response = await fetch(`/api/programs?limit=3`);
-        let ress = await response.json();
-        setPrograms(ress.programs);
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
-        setError(true);
+        console.log(error);
       }
     };
-    getEvents();
+    getCategory();
   }, []);
 
   return (
@@ -47,13 +39,13 @@ const programPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePost api='singleProgram' type='programs' />
+            <SinglePost api='programs' getData='program' />
           </div>
           <div className="">
             <Sidebar />
           </div>
         </div>
-        <RelatedPost type={"programs"} link='program' data={program} loading={loading} />
+        <RelatedPost api='programs' type="programs" link='program' getData='programs' />
         <Footer />
       </div>
     </div>

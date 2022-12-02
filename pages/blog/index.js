@@ -16,7 +16,7 @@ function blog() {
             </Head>
             <div>
                 <Navbar />
-                <Post type='posts' link='blog' api='posts' item='blog' />
+                <Post type='posts' link='blog' api='posts' getData='posts' />
                 <Footer />
             </div>
         </div>

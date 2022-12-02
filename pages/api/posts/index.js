@@ -1,6 +1,6 @@
 import { getToken } from "next-auth/jwt";
-import connectDB from "../../middleware/mongoose";
-import Post from "../../models/Post";
+import connectDB from "../../../middleware/mongoose";
+import Post from "../../../models/Post";
 
 const handler = async (req, res) => {
 

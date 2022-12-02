@@ -1,32 +1,28 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPosts } from "../../redux/post/actions";
 import PostItem from "./PostItem";
 import PostSkeleton from "./PostSkeleton";
 
 
-function Post({ type, api, item, link }) {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
+function Post({ type, api, link, getData }) {
     const [categories, setCategories] = useState([]);
-
+    const { posts: { data, loading, error } } = useSelector(state => state.post);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        setLoading(true);
-        const getPosts = async () => {
+        const getCategory = async () => {
             try {
                 const cate = await fetch("/api/category");
                 let cateRes = await cate.json();
                 setCategories(cateRes.category);
-                const response = await fetch(`/api/${api}`);
-                let ress = await response.json();
-                setPosts(ress[type]);
-                setLoading(false);
             } catch (error) {
                 console.log(error);
-                setLoading(false);
             }
         };
-        getPosts();
+        getCategory();
+        dispatch(getPosts(api, getData));
     }, []);
 
     return (
@@ -43,7 +39,7 @@ function Post({ type, api, item, link }) {
 
                 {loading ? <PostSkeleton /> : (
                     <div className="allBlogs">
-                        {posts.map((blog) => {
+                        {data.map((blog) => {
                             let category = categories.find(
                                 (category) => category.category === blog.category
                             );
@@ -54,7 +50,6 @@ function Post({ type, api, item, link }) {
                                     link={link}
                                     categoryColor={category ? category.categoryColor : "#2067ff"}
                                 />
-
                             );
                         })}
                     </div>

@@ -5,7 +5,7 @@ import Footer from '../../components/Utils/Footer'
 import Sidebar from '../../components/Utils/Sidebar'
 import GridPost from '../../components/Post/GridPost'
 
-function industry() {
+function service() {
     return (
         <div>
             <Head>
@@ -19,7 +19,7 @@ function industry() {
                 <Navbar />
                 <div className="eventPostMain">
                     <div>
-                    <GridPost type={'services'} api={'services'} link='service' item='service' />
+                    <GridPost type='services'  api='services' link='service' getData='services' />
                     </div>
                     <div className="">
                         <Sidebar />
@@ -31,4 +31,4 @@ function industry() {
     )
 }
 
-export default industry
+export default service

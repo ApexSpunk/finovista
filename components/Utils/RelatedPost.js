@@ -1,7 +1,16 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../../redux/post/actions'
 
-function RelatedPost({type, data, loading, link}) {
+function RelatedPost({ api, type, link, getData }) {
+    const { posts: { data, loading, error } } = useSelector(state => state.post)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getPosts(api, getData, 3))
+    }, [])
+    
     return (
         <div>
             <div className='mt-20'>

@@ -44,7 +44,7 @@ function whatsnew() {
                 <Navbar />
                 <div>
                     <div>
-                        <div className='mt-20'>
+                        <div className='mt-4'>
                             <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
                                 <div className='grid-span-1'>
                                     <div className='text-center'>
@@ -65,7 +65,7 @@ function whatsnew() {
                                                                 <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
                                                                     {post.category}
                                                                 </p>
-                                                                <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
+                                                                <h2 className='text-lg font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
                                                                 {/* <p className='text-[13px] mt-2'>
                                                     {
                                                         post.content.length > 100 ? post.content.substring(0, 102) + '...' : post.content

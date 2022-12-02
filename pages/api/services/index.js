@@ -1,6 +1,6 @@
 import { getToken } from "next-auth/jwt";
-import connectDB from "../../middleware/mongoose";
-import Program from "../../models/Program";
+import connectDB from "../../../middleware/mongoose";
+import Service from  "../../../models/Service";
 
 const handler = async (req, res) => {
   const token = await getToken({ req })
@@ -10,13 +10,13 @@ const handler = async (req, res) => {
       let { page, limit } = req.query
       if (!page) page = 1
       if (!limit) limit = 10
-      let programs = await Program.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
-      res.status(200).json({ programs });
+      let services = await Service.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+      res.status(200).json({ services });
     }
 
     if (req.method == "POST") {
       const { title, content, thumbnail, slug, category } = req.body;
-      let e = new Program({
+      let e = new Service({
         title,
         content,
         thumbnail,
@@ -24,15 +24,13 @@ const handler = async (req, res) => {
         slug,
         category
       });
-
       await e.save();
-
       res.status(200).json({ success: e });
     }
 
     if (req.method == "DELETE") {
       const { id } = req.body;
-      await Program.findByIdAndDelete(id);
+      await Service.findByIdAndDelete(id);
       res.status(200).json({ success: true });
     }
 
@@ -45,7 +43,7 @@ const handler = async (req, res) => {
         slug,
         category
       } = req.body;
-      await Program.findByIdAndUpdate(id, {
+      await Service.findByIdAndUpdate(id, {
         title,
         content,
         thumbnail,
@@ -59,8 +57,8 @@ const handler = async (req, res) => {
       let { page, limit } = req.query
       if (!page) page = 1
       if (!limit) limit = 10
-      let programs = await Program.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
-      res.status(200).json({ programs });
+      let services = await Service.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+      res.status(200).json({ services });
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }

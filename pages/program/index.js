@@ -16,7 +16,7 @@ function events() {
             </Head>
             <div>
                 <Navbar />
-                <Post type='programs' link='program' api='programs' item='programs' />
+                <Post type='programs' link='program' api='programs' getData='programs' />
                 <Footer />
             </div>
         </div>

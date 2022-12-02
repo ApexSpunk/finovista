@@ -43,14 +43,14 @@ function Partner() {
                         <p className='font-bold text-blue-700 mt-2'>\ Partners \</p>
                         <p className='text-3xl mt-4 font-semibold'>Our Partners</p>
                     </div>
-                    <div className='grid grid-cols-2 md:grid-cols-4 gap-6 my-10 mx-4 md:mx-32'>
+                    <div className='grid grid-cols-2 md:grid-cols-4 gap-12 my-10 mx-4 md:mx-24'>
                         {
                             loading ? <GridSkeleton /> :
                                 partners.map((partner) => (
-                                    <div key={partner.id}>
+                                    <div key={partner.id} className='p-4 rounded-xl'>
                                         <div className='transition duration-500 ease-in-out transform hover:scale-105 rounded-xl cursor-pointer'>
                                             <img src={partner.logo} alt='' className="object-contain h-24 w-full" />
-                                            <p className='text-xl text-center font-semibold mt-4'>{partner.name}</p>
+                                            <p className='text-sm text-center font-semibold mt-4'>{partner.name}</p>
                                         </div>
                                     </div>
                                 ))

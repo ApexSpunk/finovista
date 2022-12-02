@@ -22,7 +22,7 @@ const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function Editor({ api, type, method, singleApi, link }) {
+function Editor({ api, getData, type, method, singleApi, link }) {
 
     const { data: session, status } = useSession()
     const router = useRouter();
@@ -64,8 +64,8 @@ function Editor({ api, type, method, singleApi, link }) {
     };
 
     const uploadThumbnail = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            const i = event.target.files[0];
+        if (event.target.files && event.target.files) {
+            const i = event.target.files;
             setImage(i);
         }
     };
@@ -87,7 +87,7 @@ function Editor({ api, type, method, singleApi, link }) {
             if (!id) return null;
             const res = await fetch('/api/singleWhatsnew?slug=' + link + "/" + id);
             const whatsNew = await res.json();
-            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew[0]) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
+            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
         }
     };
 
@@ -148,16 +148,16 @@ function Editor({ api, type, method, singleApi, link }) {
                 const { id } = router.query;
                 if (!id) return null;
                 try {
-                    const res = await fetch(`/api/${singleApi}?slug=${id}`);
+                    const res = await fetch(`/api/${singleApi}/${id}`);
                     const post = await res.json();
                     setEditorData({
                         ...editorData,
-                        title: post[api][0].title,
-                        content: post[api][0].content,
-                        thumbnail: post[api][0].thumbnail,
-                        slug: post[api][0].slug,
-                        category: post[api][0].category,
-                        id: post[api][0]._id,
+                        title: post[getData].title,
+                        content: post[getData].content,
+                        thumbnail: post[getData].thumbnail,
+                        slug: post[getData].slug,
+                        category: post[getData].category,
+                        id: post[getData]._id,
                     });
                     setLoading(false);
                 } catch (err) {

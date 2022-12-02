@@ -4,7 +4,7 @@ import Editor from '../../../../components/Editor/Editor'
 function edit() {
   return (
     <div>
-      <Editor api='programs' type='programs' method='edit' singleApi='singleProgram' link="program"  />
+      <Editor api='programs' getData='program' type='programs' method='edit' singleApi='programs' link="program"  />
     </div>
   )
 }

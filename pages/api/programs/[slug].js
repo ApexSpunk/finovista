@@ -1,22 +1,20 @@
 import { getToken } from "next-auth/jwt";
-import connectDB from "../../middleware/mongoose";
-import Post from "../../models/Post";
+import connectDB from "../../../middleware/mongoose";
+import Program from "../../../models/Program";
 
 const handler = async (req, res) => {
-
   const token = await getToken({ req })
   if (token) {
-
     if (req.method == "GET") {
       const { slug } = req.query;
-      let posts = await Post.find({ slug });
-      res.status(200).json({ posts });
+      let program = await Program.findOne({ slug });
+      res.status(200).json({ program });
     }
 
     if (req.method == "POST") {
-      const { postTitle, pageContent, thumbnail, slug } = req.body;
+      const { programTitle, pageContent, thumbnail, slug } = req.body;
       let e = new Program({
-        title: postTitle,
+        title: programTitle,
         content: pageContent,
         thumbnail,
         created: Date.now(),
@@ -30,8 +28,8 @@ const handler = async (req, res) => {
   } else {
     if (req.method == "GET") {
       const { slug } = req.query;
-      let posts = await Post.find({ slug });
-      res.status(200).json({ posts });
+      let program = await Program.findOne({ slug });
+      res.status(200).json({ program });
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }

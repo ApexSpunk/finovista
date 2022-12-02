@@ -7,6 +7,8 @@ import ReactGA from 'react-ga';
 import { useEffect } from 'react';
 const TRACKING_ID = "UA-106154633-1"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
@@ -16,7 +18,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <>
       <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={1000} height={3} showOnShallow={true} />
       <SessionProvider session={session}>
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
       </SessionProvider>
     </>
   )

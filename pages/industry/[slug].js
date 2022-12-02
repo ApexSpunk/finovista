@@ -23,7 +23,7 @@ const industryPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePost api={'singleIndustry'} type={'industries'} />
+            <SinglePost api={'industries'} getData={'industry'} />
           </div>
           <div className="">
             <Sidebar />

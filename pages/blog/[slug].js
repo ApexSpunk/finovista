@@ -7,7 +7,6 @@ import SinglePost from "../../components/Post/SinglePost";
 
 const programPost = () => {
   const router = useRouter();
-
   const { slug } = router.query;
 
   return (
@@ -23,7 +22,7 @@ const programPost = () => {
       <div>
         <div className="eventPostMain">
           <div>
-            <SinglePost api='singlePost' type='posts' />
+            <SinglePost api='posts' getData='post' />
           </div>
           <div className="">
             <Sidebar />
