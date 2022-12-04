@@ -3,7 +3,7 @@ import {
     GET_POST_LOADING, GET_POST_SUCCESS, GET_POST_ERROR,
     CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR, CREATE_POST_RESET,
     UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR, UPDATE_POST_RESET,
-    DELETE_POST_LOADING, DELETE_POST_SUCCESS, DELETE_POST_ERROR
+    DELETE_POST_LOADING, DELETE_POST_SUCCESS, DELETE_POST_ERROR, DELETE_POST_RESET,
 } from './actionTypes';
 
 const initialState = {
@@ -100,6 +100,11 @@ export default function postReducer(state = initialState, { type, payload }) {
             return {
                 ...state,
                 deletePost: { loading: false, error: payload, success: null }
+            };
+        case DELETE_POST_RESET:
+            return {
+                ...state,
+                deletePost: { loading: false, error: null, success: null }
             };
         default:
             return state;

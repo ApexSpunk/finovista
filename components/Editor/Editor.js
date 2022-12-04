@@ -40,6 +40,7 @@ function Editor({ api, getData, type, method, link }) {
     const { createPost: { loading, error, success } } = useSelector(state => state.post);
     const { updatePost: { loading: updateLoading, error: updateError, success: updateSuccess } } = useSelector(state => state.post);
     const { post: { data: post, loading: postLoading, error: postError } } = useSelector(state => state.post);
+    const { route } = router.query;
 
     const [categories, setCategories] = useState([]);
     const [showModal, setShowModal] = useState(false);
@@ -96,7 +97,7 @@ function Editor({ api, getData, type, method, link }) {
             if (!id) return null;
             const res = await fetch('/api/singleWhatsnew?slug=' + link + "/" + id);
             const whatsNew = await res.json();
-            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
+            whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew[0]) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
         }
     };
 
@@ -119,13 +120,13 @@ function Editor({ api, getData, type, method, link }) {
         toast.success("Whats New Added Successfully", toastConfig);
     };
 
-    const removeWhatsNew = async () => {
+    const removeWhatsNew = async (id) => {
         const res = await fetch('/api/whatsnew', {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: whatsNew._id }),
+            body: JSON.stringify({ id }),
         });
         setWhatsNew({ _id: "", title: "", link: "", image: "" });
         toast.warning("Whats New Removed Successfully", toastConfig);
@@ -184,7 +185,7 @@ function Editor({ api, getData, type, method, link }) {
             toast.success(`${type} ${editorData.title} Published`, toastConfig);
             dispatch({ type: CREATE_POST_RESET })
             setTimeout(() => {
-                router.push(`/admin/${type}/edit/` + editorData.slug);
+                router.push(`/admin/${route}/edit/` + editorData.slug);
             }, 2000);
         }
         if (error && method !== "edit") {
@@ -276,7 +277,7 @@ function Editor({ api, getData, type, method, link }) {
                                     <button className="previewBtn" onClick={method == "edit" ? updatePost : publishPost}>
                                         {method == "edit" ? "Update" : "Publish"} {type}
                                     </button>
-                                    <Link href={`/admin/${type}`}>
+                                    <Link href={`/admin/${route}`}>
                                         <button className="redBtn mt-4">Cancel</button>
                                     </Link>
                                 </div>
@@ -316,7 +317,7 @@ function Editor({ api, getData, type, method, link }) {
                                                     } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
                                                 ) : (
                                                     <Button onClick={() => {
-                                                        removeWhatsNew();
+                                                        removeWhatsNew(whatsNew._id);
                                                     }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
 
                                                 )

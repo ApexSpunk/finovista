@@ -8,7 +8,7 @@ function Navbar() {
       <div>
         <a
           className="w-full font-thin uppercase text-blue-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-blue-100 border-r-4 border-blue-500 dark:from-gray-700 dark:to-gray-800"
-          href="#"
+          href="/admin/"
         >
           <span className="text-left">
             <svg

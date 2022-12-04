@@ -7,10 +7,10 @@ import {
 } from './actionTypes';
 import axios from 'axios';
 
-export const getPosts = (api, data, limit = 10) => async dispatch => {
+export const getPosts = (api, data, limit = 10, page = 1) => async dispatch => {
     dispatch({ type: GET_POSTS_LOADING });
     try {
-        const response = await axios.get(`/api/${api}?limit=${limit}`);
+        const response = await axios.get(`/api/${api}?page=${page}&limit=${limit}`, data);
         dispatch({ type: GET_POSTS_SUCCESS, payload: response.data[data] });
     } catch (error) {
         dispatch({ type: GET_POSTS_ERROR, payload: error });
@@ -47,11 +47,11 @@ export const updatePost = (api, post) => async dispatch => {
     }
 }
 
-export const deletePost = id => async dispatch => {
+export const deletePost = (api, id) => async dispatch => {
     dispatch({ type: DELETE_POST_LOADING });
     try {
-        await axios.delete(`/posts/${id}`);
-        dispatch({ type: DELETE_POST_SUCCESS, payload: id });
+        await axios.delete(`/api/${api}`, { data: { id } });
+        dispatch({ type: DELETE_POST_SUCCESS, payload: "Post deleted successfully" });
     } catch (error) {
         dispatch({ type: DELETE_POST_ERROR, payload: error });
     }
