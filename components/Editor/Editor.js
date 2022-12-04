@@ -12,33 +12,38 @@ import { useSession } from "next-auth/react";
 import EditorConfig from "./config";
 import slugify from "slugify";
 import { Button } from "@chakra-ui/react";
-import NextNProgress from 'nextjs-progressbar';
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { createPost, getPost } from "../../redux/post/actions";
+import { updatePost as update } from "../../redux/post/actions";
+import { CREATE_POST_RESET, UPDATE_POST_RESET } from "../../redux/post/actionTypes";
 const htmlToReactParser = new HtmlToReactParser();
-
 const importJodit = () => import("jodit-react");
-
+const toastConfig = {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+}
 const JoditEditor = dynamic(importJodit, {
     ssr: false,
 });
 
-function Editor({ api, getData, type, method, singleApi, link }) {
+function Editor({ api, getData, type, method, link }) {
 
     const { data: session, status } = useSession()
     const router = useRouter();
     const editor = null;
-    const toastConfig = {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-    }
+    const dispatch = useDispatch();
+    const { createPost: { loading, error, success } } = useSelector(state => state.post);
+    const { updatePost: { loading: updateLoading, error: updateError, success: updateSuccess } } = useSelector(state => state.post);
+    const { post: { data: post, loading: postLoading, error: postError } } = useSelector(state => state.post);
 
-
+    const [categories, setCategories] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [image, setImage] = useState(null);
     const [editorData, setEditorData] = useState({
         id: "",
         thumbnail: "https://finovista-storage-5a9947e584608-staging.s3.us-west-2.amazonaws.com/admin-ajax.png",
@@ -47,17 +52,14 @@ function Editor({ api, getData, type, method, singleApi, link }) {
         slug: "",
         category: "",
     });
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [categories, setCategories] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [image, setImage] = useState(null);
     const [whatsNew, setWhatsNew] = useState({ _id: "", title: "", link: "", image: "" });
 
-    function handleClick() {
-        setShowModal(!showModal);
-    }
 
+    function parseContent(content) {
+        const reactElement = htmlToReactParser.parse(content);
+        const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
+        return reactHtml;
+    }
     const fetchCategories = async () => {
         const res = await fetch('/api/category');
         const categories = await res.json();
@@ -80,10 +82,10 @@ function Editor({ api, getData, type, method, singleApi, link }) {
             body,
         });
         let ress = await response.json();
-        if(ress.success){
+        if (ress.success) {
             setEditorData({ ...editorData, thumbnail: ress.data.Location });
             toast.success("Image uploaded successfully", toastConfig);
-        }else{
+        } else {
             toast.error("Image upload failed", toastConfig);
         }
     };
@@ -99,7 +101,6 @@ function Editor({ api, getData, type, method, singleApi, link }) {
     };
 
     const addWhatsNew = async () => {
-        setLoading(true);
         const res = await fetch('/api/whatsnew', {
             method: "POST",
             headers: {
@@ -114,13 +115,11 @@ function Editor({ api, getData, type, method, singleApi, link }) {
             }),
         });
         const whatsNew = await res.json();
-        setLoading(false);
         setWhatsNew(whatsNew.whatsnew);
         toast.success("Whats New Added Successfully", toastConfig);
     };
 
     const removeWhatsNew = async () => {
-        setLoading(true);
         const res = await fetch('/api/whatsnew', {
             method: "DELETE",
             headers: {
@@ -128,7 +127,6 @@ function Editor({ api, getData, type, method, singleApi, link }) {
             },
             body: JSON.stringify({ id: whatsNew._id }),
         });
-        setLoading(false);
         setWhatsNew({ _id: "", title: "", link: "", image: "" });
         toast.warning("Whats New Removed Successfully", toastConfig);
     };
@@ -148,92 +146,61 @@ function Editor({ api, getData, type, method, singleApi, link }) {
         setEditorData({ ...editorData, title: postTitle, slug: slug });
     }
 
-    if (method === "edit") {
-        const fetchPost = async () => {
-            setLoading(true);
-            if (router.isReady) {
-                const { id } = router.query;
-                if (!id) return null;
-                try {
-                    const res = await fetch(`/api/${singleApi}/${id}`);
-                    const post = await res.json();
-                    setEditorData({
-                        ...editorData,
-                        title: post[getData].title,
-                        content: post[getData].content,
-                        thumbnail: post[getData].thumbnail,
-                        slug: post[getData].slug,
-                        category: post[getData].category,
-                        id: post[getData]._id,
-                    });
-                    setLoading(false);
-                } catch (err) {
-                    setError(true);
-                    setLoading(true);
-                }
-            }
-        };
+    const fetchPost = async () => {
+        if (router.isReady) {
+            const { id } = router.query;
+            if (!id) return null;
+            dispatch(getPost(id, api, getData));
+        }
+    };
 
+    if (method === "edit") {
         useEffect(() => {
             fetchPost();
             fetchWhatsNew();
         }, [router.isReady && router.query.id]);
+        useEffect(() => {
+            if (!postLoading && post) {
+                setEditorData({ ...editorData, id: post._id, title: post.title, content: post.content, thumbnail: post.thumbnail, category: post.category, slug: post.slug });
+            } else {
+                setEditorData({ ...editorData, id: "", title: "", content: "", thumbnail: "", category: "", slug: "" });
+            }
+        }, [postLoading]);
     }
 
 
     async function updatePost() {
-        const reactElement = htmlToReactParser.parse(editorData.content);
-        const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
-        setLoading(true);
-        const res = await fetch(`/api/${api}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                id: editorData.id,
-                title: editorData.title,
-                content: reactHtml,
-                thumbnail: editorData.thumbnail,
-                slug: editorData.slug,
-                category: editorData.category,
-            }),
-        });
-        const post = await res.json();
-        if (post.success) {
-            toast.success("Post updated successfully", toastConfig);
-            setLoading(false);
-        } else {
-            toast.error("Something went wrong", toastConfig);
-            setLoading(false);
-        }
+        editorData.content = parseContent(editorData.content);
+        dispatch(update(api, editorData));
     }
 
     async function publishPost() {
-        const reactElement = htmlToReactParser.parse(editorData.content);
-        const reactHtml = ReactDOMServer.renderToStaticMarkup(reactElement);
-        try {
-            const postData = {
-                title: editorData.title,
-                content: reactHtml,
-                thumbnail: editorData.thumbnail,
-                slug: editorData.slug,
-                category: editorData.category,
-            };
-            let response = await fetch(`../../api/${api}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json", },
-                body: JSON.stringify(postData),
-            });
-            let responseData = await response.json();
+        editorData.content = parseContent(editorData.content);
+        dispatch(createPost(api, editorData));
+    }
+
+    useEffect(() => {
+        if (success && method !== "edit") {
             toast.success(`${type} ${editorData.title} Published`, toastConfig);
+            dispatch({ type: CREATE_POST_RESET })
             setTimeout(() => {
                 router.push(`/admin/${type}/edit/` + editorData.slug);
             }, 2000);
-        } catch (error) {
+        }
+        if (error && method !== "edit") {
+            dispatch({ type: CREATE_POST_RESET })
             toast.error(`Slug Already Exist Please Check The URL`, toastConfig);
         }
-    }
+        if (updateSuccess && method === "edit") {
+            dispatch({ type: UPDATE_POST_RESET })
+            toast.success(`${type} Successfully Updated`, toastConfig);
+        }
+        if (updateError && method === "edit") {
+            dispatch({ type: UPDATE_POST_RESET })
+            toast.error(`Slug Already Exist Please Check The URL`, toastConfig);
+        }
+
+    }, [success, error || updateError, updateSuccess]);
 
 
     if (status === "loading") {
@@ -326,11 +293,9 @@ function Editor({ api, getData, type, method, singleApi, link }) {
                                             value={editorData.category}
                                         >
                                             <option value="">Select Category</option>
-                                            {categories.map((cat) => {
+                                            {categories.map((cat, index) => {
                                                 return (
-                                                    <option value={cat.category} key={cat._id}>
-                                                        {cat.category}
-                                                    </option>
+                                                    <option value={cat.category} key={index}>{cat.category}</option>
                                                 );
                                             })}
                                         </select>
@@ -386,7 +351,7 @@ function Editor({ api, getData, type, method, singleApi, link }) {
                     </div>
                 </div>
             </div>
-            <AddMedia handleClick={handleClick} showModal={showModal} />
+            <AddMedia handleClick={() => setShowModal(!showModal)} showModal={showModal} />
         </div>
     );
 }

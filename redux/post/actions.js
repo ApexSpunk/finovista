@@ -1,13 +1,13 @@
 import {
     GET_POSTS_LOADING, GET_POSTS_SUCCESS, GET_POSTS_ERROR,
     GET_POST_LOADING, GET_POST_SUCCESS, GET_POST_ERROR,
-    CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR,
-    UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR,
+    CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR, CREATE_POST_RESET,
+    UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR, UPDATE_POST_RESET,
     DELETE_POST_LOADING, DELETE_POST_SUCCESS, DELETE_POST_ERROR
 } from './actionTypes';
 import axios from 'axios';
 
-export const getPosts = (api, data, limit=10) => async dispatch => {
+export const getPosts = (api, data, limit = 10) => async dispatch => {
     dispatch({ type: GET_POSTS_LOADING });
     try {
         const response = await axios.get(`/api/${api}?limit=${limit}`);
@@ -27,21 +27,21 @@ export const getPost = (slug, api, data) => async dispatch => {
     }
 }
 
-export const createPost = post => async dispatch => {
+export const createPost = (api, post) => async dispatch => {
     dispatch({ type: CREATE_POST_LOADING });
     try {
-        const response = await axios.post('/posts', post);
-        dispatch({ type: CREATE_POST_SUCCESS, payload: response.data });
+        const response = await axios.post(`/api/${api}`, post);
+        dispatch({ type: CREATE_POST_SUCCESS, payload: "Post created successfully" });
     } catch (error) {
         dispatch({ type: CREATE_POST_ERROR, payload: error });
     }
 }
 
-export const updatePost = (id, post) => async dispatch => {
+export const updatePost = (api, post) => async dispatch => {
     dispatch({ type: UPDATE_POST_LOADING });
     try {
-        const response = await axios.put(`/posts/${id}`, post);
-        dispatch({ type: UPDATE_POST_SUCCESS, payload: response.data });
+        const response = await axios.put(`/api/${api}/`, post);
+        dispatch({ type: UPDATE_POST_SUCCESS, payload: "Post updated successfully" });
     } catch (error) {
         dispatch({ type: UPDATE_POST_ERROR, payload: error });
     }

@@ -1,17 +1,17 @@
 import {
     GET_POSTS_LOADING, GET_POSTS_SUCCESS, GET_POSTS_ERROR,
     GET_POST_LOADING, GET_POST_SUCCESS, GET_POST_ERROR,
-    CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR,
-    UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR,
+    CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR, CREATE_POST_RESET,
+    UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR, UPDATE_POST_RESET,
     DELETE_POST_LOADING, DELETE_POST_SUCCESS, DELETE_POST_ERROR
 } from './actionTypes';
 
 const initialState = {
     posts: { data: [], loading: false, error: null },
     post: { data: {}, loading: false, error: null },
-    createPost: { data: {}, loading: false, error: null },
-    updatePost: { data: {}, loading: false, error: null },
-    deletePost: { data: {}, loading: false, error: null },
+    createPost: { loading: false, error: null, success: null },
+    updatePost: { loading: false, error: null, success: null },
+    deletePost: { loading: false, error: null, success: null }
 };
 
 export default function postReducer(state = initialState, { type, payload }) {
@@ -49,47 +49,57 @@ export default function postReducer(state = initialState, { type, payload }) {
         case CREATE_POST_LOADING:
             return {
                 ...state,
-                createPost: { data: {}, loading: true, error: null }
+                createPost: { loading: true, error: null, success: null }
             };
         case CREATE_POST_SUCCESS:
             return {
                 ...state,
-                createPost: { data: payload, loading: false, error: null }
+                createPost: { loading: false, error: null, success: payload }
             };
         case CREATE_POST_ERROR:
             return {
                 ...state,
-                createPost: { data: {}, loading: false, error: payload }
+                createPost: { loading: false, error: payload, success: null }
+            };
+        case CREATE_POST_RESET:
+            return {
+                ...state,
+                createPost: { loading: false, error: null, success: null }
             };
         case UPDATE_POST_LOADING:
             return {
                 ...state,
-                updatePost: { data: {}, loading: true, error: null }
+                updatePost: { loading: true, error: null, success: null }
             };
         case UPDATE_POST_SUCCESS:
             return {
                 ...state,
-                updatePost: { data: payload, loading: false, error: null }
+                updatePost: { loading: false, error: null, success: payload }
             };
         case UPDATE_POST_ERROR:
             return {
                 ...state,
-                updatePost: { data: {}, loading: false, error: payload }
+                updatePost: { loading: false, error: payload, success: null }
+            };
+        case UPDATE_POST_RESET:
+            return {
+                ...state,
+                updatePost: { loading: false, error: null, success: null }
             };
         case DELETE_POST_LOADING:
             return {
                 ...state,
-                deletePost: { data: {}, loading: true, error: null }
+                deletePost: { loading: true, error: null, success: null }
             };
         case DELETE_POST_SUCCESS:
             return {
                 ...state,
-                deletePost: { data: payload, loading: false, error: null }
+                deletePost: { loading: false, error: null, success: payload }
             };
         case DELETE_POST_ERROR:
             return {
                 ...state,
-                deletePost: { data: {}, loading: false, error: payload }
+                deletePost: { loading: false, error: payload, success: null }
             };
         default:
             return state;

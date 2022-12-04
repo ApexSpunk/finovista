@@ -119,7 +119,7 @@ function index() {
                             </thead>
                             <tbody className="text-gray-700 dark:text-gray-200">
                               {posts.map((post) => (
-                                <tr key={event._id}>
+                                <tr key={post._id}>
                                   <td className="border px-4 py-2 text-blue-400 font-[500] cursor-pointer">
                                     <Link href={`../blog/${post.slug}`}>
                                       {post.title}
