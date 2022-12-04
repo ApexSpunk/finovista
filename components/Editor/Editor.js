@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import EditorConfig from "./config";
 import slugify from "slugify";
 import { Button } from "@chakra-ui/react";
+import NextNProgress from 'nextjs-progressbar';
 
 
 const htmlToReactParser = new HtmlToReactParser();
@@ -65,12 +66,13 @@ function Editor({ api, getData, type, method, singleApi, link }) {
 
     const uploadThumbnail = (event) => {
         if (event.target.files && event.target.files) {
-            const i = event.target.files;
+            const i = event.target.files[0];
             setImage(i);
         }
     };
 
     const uploadToServer = async (event) => {
+        toast.info("Uploading Image To The Server", toastConfig);
         const body = new FormData();
         body.append("file", image);
         const response = await fetch("/api/imageUpload", {
@@ -78,7 +80,12 @@ function Editor({ api, getData, type, method, singleApi, link }) {
             body,
         });
         let ress = await response.json();
-        setEditorData({ ...editorData, thumbnail: ress.data.Location });
+        if(ress.success){
+            setEditorData({ ...editorData, thumbnail: ress.data.Location });
+            toast.success("Image uploaded successfully", toastConfig);
+        }else{
+            toast.error("Image upload failed", toastConfig);
+        }
     };
 
     const fetchWhatsNew = async () => {
