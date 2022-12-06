@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +11,8 @@ function Post({ type, api, link, getData }) {
     const [categories, setCategories] = useState([]);
     const { posts: { data, loading, error } } = useSelector(state => state.post);
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { route } = router.query;
 
     useEffect(() => {
         const getCategory = async () => {
@@ -23,7 +26,7 @@ function Post({ type, api, link, getData }) {
         };
         getCategory();
         dispatch(getPosts(api, getData));
-    }, []);
+    }, [route]);
 
     return (
         <div>

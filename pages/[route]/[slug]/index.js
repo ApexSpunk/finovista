@@ -29,7 +29,7 @@ const blogPost = () => {
         <div className="eventPostMain">
           <div>
             {
-              routerData[route] && <SinglePost api={routerData[route].api} getData={routerData[route].getData} />
+              routerData[route] ? <SinglePost api={routerData[route].api} getData={routerData[route].getData} /> : "No Post Found"
             }
           </div>
           <div className="">

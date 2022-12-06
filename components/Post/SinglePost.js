@@ -21,6 +21,8 @@ function SinglePost({ api, getData }) {
     useEffect(() => {
         fetchPosts();
     }, [router.isReady, router.query]);
+
+
     return (
         <>
             {loading ? (
