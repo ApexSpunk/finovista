@@ -1,28 +1,21 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from '../../redux/post/actions';
 
 function LatestPosts({ type }) {
-    const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(true)
+    const { route } = useRouter();
+    const dispatch = useDispatch();
+    const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
 
     useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true)
-            let limit = 3
-            if (type === 'sidebar') {
-                limit = 5
-            }
-            try {
-                const res = await fetch(`/api/posts?limit=${limit}`)
-                const posts = await res.json()
-                setPosts(posts.posts)
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
-            }
+        if (type === 'footer') {
+            dispatch(getPosts("posts", "posts", 3, 1))
+        } else {
+            dispatch(getPosts("posts", "posts", 3, 1))
         }
-        fetchPosts()
     }, [])
 
     if (loading) {
@@ -38,7 +31,9 @@ function LatestPosts({ type }) {
                             <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
                             <div>
                                 <h4>{post.title.substring(0, 30)}...</h4>
-                                <span>April 19, 2022</span>
+                                <span>
+                                    {(new Date(post.created).toDateString()).split(' ').slice(1).join(' ')}
+                                </span>
                             </div>
                         </div>
                     </Link>
