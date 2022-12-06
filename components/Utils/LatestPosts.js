@@ -11,11 +11,7 @@ function LatestPosts({ type }) {
     const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
 
     useEffect(() => {
-        if (type === 'footer') {
-            dispatch(getPosts("posts", "posts", 3, 1))
-        } else {
-            dispatch(getPosts("posts", "posts", 3, 1))
-        }
+        dispatch(getPosts("posts", "posts", 5, 1))
     }, [])
 
     if (loading) {
@@ -25,7 +21,7 @@ function LatestPosts({ type }) {
     return (
         <div className='latestPosts'>
             {
-                posts.map((post, index) => (
+                posts.slice(0, type === 'footer' ? 3 : 5).map((post, index) => (
                     <Link href={`/blog/${post.slug}`} key={index}>
                         <div className='cursor-pointer'>
                             <Image src={post.thumbnail} layout='fixed' width={80} height={50} />
