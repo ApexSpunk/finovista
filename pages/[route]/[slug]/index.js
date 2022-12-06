@@ -4,6 +4,7 @@ import Head from "next/head";
 import Footer from "../../../components/Utils/Footer";
 import Sidebar from "../../../components/Utils/Sidebar";
 import SinglePost from "../../../components/Post/SinglePost";
+import SinglePostEvent from '../../../components/Event/SinglePostEvent'
 
 
 const blogPost = () => {
@@ -13,7 +14,8 @@ const blogPost = () => {
     blog: { api: "posts", getData: "post" },
     program: { api: "programs", getData: "program" },
     service: {api: "services", getData:"service"},
-    industry: {api: "industries", getData:"industry"}
+    industry: {api: "industries", getData:"industry"},
+    events: {api: "events", getData:"event"}
   }
   return (
     <div>
@@ -29,7 +31,7 @@ const blogPost = () => {
         <div className="eventPostMain">
           <div>
             {
-              routerData[route] ? <SinglePost api={routerData[route].api} getData={routerData[route].getData} /> : "No Post Found"
+              routerData[route] ? routerData[route].api === "events" ? <SinglePostEvent /> : <SinglePost api={routerData[route].api} getData={routerData[route].getData} /> : <p>404</p>
             }
           </div>
           <div className="">

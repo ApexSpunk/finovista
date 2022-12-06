@@ -1,11 +1,12 @@
-import Head from 'next/head'
-import React from 'react'
-import Navbar from '../../components/Utils/Navbar'
-import Footer from '../../components/Utils/Footer'
-import Post from '../../components/Post/Post'
-import Grid from '../../components/Post/GridPost'
-import { useRouter } from 'next/router'
-import Sidebar from '../../components/Utils/Sidebar'
+import Head from 'next/head';
+import React from 'react';
+import Navbar from '../../components/Utils/Navbar';
+import Footer from '../../components/Utils/Footer';
+import Post from '../../components/Post/Post';
+import Grid from '../../components/Post/GridPost';
+import { useRouter } from 'next/router';
+import Sidebar from '../../components/Utils/Sidebar';
+import Event from '../../components/Event/Event';
 
 function blog() {
     const router = useRouter();
@@ -14,7 +15,8 @@ function blog() {
         blog: { type: "posts", link: "blog", api: "posts", getData: "posts", grid: false },
         program: { type: "programs", link: "program", api: "programs", getData: "programs", grid: false },
         service: { type: "services", link: "service", api: "services", getData: "services", grid: true },
-        industry: { type: "industries", link: "industry", api: "industries", getData: "industries", grid: true }
+        industry: { type: "industries", link: "industry", api: "industries", getData: "industries", grid: true },
+        events: { type: "events", link: "event", api: "events", getData: "events", grid: false }
     }
     return (
         <div>
@@ -29,7 +31,7 @@ function blog() {
                 <Navbar />
                 <div className={routerData[route]?.grid ? "eventPostMain" : ""}>
                     {
-                        routerData[route] ? routerData[route].grid ? <Grid type={routerData[route].type} link={routerData[route].link} api={routerData[route].api} getData={routerData[route].getData} /> : <Post type={routerData[route].type} link={routerData[route].link} api={routerData[route].api} getData={routerData[route].getData} /> : <p>404</p>
+                        routerData[route] ? routerData[route].grid ? <Grid type={routerData[route].type} link={routerData[route].link} api={routerData[route].api} getData={routerData[route].getData} /> : routerData[route].type === "events" ? <Event /> : <Post type={routerData[route].type} link={routerData[route].link} api={routerData[route].api} getData={routerData[route].getData} /> : <p>404</p>
                     }
                     {
                         routerData[route] && routerData[route].grid ? <div className="">
