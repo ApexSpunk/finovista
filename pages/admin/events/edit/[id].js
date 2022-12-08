@@ -58,6 +58,7 @@ function editevent() {
     const [isCopied, setIsCopied] = useState(false);
     const [embedVideo, setEmbedVideo] = useState("");
     const [whatsNew, setWhatsNew] = useState([]);
+    const [impact , setImpact] = useState([]);
     const toastConfig = {
         position: "top-center",
         autoClose: 5000,
@@ -75,6 +76,17 @@ function editevent() {
             const res = await fetch('/api/singleWhatsnew?slug=' + "/events" + "/" + id);
             const whatsNew = await res.json();
             whatsNew.whatsnew.length > 0 ? setWhatsNew(whatsNew.whatsnew[0]) : setWhatsNew({ _id: "", title: "", link: "", image: "" });
+        }
+    };
+
+    const fetchImpact = async () => {
+        if (router.isReady) {
+            const { id } = router.query;
+            if (!id) return null;
+            const res = await fetch('/api/singleImpact?slug=' + "/events" + "/" + id);
+            const impact = await res.json();
+            console.log("impact", impact);
+            impact.impact.length > 0 ? setImpact(impact.impact[0]) : setImpact({ _id: "", title: "", link: "", image: "" });
         }
     };
 
@@ -97,6 +109,25 @@ function editevent() {
         toast.success("Whats New Added Successfully", toastConfig);
     };
 
+    const addImpact = async () => {
+        const res = await fetch('/api/impact', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                title: eventTitle,
+                link: "/events/" + slug,
+                image: thumbnail,
+                created: Date.now(),
+                category: "Event"
+            }),
+        });
+        const impact = await res.json();
+        setImpact(impact.impact);
+        toast.success("Impact Added Successfully", toastConfig);
+    };
+
     const removeWhatsNew = async () => {
         const res = await fetch('/api/whatsnew', {
             method: "DELETE",
@@ -108,6 +139,19 @@ function editevent() {
         setWhatsNew({ _id: "", title: "", link: "", image: "" });
         toast.warning("Whats New Removed Successfully", toastConfig);
     };
+
+    const removeImpact = async () => {
+        const res = await fetch('/api/impact', {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ id: impact._id }),
+        });
+        setImpact({ _id: "", title: "", link: "", image: "" });
+        toast.warning("Impact Removed Successfully", toastConfig);
+    };
+
 
     function updateFields(value) {
         let fieldsArr = registrationFormList
@@ -164,6 +208,7 @@ function editevent() {
     useEffect(() => {
         fetchEvent()
         fetchWhatsNew()
+        fetchImpact()
     }, [router.isReady])
 
 
@@ -463,6 +508,27 @@ function editevent() {
                                                 }, 2000);
                                             }}><span>{isCopied ? 'Copied!' : 'Copy'}</span>
                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white p-4 mt-4 rounded-xl">
+                                <div>
+                                    <h4>Impact</h4>
+                                    <div>
+                                        {
+                                            impact._id == "" ? (
+                                                <Button onClick={
+                                                    () => {
+                                                        addImpact();
+                                                    }
+                                                } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
+                                            ) : (
+                                                <Button onClick={() => {
+                                                    removeImpact();
+                                                }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
+
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
