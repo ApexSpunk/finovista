@@ -1,6 +1,8 @@
 import { Flex, Img, Spacer } from '@chakra-ui/react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getPosts } from '../../redux/post/actions'
 import AboutUs from './AboutUs'
 
 
@@ -8,8 +10,11 @@ import AboutUs from './AboutUs'
 function Home() {
 
     const [images, setImages] = useState(1)
-    const [loading, setLoading] = useState(true)
-    const [posts, setPosts] = useState([])
+    const dispatch = useDispatch()
+    const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
+    useEffect(() => {
+        dispatch(getPosts("posts", "posts"))
+    }, [])
 
     useEffect(() => {
         let index = 2
@@ -22,21 +27,7 @@ function Home() {
         }, 5000)
         return () => clearInterval(interval)
     }, [])
-
-    useEffect(() => {
-        const fetchPosts = async () => {
-            setLoading(true)
-            try {
-                const res = await fetch(`/api/posts?limit=3`)
-                const posts = await res.json()
-                setPosts(posts.posts)
-                setLoading(false)
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        fetchPosts()
-    }, [])
+    
     return (
         <div>
             <div className="w-full h-[600px]">
@@ -149,7 +140,7 @@ function Home() {
                             </div>
                             <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
                                 {
-                                    loading ? <div className='text-center'>Loading...</div> : posts.map((post, index) => (
+                                    loading ? <div className='text-center'>Loading...</div> : posts.slice(0,3).map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={index}>
                                             <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
                                                 <div className='col-span-6 lg:col-span-3 xl:col-span-2'>

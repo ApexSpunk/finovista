@@ -1,5 +1,6 @@
 import {
     GET_POSTS_LOADING, GET_POSTS_SUCCESS, GET_POSTS_ERROR,
+    GET_LATEST_POSTS_LOADING, GET_LATEST_POSTS_SUCCESS, GET_LATEST_POSTS_ERROR,
     GET_POST_LOADING, GET_POST_SUCCESS, GET_POST_ERROR,
     CREATE_POST_LOADING, CREATE_POST_SUCCESS, CREATE_POST_ERROR, CREATE_POST_RESET,
     UPDATE_POST_LOADING, UPDATE_POST_SUCCESS, UPDATE_POST_ERROR, UPDATE_POST_RESET,
@@ -56,4 +57,15 @@ export const deletePost = (api, id) => async dispatch => {
         dispatch({ type: DELETE_POST_ERROR, payload: error });
     }
 }
+
+export const getLatestPosts = (api, data, limit = 10) => async dispatch => {
+    dispatch({ type: GET_LATEST_POSTS_LOADING });
+    try {
+        const response = await axios.get(`/api/${api}?limit=${limit}`);
+        dispatch({ type: GET_LATEST_POSTS_SUCCESS, payload: response.data[data] });
+    } catch (error) {
+        dispatch({ type: GET_LATEST_POSTS_ERROR, payload: error });
+    }
+}
+
 

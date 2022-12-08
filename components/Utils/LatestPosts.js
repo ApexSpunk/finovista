@@ -3,16 +3,17 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../../redux/post/actions';
+import { getLatestPosts } from '../../redux/post/actions';
 
 function LatestPosts({ type }) {
-    const { route } = useRouter();
+    const router = useRouter();
+    const { route, slug } = router.query;
     const dispatch = useDispatch();
-    const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
+    const { latestPosts: { data: posts, loading, error } } = useSelector(state => state.post)
 
     useEffect(() => {
-        dispatch(getPosts("posts", "posts", 5, 1))
-    }, [])
+        dispatch(getLatestPosts("posts", "posts", 5))
+    }, [dispatch])
 
     if (loading) {
         return <p>Loading...</p>
