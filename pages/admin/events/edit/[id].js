@@ -295,18 +295,17 @@ function editevent() {
             console.log(error)
         }
     }
-
-
-
-
-
-    function handleTitleInput(eventTitle) {
-        setEventTitle(eventTitle)
-        eventTitle = eventTitle.split(" ");
-        eventTitle = eventTitle.join("-").toLowerCase();
-        setSlug(eventTitle);
+    
+    function handleTitleInput(postTitle) {
+        const slug = slugify(postTitle, {
+            replacement: '-',
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: 'vi'
+        })
+        setSlug(slug)
     }
-
 
 
     if (status === "loading") {

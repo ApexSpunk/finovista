@@ -9,7 +9,7 @@ const HtmlToReactParser = require('html-to-react').Parser;
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-
+import slugify from 'slugify';
 const htmlToReactParser = new HtmlToReactParser();
 
 
@@ -212,11 +212,15 @@ function texteditor() {
 
 
 
-    function handleTitleInput(eventTitle) {
-        setEventTitle(eventTitle)
-        eventTitle = eventTitle.split(" ");
-        eventTitle = eventTitle.join("-").toLowerCase();
-        setSlug(eventTitle);
+    function handleTitleInput(postTitle) {
+        const slug = slugify(postTitle, {
+            replacement: '-',
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: 'vi'
+        })
+        setSlug(slug)
     }
 
 

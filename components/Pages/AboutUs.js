@@ -9,8 +9,8 @@ function AboutUs() {
                 </div>
                 <div className='col-span-2 md:col-span-1'>
                     <p className='font-bold text-blue-700 mt-2'>\ About Us \</p>
-                    <p className='text-3xl mt-4 font-semibold'>One Of The Fastest Way To Gain Business Success</p>
-                    <p className='text-sm mt-8'>Finovista is a New Delhi-based Program Management Agency that operates as an In-country Representative and Capacity Building Programs viz Innovation Challenge, Entrepreneurship Development Program, Investor Pitching & Connect and Training. A sector agnostics consulting firm focuses on Clean Cooking, Energy, Environment, Low Carbon Growth Technology, Clean Energy, Green Finance, Result Based Finance, Carbon Finance and Social Enterprise Development. We work with the Government, International Agency, Development Agency, Academia and Corporate from India and across the Globe and Conceptualise, Design, Develop and Implement their Programs in India.</p>
+                    {/* <p className='text-3xl mt-4 font-semibold'>One Of The Fastest Way To Gain Business Success</p> */}
+                    <p className='text-md mt-8'>Finovista is a New Delhi-based Program Management Agency that operates as an In-country Representative and Capacity Building Programs viz Innovation Challenge, Entrepreneurship Development Program, Investor Pitching & Connect and Training. A sector agnostics consulting firm focuses on Clean Cooking, Energy, Environment, Low Carbon Growth Technology, Clean Energy, Green Finance, Result Based Finance, Carbon Finance and Social Enterprise Development. We work with the Government, International Agency, Development Agency, Academia and Corporate from India and across the Globe and Conceptualise, Design, Develop and Implement their Programs in India.</p>
                     <div className='flex mt-4'>
                         <div className='h-16 w-2 bg-blue-700'></div>
                         <div className='ml-8'> 
