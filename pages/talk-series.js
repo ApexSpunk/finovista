@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import Footer from '../components/Utils/Footer'
 import Navbar from '../components/Utils/Navbar'
 
-function Impact() {
+function talkSeries() {
 
     const [impact, setImpact] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,10 +14,10 @@ function Impact() {
     const getImpact = async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/impact");
+            const res = await fetch("/api/talkseries");
             const data = await res.json();
             console.log(data);
-            setImpact(data.impact);
+            setImpact(data.talkseries);
             setLoading(false);
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ function Impact() {
     return (
         <div>
             <Head>
-                <title>Privacy Policy | Finovista</title>
+                <title>Talk Series | Finovista</title>
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -47,8 +47,8 @@ function Impact() {
                             <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
                                 <div className='grid-span-1'>
                                     <div className='text-center'>
-                                        <p className='font-bold text-blue-700 mt-2'>\Impact \</p>
-                                        <p className='text-3xl mt-4 font-semibold'>Impact</p>
+                                        <p className='font-bold text-blue-700 mt-2'>\ Talk Series \</p>
+                                        <p className='text-3xl mt-4 font-semibold'>Talk Series</p>
                                         <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>Here is all the latest news and updates from Finovista</p>
                                     </div>
                                     <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
@@ -89,4 +89,4 @@ function Impact() {
     )
 }
 
-export default Impact
+export default talkSeries

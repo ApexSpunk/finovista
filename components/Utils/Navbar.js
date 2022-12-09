@@ -32,19 +32,27 @@ function Navbar() {
           </div>
           <div className="menu-div gap-8">
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
-            {/* Create dropdown menu for about */}
+              {/* Create dropdown menu for about */}
               <div className="dropdown">
                 <button className="dropbtn">
-                  <a href="/about">About</a>
+                  <Link href="/about">About</Link>
                 </button>
                 <div className="dropdown-content">
-                  <a href="/about">About Us</a>
-                  <a href="/partners">Our Partners</a>
+                  <Link href="/about">About Us</Link>
+                  <Link href="/partners">Our Partners</Link>
                 </div>
               </div>
               <Link href="/service">Services</Link>
               <Link href="/program">Programs</Link>
-              <Link href='/events'> Events</Link>
+              <div className="dropdown">
+                <button className="dropbtn">
+                <Link href='/events'>Events</Link>
+                </button>
+                <div className="dropdown-content">
+                  <Link href="/events">Events</Link>
+                  <Link href="/talk-series">Talk Series</Link>
+                </div>
+              </div>
               <Link href='/blog'>Blog</Link>
               <Link href="/industry">Industry</Link>
               <Link href="/whats-new"><div className="z-[2] cursor-pointer">What's <div className="absolute mt-[-38px] text-[10px] rotate-12 ml-9 bg-red-600 text-white px-2 rounded-full z-[-1]">New</div></div></Link>

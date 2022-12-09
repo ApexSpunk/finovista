@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ImpactSchema = new mongoose.Schema({
+const TalkSeriesSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -24,4 +24,4 @@ const ImpactSchema = new mongoose.Schema({
 });
 
 mongoose.models = {}
-module.exports = mongoose.model('Impact', ImpactSchema);
+module.exports = mongoose.model('TalkSeries', TalkSeriesSchema);
