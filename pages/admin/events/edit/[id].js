@@ -13,6 +13,7 @@ const ReactDOMServer = require('react-dom/server');
 const HtmlToReactParser = require('html-to-react').Parser;
 import config from '../../../../components/Editor/config';
 import { Button } from '@chakra-ui/react';
+import slugify from 'slugify';
 
 
 
