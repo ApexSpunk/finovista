@@ -8,53 +8,71 @@ const handler = async (req, res) => {
   if (token) {
 
     if (req.method == "GET") {
-      let { page, limit } = req.query
-      if (!page) page = 1
-      if (!limit) limit = 10
-      let posts = await Post.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
-      res.status(200).json({ posts });
+      try {
+        let { page, limit } = req.query
+        if (!page) page = 1
+        if (!limit) limit = 10
+        let posts = await Post.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+        res.status(200).json({ posts });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     }
 
     if (req.method == "POST") {
       const { title, content, thumbnail, slug, category } = req.body;
-      let e = new Post({
-        title: title,
-        content: content,
-        thumbnail,
-        created: Date.now(),
-        slug,
-        category,
-      });
-
-      await e.save();
-
-      res.status(200).json({ post: e });
+      try {
+        let e = new Post({
+          title: title,
+          content: content,
+          thumbnail,
+          created: Date.now(),
+          slug,
+          category,
+        });
+        await e.save();
+        res.status(200).json({ post: e });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     }
 
     if (req.method == "DELETE") {
-      const { id } = req.body;
-      await Post.findByIdAndDelete(id);
-      res.status(200).json({ success: true });
+      try {
+        const { id } = req.body;
+        await Post.findByIdAndDelete(id);
+        res.status(200).json({ success: true });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     }
 
     if (req.method == "PUT") {
-      const { id, title, content, thumbnail, slug, category } = req.body;
-      await Post.findByIdAndUpdate(id, {
-        title: title,
-        content: content,
-        thumbnail,
-        slug,
-        category,
-      });
-      res.status(200).json({ success: true });
+      try {
+        const { id, title, content, thumbnail, slug, category } = req.body;
+        await Post.findByIdAndUpdate(id, {
+          title: title,
+          content: content,
+          thumbnail,
+          slug,
+          category,
+        });
+        res.status(200).json({ success: true });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     }
   } else {
     if (req.method == "GET") {
-      let { page, limit } = req.query
-      if (!page) page = 1
-      if (!limit) limit = 10
-      let posts = await Post.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
-      res.status(200).json({ posts });
+      try {
+        let { page, limit } = req.query
+        if (!page) page = 1
+        if (!limit) limit = 10
+        let posts = await Post.find().sort({ created: "desc" }).skip((page - 1) * limit).limit(limit * 1)
+        res.status(200).json({ posts });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     } else {
       res.status(401).json({ message: "Not authenticated" });
     }

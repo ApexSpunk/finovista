@@ -22,6 +22,10 @@ function SinglePost({ api, getData }) {
         fetchPosts();
     }, [router.isReady, router.query]);
 
+    if(error){
+        return <div className="error">{error}</div>
+    }
+
 
     return (
         <>
