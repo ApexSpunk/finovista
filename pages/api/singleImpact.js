@@ -1,19 +1,19 @@
 import { getToken } from "next-auth/jwt";
 import connectDB from "../../middleware/mongoose";
-import Impact from "../../models/Impact";
+import WhatsNew from "../../models/WhatsNew";
 
 const handler = async (req, res) => {
     const token = await getToken({ req })
     if (token) {
         if (req.method == "GET") {
             const { slug } = req.query;
-            let impact = await Impact.find({ link:slug });
-            res.status(200).json({ impact });
+            let whatsnew = await WhatsNew.find({ link:slug });
+            res.status(200).json({ whatsnew });
         }
 
         if (req.method == "POST") {
             const { programTitle, pageContent, thumbnail, slug } = req.body;
-            let e = new Impact({
+            let e = new WhatsNew({
                 title: programTitle,
                 content: pageContent,
                 thumbnail,
@@ -28,8 +28,8 @@ const handler = async (req, res) => {
     } else {
         if (req.method == "GET") {
             const { slug } = req.query;
-            let impact = await Impact.find({ slug });
-            res.status(200).json({ impact });
+            let whatsnew = await WhatsNew.find({ slug });
+            res.status(200).json({ whatsnew });
         } else {
             res.status(401).json({ message: "Not authenticated" });
         }
