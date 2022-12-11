@@ -22,17 +22,18 @@ export default NextAuth({
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      return true
+    async session({ session, token }) {
+      const user = await User.findOne({ email: session.user.email }, { password: 0 });
+      if (session.user) {
+        session.user =  user;
+      }
+      return session;
     },
-    async redirect({ url, baseUrl }) {
-      return baseUrl
-    },
-    async session({ session, user, token }) {
-      return session
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      return token
+    async jwt({ token, user }) {
+      if (user) {
+        token = { user: { email: user.email, role: user.role } };
+      }
+      return token;
     }
   },
 
