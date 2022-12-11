@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Utils/Navbar";
 import Footer from "../components/Utils/Footer";
 import Home from "../components/Pages/Home";
+import { getSession } from "next-auth/react";
 
 function home() {
   return (
@@ -27,3 +28,9 @@ function home() {
 }
 
 export default home;
+export async function getServerSideProps(ctx) {
+  const session = await getSession(ctx)
+  return {
+    props: { session },
+  }
+}

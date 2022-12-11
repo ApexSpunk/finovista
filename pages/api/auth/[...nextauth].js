@@ -25,13 +25,14 @@ export default NextAuth({
     async session({ session, token }) {
       const user = await User.findOne({ email: session.user.email }, { password: 0 });
       if (session.user) {
-        session.user =  user;
+        session.user.role = user.role;
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token }) {
+      const user = await User.findOne({ email: token.email }, { password: 0 });
       if (user) {
-        token = { user: { email: user.email, role: user.role } };
+        token.role = user.role;
       }
       return token;
     }

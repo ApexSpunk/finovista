@@ -4,6 +4,7 @@ import Industry from "../../../models/Industry";
 
 const handler = async (req, res) => {
   const token = await getToken({ req })
+  console.log(token)
   if (token) {
 
     if (req.method == "GET") {
