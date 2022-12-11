@@ -59,7 +59,7 @@ function editevent() {
     const [isCopied, setIsCopied] = useState(false);
     const [embedVideo, setEmbedVideo] = useState("");
     const [whatsNew, setWhatsNew] = useState([]);
-    const [impact , setImpact] = useState([]);
+    const [talkseries, setTalkseries] = useState([]);
     const toastConfig = {
         position: "top-center",
         autoClose: 5000,
@@ -80,14 +80,14 @@ function editevent() {
         }
     };
 
-    const fetchImpact = async () => {
+    const fetchTalkseries = async () => {
         if (router.isReady) {
             const { id } = router.query;
             if (!id) return null;
-            const res = await fetch('/api/singleImpact?slug=' + "/events" + "/" + id);
-            const impact = await res.json();
-            console.log("impact", impact);
-            impact.impact.length > 0 ? setImpact(impact.impact[0]) : setImpact({ _id: "", title: "", link: "", image: "" });
+            const res = await fetch('/api/singleTalkSeries?slug=' + "/events" + "/" + id);
+            const talkseries = await res.json();
+            console.log("talkseries", talkseries);
+            talkseries.talkseries.length > 0 ? setTalkseries(talkseries.talkseries[0]) : setTalkseries({ _id: "", title: "", link: "", image: "" });
         }
     };
 
@@ -110,8 +110,8 @@ function editevent() {
         toast.success("Whats New Added Successfully", toastConfig);
     };
 
-    const addImpact = async () => {
-        const res = await fetch('/api/impact', {
+    const addTalkseries = async () => {
+        const res = await fetch('/api/talkseries', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -124,9 +124,9 @@ function editevent() {
                 category: "Event"
             }),
         });
-        const impact = await res.json();
-        setImpact(impact.impact);
-        toast.success("Impact Added Successfully", toastConfig);
+        const talkseries = await res.json();
+        setTalkseries(talkseries.talkseries);
+        toast.success("Talkseries Added Successfully", toastConfig);
     };
 
     const removeWhatsNew = async () => {
@@ -141,16 +141,16 @@ function editevent() {
         toast.warning("Whats New Removed Successfully", toastConfig);
     };
 
-    const removeImpact = async () => {
-        const res = await fetch('/api/impact', {
+    const removeTalkseries = async () => {
+        const res = await fetch('/api/talkseries', {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ id: impact._id }),
+            body: JSON.stringify({ id: talkseries._id }),
         });
-        setImpact({ _id: "", title: "", link: "", image: "" });
-        toast.warning("Impact Removed Successfully", toastConfig);
+        setTalkseries({ _id: "", title: "", link: "", image: "" });
+        toast.warning("Talkseries Removed Successfully", toastConfig);
     };
 
 
@@ -209,7 +209,7 @@ function editevent() {
     useEffect(() => {
         fetchEvent()
         fetchWhatsNew()
-        fetchImpact()
+        fetchTalkseries()
     }, [router.isReady])
 
 
@@ -296,7 +296,7 @@ function editevent() {
             console.log(error)
         }
     }
-    
+
     function handleTitleInput(postTitle) {
         const slug = slugify(postTitle, {
             replacement: '-',
@@ -513,18 +513,18 @@ function editevent() {
                             </div>
                             <div className="bg-white p-4 mt-4 rounded-xl">
                                 <div>
-                                    <h4>Impact</h4>
+                                    <h4>Talk Series</h4>
                                     <div>
                                         {
-                                            impact._id == "" ? (
+                                            talkseries._id == "" ? (
                                                 <Button onClick={
                                                     () => {
-                                                        addImpact();
+                                                        addTalkseries();
                                                     }
                                                 } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
                                             ) : (
                                                 <Button onClick={() => {
-                                                    removeImpact();
+                                                    removeTalkseries();
                                                 }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
 
                                             )

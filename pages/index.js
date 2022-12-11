@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Utils/Navbar";
 import Footer from "../components/Utils/Footer";
 import Home from "../components/Pages/Home";
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 
 function home() {
   return (

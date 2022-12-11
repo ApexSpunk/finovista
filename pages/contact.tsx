@@ -12,13 +12,13 @@ function contact() {
                         <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
                             <div className="lg:w-1/2 px-6">
                                 <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">ADDRESS</h2>
-                                <p className="mt-1">1st Floor, A 85, 4, Road No. 6, Mahipalpur Extension, Road, New Delhi, Delhi 110037</p>
+                                <p className="mt-1">A 85, 1st Floor, Road No 4, Street No 6, Mahipalpur Extn, New Delhi 110037 INDIA</p>
                             </div>
                             <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
                                 <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
                                 <a className="text-indigo-500 leading-relaxed">finovista@finovista.com, program@finovista.com  </a>
                                 <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">PHONE</h2>
-                                <p className="leading-relaxed">+91 98994 60027</p>
+                                <p className="leading-relaxed">+91 11 4080 0027</p>
                             </div>
                         </div>
                     </div>

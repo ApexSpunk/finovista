@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 
 function category() {
 
-  const { data: session, status } = useSession()
-
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -88,16 +86,7 @@ function category() {
   useEffect(() => {
     getCategories();
   }, []);
-
-
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
-
+  
   return (
     <div>
       <div>
@@ -167,5 +156,7 @@ function category() {
     </div>
   );
 }
+
+category.auth = { role: "admin" }
 
 export default category;

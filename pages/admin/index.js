@@ -5,16 +5,6 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 
 function index() {
-
-  const { data: session, status } = useSession()
-
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
   return (
     <div>
       <Head>
@@ -53,4 +43,7 @@ function index() {
   );
 }
 
+index.auth = { role: "admin" }
+
 export default index;
+
