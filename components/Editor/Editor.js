@@ -348,6 +348,6 @@ function Editor({ api, getData, type, method, link }) {
     );
 }
 
-editor.auth = { role: "admin" }
+Editor.auth = { role: "admin" }
 
 export default Editor;

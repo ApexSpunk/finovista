@@ -9,6 +9,7 @@ const TRACKING_ID = "UA-106154633-1"; // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID);
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import { ChakraProvider } from '@chakra-ui/react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   useEffect(() => {
@@ -17,11 +18,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <>
       <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={1000} height={3} showOnShallow={true} />
+      {/* <ChakraProvider> */}
       <SessionProvider session={session}>
         <Provider store={store}>
           {Component.auth ? <Auth><Component {...pageProps} role={Component.auth?.role} /></Auth> : <Component {...pageProps} />}
         </Provider>
       </SessionProvider>
+      {/* </ChakraProvider> */}
     </>
   )
 

@@ -11,12 +11,13 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "POST") {
-      const { firstName, lastName, email, password } = req.body;
+      const { name, email, password,role } = req.body;
+      console.log(req.body);
       let e = new User({
-        firstName,
-        lastName,
+        name,
         email,
         password,
+        role: role || "user",
       });
 
       await e.save();
@@ -31,12 +32,12 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "PUT") {
-      const { id, firstName, lastName, email, password } = req.body;
+      const { id, name, email, password, role } = req.body;
       await User.findByIdAndUpdate(id, {
-        firstName,
-        lastName,
+        name,
         email,
         password,
+        role: role || "user",
       });
       res.status(200).json({ success: true });
     }

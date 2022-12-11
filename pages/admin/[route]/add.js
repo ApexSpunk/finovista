@@ -13,5 +13,5 @@ function add() {
   }
   return routerData[route] ? <Editor api={routerData[route].api} type={routerData[route].type} method={routerData[route].method} link={routerData[route].link} /> : <p>404 Not Found</p>
 }
-index.auth = { role: "admin" }
+add.auth = { role: "admin" }
 export default add

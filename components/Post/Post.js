@@ -1,3 +1,4 @@
+import { Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React from "react";
 import { useEffect, useState } from "react";
@@ -33,9 +34,9 @@ function Post({ type, api, link, getData }) {
             <div className="mb-32">
                 <div className="text-center mt-12">
                     <div>
-                        <h1 className="my-3">
+                        <Text fontSize='34px' className="my-3 font-bold">
                             Recent <span className="text-[#2067ff]">{type.charAt(0).toUpperCase() + type.slice(1)}</span>
-                        </h1>
+                        </Text>
                         <div className="w-44 h-[3px] bg-[#2067ff] mx-auto mb-12"></div>
                     </div>
                 </div>
