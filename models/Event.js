@@ -18,6 +18,7 @@ const EventSchema = new mongoose.Schema(
     formElements: Array,
     registrationType: String,
     formLink: String,
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timeStamp: true }
 );

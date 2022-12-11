@@ -20,7 +20,8 @@ const TalkSeriesSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
-    }
+    },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 mongoose.models = {}

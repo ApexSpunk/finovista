@@ -8,6 +8,7 @@ const ProgramSchema = new mongoose.Schema(
     created: Date,
     category: String,
     slug: { type: String, required: true, unique: true },
+    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timeStamp: true }
 );
