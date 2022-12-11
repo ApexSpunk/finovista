@@ -30,7 +30,6 @@ const JoditEditor = dynamic(importJodit, {
 function editevent() {
 
 
-    const { data: session, status } = useSession()
     const router = useRouter();
     const editor = null
     const [content, setContent] = useState('')
@@ -307,16 +306,7 @@ function editevent() {
         })
         setSlug(slug)
     }
-
-
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
-
+    
 
     return (
         <div>
@@ -575,5 +565,6 @@ function editevent() {
         </div>
     )
 }
+editevent.auth = {role: "admin"};
 
 export default editevent

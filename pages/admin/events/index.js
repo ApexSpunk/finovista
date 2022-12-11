@@ -11,8 +11,6 @@ import { useSession } from "next-auth/react";
 
 function index() {
 
-  const { data: session, status } = useSession()
-
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -55,14 +53,7 @@ function index() {
       console.log(error);
     }
   };
-
-  if (status === "loading") {
-    return <p>Loading...</p>
-  }
-
-  if (status === "unauthenticated") {
-    return <p>Access Denied</p>
-  }
+  
 
   return (
     <div>
@@ -173,5 +164,7 @@ function index() {
     </div >
   );
 }
+
+index.auth = {role: "admin"};
 
 export default index;

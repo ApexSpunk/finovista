@@ -4,7 +4,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function PartnersIndex() {
-    const { data: session, status } = useSession()
 
     const [partners, setPartners] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -172,14 +171,7 @@ function PartnersIndex() {
     useEffect(() => {
         getPartners();
     }, []);
-
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
+    
 
     return (
         <div>
@@ -307,5 +299,7 @@ function PartnersIndex() {
         </div>
     );
 };
+
+PartnersIndex.auth = { role: "admin" }
 
 export default PartnersIndex

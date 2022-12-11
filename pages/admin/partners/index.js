@@ -56,4 +56,6 @@ function index() {
     );
 }
 
+index.auth = {role: "admin"};
+
 export default index;

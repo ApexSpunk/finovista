@@ -17,7 +17,6 @@ import { DELETE_POST_RESET } from "../../redux/post/actionTypes";
 
 function Post({ api, getData, type, link }) {
 
-    const { data: session, status } = useSession()
     const { deletePost: { loading, error, success } } = useSelector(state => state.post)
     const { posts: { data: posts, loading: postsLoading, error: postsError } } = useSelector(state => state.post)
     const [page, setPage] = useState(1)
@@ -36,17 +35,7 @@ function Post({ api, getData, type, link }) {
             dispatch({ type: DELETE_POST_RESET })
         }
     }, [success]);
-
-
-
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
-
+    
     return (
         <div>
             <Head>
@@ -161,5 +150,5 @@ function Post({ api, getData, type, link }) {
         </div>
     );
 }
-
+Post.auth = { role: "admin" }
 export default Post;

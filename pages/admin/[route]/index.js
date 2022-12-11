@@ -13,5 +13,5 @@ function index() {
   }
   return routerData[route] ? <Post api={routerData[route].api} getData={routerData[route].getData} type={routerData[route].type} link={routerData[route].link} /> : <p>404 Not Found</p>
 }
-
+index.auth = { role: "admin" }
 export default index

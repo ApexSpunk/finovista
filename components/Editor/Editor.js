@@ -33,7 +33,6 @@ const JoditEditor = dynamic(importJodit, {
 
 function Editor({ api, getData, type, method, link }) {
 
-    const { data: session, status } = useSession()
     const router = useRouter();
     const editor = null;
     const dispatch = useDispatch();
@@ -203,14 +202,6 @@ function Editor({ api, getData, type, method, link }) {
 
     }, [success, error || updateError, updateSuccess]);
 
-
-    if (status === "loading") {
-        return <p>Loading...</p>
-    }
-
-    if (status === "unauthenticated") {
-        return <p>Access Denied</p>
-    }
     return (
         <div>
             <div className="bg-[#f8f9fb]">
@@ -356,5 +347,7 @@ function Editor({ api, getData, type, method, link }) {
         </div>
     );
 }
+
+editor.auth = { role: "admin" }
 
 export default Editor;
