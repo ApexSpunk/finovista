@@ -14,14 +14,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 import { DELETE_POST_RESET } from "../../redux/post/actionTypes";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Flex, Heading, Table, Tbody, Td, Text, Th, Thead, Tr, useDisclosure } from "@chakra-ui/react";
 
 function Post({ api, getData, type, link }) {
 
     const { deletePost: { loading, error, success } } = useSelector(state => state.post)
     const { posts: { data: posts, loading: postsLoading, error: postsError } } = useSelector(state => state.post)
-    const [page, setPage] = useState(1)
     const router = useRouter()
     const { route } = router.query
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const cancelRef = React.useRef()
+    const [page, setPage] = useState(1)
+    const [postId, setPostId] = useState(null)
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -35,7 +39,7 @@ function Post({ api, getData, type, link }) {
             dispatch({ type: DELETE_POST_RESET })
         }
     }, [success]);
-    
+
     return (
         <div>
             <Head>
@@ -69,7 +73,7 @@ function Post({ api, getData, type, link }) {
                                             <div className="grid">
                                                 {/* <Home /> */}
                                                 <div className="flex items-center justify-between titleContent">
-                                                    <h1>All {type}</h1>
+                                                    <Text fontSize='2xl' fontWeight='semibold'>All {type}</Text>
                                                     <div className="flex items-center gap-4">
                                                         <Link href="/admin/category">
                                                             Category
@@ -80,63 +84,68 @@ function Post({ api, getData, type, link }) {
                                                 {postsLoading ? (
                                                     <h3>Loading...</h3>
                                                 ) : (
-                                                    <table className="table-auto w-full mt-4 border-collapse contentTable">
-                                                        <thead className="bg-gray-100 dark:bg-gray-700">
-                                                            <tr className="text-left">
-                                                                <th className="px-4 py-2">Name</th>
-                                                                <th className="px-4 py-2 text-center w-[90px]">
+                                                    <Table variant='simple' className="table-auto w-full mt-4 border-collapse contentTable">
+                                                        <Thead className="bg-gray-100 dark:bg-gray-700">
+                                                            <Tr className="text-left">
+                                                                <Th className="px-4 py-2">Name</Th>
+                                                                <Th className="px-4 py-2 text-center w-[90px]">
                                                                     Actions
-                                                                </th>
-                                                                <th className="px-4 py-2 text-center w-[150px]">
+                                                                </Th>
+                                                                <Th className="px-4 py-2 text-center w-[150px]" >
                                                                     Delete
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody className="text-gray-700 dark:text-gray-200">
+                                                                </Th>
+                                                            </Tr>
+                                                        </Thead>
+                                                        <Tbody className="text-gray-700 dark:text-gray-200">
                                                             {posts.map((post) => (
-                                                                <tr key={post._id}>
-                                                                    <td className="border px-4 py-2 text-blue-400 font-[500] cursor-pointer">
-                                                                        <Link href={`../${link}/${post.slug}`}>
-                                                                            {post.title}
-                                                                        </Link>
-                                                                    </td>
-                                                                    <td className="px-4 py-2 tableLink flex w-[90px] gap-4 grid-cols-2 align-middle">
-                                                                        <Link href={`../${link}/${post.slug}`}>
-                                                                            <FontAwesomeIcon
-                                                                                icon={faEye}
-                                                                                height="20px"
-                                                                                className="cursor-pointer hover:text-blue-600 transform hover:scale-110"
-                                                                            />
-                                                                        </Link>
-                                                                        <Link
-                                                                            href={`/admin/${route}/edit/${post.slug}`}
-                                                                        >
-                                                                            <FontAwesomeIcon
-                                                                                icon={faEdit}
-                                                                                height="20px"
-                                                                                className="cursor-pointer hover:text-blue-600 transform hover:scale-110"
-                                                                            />
-                                                                        </Link>
-                                                                    </td>
-                                                                    <td className="px-4 py-2 text-center">
-                                                                        <button
-                                                                            onClick={() => confirm("Are you sure?") && dispatch(deletePost(api, post._id))}
-                                                                            className="px-4 py-[4px] bg-red-500 text-white rounded-md border-none cursor-pointer m-auto text-[16px]"
+                                                                <Tr key={post._id}>
+                                                                    <Td>
+                                                                        <Text fontWeight='500'>
+                                                                            <Link href={`../${link}/${post.slug}`}>
+                                                                                {post.title}
+                                                                            </Link>
+                                                                        </Text>
+                                                                    </Td>
+                                                                    <Td>
+                                                                        <Flex className="justify-center" gap={4}>
+                                                                            <Link href={`../${link}/${post.slug}`}>
+                                                                                <FontAwesomeIcon
+                                                                                    icon={faEye}
+                                                                                    height="20px"
+                                                                                    className="cursor-pointer hover:text-blue-600 transform hover:scale-110"
+                                                                                />
+                                                                            </Link>
+                                                                            <Link
+                                                                                href={`/admin/${route}/edit/${post.slug}`}
+                                                                            >
+                                                                                <FontAwesomeIcon
+                                                                                    icon={faEdit}
+                                                                                    height="20px"
+                                                                                    className="cursor-pointer hover:text-blue-600 transform hover:scale-110"
+                                                                                />
+                                                                            </Link>
+                                                                        </Flex>
+                                                                    </Td>
+                                                                    <Td className="px-4 py-2 text-center">
+                                                                        <Button size='sm' colorScheme='red' onClick={() => {
+                                                                            onOpen()
+                                                                            setPostId(post._id)
+                                                                        }} className="px-4 py-[4px] bg-red-500 text-white rounded-md border-none cursor-pointer m-auto text-[16px]"
                                                                         >
                                                                             Delete
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
+                                                                        </Button>
+                                                                    </Td>
+                                                                </Tr>
                                                             ))}
-                                                        </tbody>
-                                                    </table>
+                                                        </Tbody>
+                                                    </Table>
                                                 )}
                                                 <div className="flex items-center justify-center mt-4">
-                                                    <button onClick={() => setPage(page - 1)} disabled={page === 1} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">
+                                                    <Button size='md' colorScheme='blue' onClick={() => setPage(page - 1)} disabled={page === 1} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">
                                                         Prev
-                                                    </button>
+                                                    </Button>
                                                     <p className="text-center w-12 h-2">{page}</p>
-                                                    <button onClick={() => setPage(page + 1)} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">Next</button>
+                                                    <Button size='md' colorScheme='blue' onClick={() => setPage(page + 1)} className="bg-blue-500 text-white px-4 py-2 border-none rounded-md mt-4">Next</Button>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,6 +156,39 @@ function Post({ api, getData, type, link }) {
                     </div>
                 </div>
             </main>
+            <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+            >
+                <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                            Delete {type.slice(0, -1)}
+                        </AlertDialogHeader>
+
+                        <AlertDialogBody>
+                            Are you sure? You can't undo this action afterwards.
+                        </AlertDialogBody>
+
+                        <AlertDialogFooter>
+                            <Button ref={cancelRef} onClick={() => {
+                                setPostId(null)
+                                onClose()
+                            }}>
+                                Cancel
+                            </Button>
+                            <Button colorScheme='red' onClick={() => {
+                                dispatch(deletePost(api, postId))
+                                setPostId(null)
+                                onClose()
+                            }} ml={3}>
+                                Delete
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
         </div>
     );
 }

@@ -18,13 +18,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
   return (
     <>
       <NextNProgress color="#29D" startPosition={0.3} stopDelayMs={1000} height={3} showOnShallow={true} />
-      {/* <ChakraProvider> */}
       <SessionProvider session={session}>
         <Provider store={store}>
           {Component.auth ? <Auth><Component {...pageProps} role={Component.auth?.role} /></Auth> : <Component {...pageProps} />}
         </Provider>
       </SessionProvider>
-      {/* </ChakraProvider> */}
     </>
   )
 
@@ -37,7 +35,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: any) {
     if (session?.user?.role !== children.props.role) {
       return <div>Access Denied</div>;
     }
-    return children;
+    return (
+      <ChakraProvider>
+        {children}
+      </ChakraProvider>
+    )
   }
 }
 

@@ -26,6 +26,8 @@ export default NextAuth({
       const user = await User.findOne({ email: session.user.email }, { password: 0 });
       if (session.user) {
         session.user.role = user.role;
+        session.user.name = user.name;
+        session.user.id = user._id;
       }
       return session;
     },

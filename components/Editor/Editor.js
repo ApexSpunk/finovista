@@ -301,13 +301,14 @@ function Editor({ api, getData, type, method, link }) {
                                         <div>
                                             {
                                                 whatsNew._id == "" ? (
-                                                    <Button onClick={
+                                                    <Button colorScheme={'blue'}
+                                                    onClick={
                                                         () => {
                                                             addWhatsNew();
                                                         }
-                                                    } className="bg-blue-500 w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
+                                                    } className="w-full order cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Add</Button>
                                                 ) : (
-                                                    <Button onClick={() => {
+                                                    <Button colorScheme={'red'} onClick={() => {
                                                         removeWhatsNew(whatsNew._id);
                                                     }} className="bg-red-500 w-full border cursor-pointer border-[#e9ecef] border-none rounded-lg my-4 px-4 py-3 font-[500] text-white">Remove</Button>
 

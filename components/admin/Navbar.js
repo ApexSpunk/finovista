@@ -1,14 +1,16 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React from "react";
-import { BsAlignTop, BsDelete, BsInfoSquareFill } from "react-icons/bs";
+import { BsAlignTop, BsArrowUpSquare, BsArrowUpSquareFill, BsDelete, BsInfoSquareFill } from "react-icons/bs";
 
 function Navbar() {
   return (
     <nav className="mt-6">
       <div>
+      <Link href="/admin">
         <a
           className="w-full font-thin uppercase text-blue-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-blue-100 border-r-4 border-blue-500 dark:from-gray-700 dark:to-gray-800"
-          href="/admin/"
+          
         >
           <span className="text-left">
             <svg
@@ -23,6 +25,7 @@ function Navbar() {
           </span>
           <span className="mx-4 text-sm font-normal">Dashboard</span>
         </a>
+      </Link>
         <Link href="/admin/events">
           <a
             className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
@@ -126,9 +129,17 @@ function Navbar() {
             <span className="mx-4 text-sm font-normal">Services</span>
           </a>
         </Link>
+        <Link href="/admin/users">
+          <a
+            className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
+          >
+            <BsArrowUpSquareFill />
+            <span className="mx-4 text-sm font-normal">Users</span>
+          </a>
+        </Link>
+        <Link href="/admin/setting">
         <a
           className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
-          href="#"
         >
           <span className="text-left">
             <svg
@@ -144,6 +155,7 @@ function Navbar() {
           </span>
           <span className="mx-4 text-sm font-normal">Settings</span>
         </a>
+        </Link>
       </div>
     </nav>
   );

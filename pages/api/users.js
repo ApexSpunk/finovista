@@ -6,7 +6,7 @@ const handler = async (req, res) => {
   const token = await getToken({ req })
   if (token) {
     if (req.method == "GET") {
-      let users = await User.find();
+      let users = await User.find({}, { password: 0 });
       res.status(200).json({ users });
     }
 
@@ -32,6 +32,7 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "PUT") {
+      console.log(req.body);
       const { id, name, email, password, role } = req.body;
       await User.findByIdAndUpdate(id, {
         name,
