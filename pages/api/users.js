@@ -11,7 +11,7 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "POST") {
-      const { name, email, password,role } = req.body;
+      const { name, email, password, role } = req.body;
       console.log(req.body);
       let e = new User({
         name,
@@ -32,16 +32,17 @@ const handler = async (req, res) => {
     }
 
     if (req.method == "PUT") {
-      console.log(req.body);
       const { id, name, email, password, role } = req.body;
-      await User.findByIdAndUpdate(id, {
-        name,
-        email,
-        password,
-        role: role || "user",
-      });
+      let data = { name, email, role: role || "user" };
+      if (password) {
+        data.password = password;
+      }
+      console.log(data);
+      await User.findByIdAndUpdate(id, data);
       res.status(200).json({ success: true });
     }
+
+
   } else {
     res.send({ message: "Not authenticated" });
   }

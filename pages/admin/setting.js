@@ -45,6 +45,7 @@ function setting() {
                 progress: undefined,
             })
         }
+        setData({ ...data, password: '' })
     }
   return (
     <div>
