@@ -297,6 +297,7 @@ function editevent() {
     }
 
     function handleTitleInput(postTitle) {
+        setEventTitle(postTitle)
         const slug = slugify(postTitle, {
             replacement: '-',
             remove: undefined,

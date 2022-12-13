@@ -211,6 +211,7 @@ function texteditor() {
 
 
     function handleTitleInput(postTitle) {
+        setEventTitle(postTitle)
         const slug = slugify(postTitle, {
             replacement: '-',
             remove: undefined,
