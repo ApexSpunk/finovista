@@ -15,8 +15,8 @@ function Navbar() {
         </div>
         <div className="menu">
           <div className="menu-div">
-            <a href="/" className="ml-6 sm:ml-0">
-              <div className="menu-logo">
+            <Link href="/" className="ml-6 sm:ml-0">
+              <div className="menu-logo cursor-pointer">
                 <img
                   src="../img/finovistaLogo.png"
                   alt=""
@@ -28,7 +28,7 @@ function Navbar() {
                   className="logo"
                 />
               </div>
-            </a>
+            </Link>
           </div>
           <div className="menu-div gap-8">
             <div className="menu-links gap-2 xl:gap-8 lg:gap-3 hidden md:flex">
