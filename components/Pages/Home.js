@@ -27,12 +27,14 @@ function Home() {
         }, 5000)
         return () => clearInterval(interval)
     }, [])
-    
+
     return (
         <div>
-            <div className="w-full h-[600px]">
-                <img src='./img/MECS 01.jpg' alt="hero" className="w-full h-full object-cover object-bottom" />
-            </div>
+            <Link href='./events/2.2th-talk-series-on-transitioning-to-modern-energy-for-cooking:-standards-and-labelling-of-electric-cooking-devices'>
+                <div className="w-full h-[519px] cursor-pointer">
+                    <img src='./homebanner.jpeg' alt="hero" className="w-full h-full object-cover object-bottom" />
+                </div>
+            </Link>
             <AboutUs />
             <div className='mt-20 bg-gray-300'>
                 <Flex className='mx-3 md:mx-12 lg:mx-24 xl:mx-32 mt-20 py-12 justify-around'>
@@ -140,7 +142,7 @@ function Home() {
                             </div>
                             <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
                                 {
-                                    loading ? <div className='text-center'>Loading...</div> : posts.slice(0,3).map((post, index) => (
+                                    loading ? <div className='text-center'>Loading...</div> : posts.slice(0, 3).map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={index}>
                                             <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
                                                 <div className='col-span-6 lg:col-span-3 xl:col-span-2'>

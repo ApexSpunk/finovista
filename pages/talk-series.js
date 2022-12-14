@@ -16,7 +16,6 @@ function talkSeries() {
         try {
             const res = await fetch("/api/talkseries");
             const data = await res.json();
-            console.log(data);
             setImpact(data.talkseries);
             setLoading(false);
         } catch (error) {
@@ -43,6 +42,7 @@ function talkSeries() {
                 <Navbar />
                 <div>
                     <div>
+                        <img src="./talkseries.jpeg" alt="talk-series" className="w-full object-cover h-[510px]" />
                         <div className='mt-4'>
                             <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
                                 <div className='grid-span-1'>
