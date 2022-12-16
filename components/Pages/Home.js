@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../redux/post/actions'
 import AboutUs from './AboutUs'
+import Carousel from '../Utils/Carousel'
 
 
 
@@ -31,9 +32,10 @@ function Home() {
     return (
         <div>
             <Link href='./events/2.2th-talk-series-on-transitioning-to-modern-energy-for-cooking:-standards-and-labelling-of-electric-cooking-devices'>
-                <div className="w-full h-[519px] cursor-pointer">
+                <Carousel />
+                {/* <div className="w-full h-[519px] cursor-pointer">
                     <img src='./homebanner.jpeg' alt="hero" className="w-full h-full object-cover object-bottom" />
-                </div>
+                </div> */}
             </Link>
             <AboutUs />
             <div className='mt-20 bg-gray-300'>
