@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { BsAlignTop, BsArrowUpSquare, BsArrowUpSquareFill, BsDelete, BsInfoSquareFill } from "react-icons/bs";
+import { BsAlignTop, BsArrowUpSquare, BsArrowUpSquareFill, BsDelete, BsInfoSquareFill, BsMedium } from "react-icons/bs";
 
 function Navbar() {
   return (
@@ -10,7 +10,6 @@ function Navbar() {
       <Link href="/admin">
         <a
           className="w-full font-thin uppercase text-blue-500 flex items-center p-4 my-2 transition-colors duration-200 justify-start bg-gradient-to-r from-white to-blue-100 border-r-4 border-blue-500 dark:from-gray-700 dark:to-gray-800"
-          
         >
           <span className="text-left">
             <svg
@@ -127,6 +126,14 @@ function Navbar() {
               </svg>
             </span>
             <span className="mx-4 text-sm font-normal">Services</span>
+          </a>
+        </Link>
+        <Link href="/admin/news-media">
+          <a
+            className="w-full font-thin uppercase text-gray-500 dark:text-gray-200 flex items-center p-4 my-2 transition-colors duration-200 justify-start hover:text-blue-500"
+          >
+            <BsMedium />
+            <span className="mx-4 text-sm font-normal">News Media</span>
           </a>
         </Link>
         <Link href="/admin/users">

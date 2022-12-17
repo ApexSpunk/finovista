@@ -18,13 +18,13 @@ function Footer() {
                     </div>
                 </div>
                 <div className='col-span-2 lg:col-span-2 hidden md:block'>
-                    <h2>Services</h2>
+                    <h2>Quick Links</h2>
                     <div className="w-24 h-[3px] bg-gray-500 mb-8"><div className="w-12 h-[3px] bg-[#2067ff]"></div></div>
                     <div>
                         <a href="/service">Services</a>
-                        <a href="#">Testimonials</a>
                         <a href="/privacy-policy">Privacy Policy</a>
                         <a href="/blog">BLogs And Stories</a>
+                        <a href="/news-and-media">News Media</a>
                         <a href="/events">Events</a>
                         <a href="/program">Programs</a>
                         <a href="/industry">Industry</a>
