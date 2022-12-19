@@ -55,7 +55,7 @@ function Navbar() {
               </div>
               <Link href='/blog'>Blog</Link>
               <Link href="/industry">Industry</Link>
-              <Link href="/whats-new"><div className="z-[2] cursor-pointer">What's <div className="absolute mt-[-38px] text-[10px] rotate-12 ml-9 bg-red-600 text-white px-2 rounded-full z-[-1]">New</div></div></Link>
+              <Link href="/whats-new"><div className="z-[2] cursor-pointer">What's <div className="absolute mt-[-38px] text-[10px] rotate-12 ml-9 bg-blue-600 text-white px-2 rounded-full z-[-1]">New</div></div></Link>
               {/* <a href="#">Resources</a> */}
             </div>
             <div className="bottom mt-2">
