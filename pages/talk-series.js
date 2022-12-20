@@ -42,14 +42,17 @@ function talkSeries() {
                 <Navbar />
                 <div>
                     <div>
-                        <img src="./talkseries1.jpeg" alt="talk-series" className="w-full object-cover h-[510px]" />
+                        <img src="./Main.jpeg" alt="talk-series" className="w-full object-cover object-top h-[450px]" />
+
                         <div className='mt-4'>
                             <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
                                 <div className='grid-span-1'>
-                                    <div className='text-center'>
-                                        <p className='font-bold text-blue-700 mt-2'>\ Talk Series \</p>
-                                        <p className='text-3xl mt-4 font-semibold'>Talk Series</p>
-                                        <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>Here is all the latest news and updates from Finovista</p>
+                                    <div className='mt-[-30px]'>
+                                        <p className='font-bold text-center text-blue-700 mt-2'>\ Talk Series \</p>
+                                        <p className='text-3xl text-center mt-4 font-semibold'>Talk Series</p>
+                                        <div className='p-4 shadow-md rounded-lg bg-white'>
+                                            <p className='text-sm'>MECS Programme is a UK Aid (FCDO) funded global research programme, led by Loughborough University and the World Bank’s Energy Sector Management Assistance Program (ESMAP). By integrating modern energy cooking services into the planning for electricity access, quality, reliability, and sustainability, MECS hopes to leverage investment in renewable energies (both grid and off-grid) to address the clean cooking challenge. MECS is implementing a strategy focused on including the cooking needs of households in the investment and action on ‘access to affordable, reliable, sustainable modern energy for all’. In seeking to spark a new approach to clean cooking, the programme researches the socio-economic realities of a transition from polluting fuels to a range of modern fuels and is open to other research and approaches that include other fuels such as ethanol, bioLPG, or hydrogen. Whilst the research covers several clean fuels, the evidence is pointing to the viability, cost-effectiveness, and user satisfaction that energy-efficient electric cooking devices provide.</p>
+                                        </div>
                                     </div>
                                     <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
                                         {
