@@ -26,6 +26,10 @@ function Event() {
     getEvents()
   }, [page])
 
+ 
+
+
+
   return (
     <div>
       <div className='mb-32'>
@@ -51,10 +55,19 @@ function Event() {
           </div> : (
             <>
               <div className='allEvents'>
+                {/* check todays event date and show on top */}
                 {
                   events.map((event) => (
-                    event.fromDate > new Date().toISOString() && <SingleEvent key={event._id} event={event} />
-                  ))}
+                    new Date(event.fromDate).toDateString() === new Date().toDateString() && <SingleEvent key={event._id} event={event} />
+                  ))
+                }
+                {
+                  events.map((event) => (
+                    new Date(event.fromDate) > new Date() && <SingleEvent key={event._id} event={event} />
+                  ))
+                }
+                
+                
               </div>
             </>
           )
