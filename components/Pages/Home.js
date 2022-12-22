@@ -4,13 +4,35 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getPosts } from '../../redux/post/actions'
 import AboutUs from './AboutUs'
-import Carousel from '../Utils/Carousel'
-
+import Carousell from '../Utils/Carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 3
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
 
 
 function Home() {
 
     const [images, setImages] = useState(1)
+    const [talkseries, setTalkseries] = useState([])
     const dispatch = useDispatch()
     const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
     useEffect(() => {
@@ -29,10 +51,22 @@ function Home() {
         return () => clearInterval(interval)
     }, [])
 
+    const fetchTalkSeries = async () => {
+        const res = await fetch('/api/talkseries')
+        const data = await res.json()
+        setTalkseries(data.talkseries)
+        console.log(data.talkseries)
+    }
+
+    useEffect(() => {
+        fetchTalkSeries()
+    }, [])
+    
+
     return (
         <div>
             <Link href='./events/2.2th-talk-series-on-transitioning-to-modern-energy-for-cooking:-standards-and-labelling-of-electric-cooking-devices'>
-                <Carousel />
+                <Carousell />
                 {/* <div className="w-full h-[519px] cursor-pointer">
                     <img src='./homebanner.jpeg' alt="hero" className="w-full h-full object-cover object-bottom" />
                 </div> */}
@@ -172,8 +206,47 @@ function Home() {
                     </div>
                 </div>
             </div>
+            <div>
+                <div className='mt-20'>
+                    <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
+                        <div className='grid-span-1'>
+                            <div className='text-center'>
+                                <p className='font-bold text-blue-700 mt-2'>\ Talk Series \</p>
+                                <p className='text-3xl mt-4 font-semibold mb-12'>Talk Series</p>
+                            </div>
+                            <Carousel responsive={responsive}>
 
+                                {
+                                    loading ? <div className='text-center'>Loading...</div> : talkseries.map((post, index) => (
+                                        <Link href={post.link} key={index}>
+                                            <div className='col-span-6 lg:col-span-3 xl:col-span-2 mx-2 cursor-pointer'>
+                                                <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
+                                                    <div>
+                                                        <img src={post.image} alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
+                                                    </div>
+                                                    <div className='p-6'>
+                                                        <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
+                                                            {post.category}
+                                                        </p>
+                                                        <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
+                                                        {/* <p className='text-[13px] mt-2'>
+                                                    {
+                                                        post.content.length > 100 ? post.content.substring(0, 102) + '...' : post.content
+                                                    }
+                                                    </p> */}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    ))
+                                }
+                            </Carousel>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     )
 }
 
