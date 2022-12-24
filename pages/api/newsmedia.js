@@ -12,11 +12,12 @@ const handler = async (req, res) => {
         }
 
         if (req.method == "POST") {
-            let { title, image, link } = req.body;
+            let { title, link, source, description } = req.body;
             let newsmedia = new NewsMedia({
                 title,
-                image,
                 link,
+                source,
+                description,
                 created: new Date(),
             });
             await newsmedia.save();
@@ -30,8 +31,8 @@ const handler = async (req, res) => {
         }
 
         if (req.method == "PUT") {
-            const { id, title, image, link } = req.body;
-            const newsmedia = await NewsMedia.findByIdAndUpdate(id, { title, image, link }, { new: true });
+            const { id, title, source, link } = req.body;
+            const newsmedia = await NewsMedia.findByIdAndUpdate(id, { title, link, source }, { new: true });
             res.status(200).json({ success: true, newsmedia });
         }
     } else {

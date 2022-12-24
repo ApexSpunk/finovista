@@ -50,32 +50,25 @@ function newsmedia() {
                                         <p className='text-3xl mt-4 font-semibold'>News & Media</p>
                                         <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>Here is all the latest news and updates from Finovista</p>
                                     </div>
-                                    <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
-                                        {
-                                            loading ? <div className='text-center'>Loading...</div> : NewsMedia.map((post, index) => (
-                                                <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
-                                                    <a href={post.link} target='_blank' key={index} className='text-gray-700 no-underline'>
-                                                        <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
-                                                            <div>
-                                                                <img src={post.image} alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
-                                                            </div>
-                                                            <div className='p-6'>
-                                                                <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
-                                                                    News Media
-                                                                </p>
-                                                                <h2 className='text-lg font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
-                                                                {/* <p className='text-[13px] mt-2'>
-                                                    {
-                                                        post.content.length > 100 ? post.content.substring(0, 102) + '...' : post.content
-                                                    }
-                                                    </p> */}
-                                                            </div>
+                                    {
+                                        loading ? <div className='text-center'>Loading...</div> : NewsMedia.map((post, index) => (
+                                            <div className='col-span-6 lg:col-span-3 xl:col-span-2 shadow-md cursor-pointer rounded-md my-4 hover:bg-blue-50' key={index}>
+                                                <a href={post.link} target='_blank' key={index} className='text-gray-700 no-underline'>
+                                                    <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
+                                                        <div className='p-6'>
+                                                            <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
+                                                                {post.source}
+                                                            </p>
+                                                            <h2 className='text-lg font-semibold'>{post.title}</h2>
+                                                            <p className='text-[13px] mt-2'>
+                                                                {post.description}
+                                                            </p>
                                                         </div>
-                                                    </a>
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>

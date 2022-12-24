@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Textarea } from '@chakra-ui/react';
 
 function NewsIndex() {
 
@@ -10,67 +11,45 @@ function NewsIndex() {
     const [error, setError] = useState(false);
     const [modal, setModal] = React.useState(false);
     const [unewsmedia, setUNewsMedia] = React.useState({});
-    const [image, setImage] = useState(null);
-
-    const uploadToClient = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            const i = event.target.files[0];
-            setImage(i);
-        }
-    };
 
     const [newsmedia, setNewsMedia] = useState({
         title: "",
-        image: "",
         link: "",
+        source: "",
+        description: "",
     });
 
     const addNewsMedia = async () => {
-        if (!newsmedia.title || !newsmedia.link || !image) {
+        if (!newsmedia.title || !newsmedia.link || !newsmedia.source, !newsmedia.description) {
             toast.error("Please fill all the fields");
             return;
         }
         try {
-            const body = new FormData();
-            body.append("file", image);
-            const response = await fetch("/api/imageUpload", {
+            const { title, link, source, description } = newsmedia;
+            const res = await fetch("/api/newsmedia", {
                 method: "POST",
-                body
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    title,
+                    link,
+                    source,
+                    description,
+                }),
             });
-            let ress = await response.json();
-            if (ress.success) {
-                const { title, link } = newsmedia;
-                const image = ress.data.Location;
-                const res = await fetch("/api/newsmedia", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        title,
-                        image,
-                        link
-                    }),
+            const data = await res.json();
+            if (data.success) {
+                toast.success("NewsMedia added successfully", {
+                    position: "top-center",
+                    autoClose: 500,
+                    hideProgressBar: true,
                 });
-                const data = await res.json();
-                if (data.success) {
-                    toast.success("NewsMedia added successfully", {
-                        position: "top-center",
-                        autoClose: 500,
-                        hideProgressBar: true,
-                    });
-                    setNewsMedia({
-                        title: "",
-                        image: "",
-                        link: "",
-                    });
-                    setNewsMedias([...newsmedias, data.newsmedia]);
-                    setImage(null);
-                } else {
-                    toast.error("Something went wrong", {
-                        position: "top-center",
-                        autoClose: 500,
-                        hideProgressBar: true,
-                    });
-                }
+                setNewsMedia({
+                    title: "",
+                    link: "",
+                    source: "",
+                    description: "",
+                });
+                setNewsMedias([...newsmedias, data.newsmedia]);
             } else {
                 toast.error("Something went wrong", {
                     position: "top-center",
@@ -102,56 +81,21 @@ function NewsIndex() {
 
     const updateNewsMedia = async (id, newsmedia) => {
         try {
-            if (image) {
-                const body = new FormData();
-                body.append("file", image);
-                const response = await fetch("/api/imageUpload", {
-                    method: "POST",
-                    body
-                });
-                let ress = await response.json();
-
-                if (ress.success) {
-                    const res = await fetch("/api/newsmedia", {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ id, ...newsmedia, image: ress.data.Location }),
-                    });
-                    const data = await res.json();
-                    setNewsMedias(
-                        newsmedias.map((newsmedia) =>
-                            newsmedia._id === id ? { ...newsmedia, ...data.newsmedia } : newsmedia
-                        )
-                    );
-                    if (data.success) {
-                        toast.success(`NewsMedia ${data.newsmedia.title} updated`);
-                    }
-                } else {
-                    toast.error("Something went wrong", {
-                        position: "top-center",
-                        autoClose: 500,
-                        hideProgressBar: true,
-                    });
-                }
-            } else {
-                const res = await fetch("/api/newsmedia", {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id, ...newsmedia }),
-                });
-                const data = await res.json();
-                setNewsMedias(
-                    newsmedias.map((newsmedia) =>
-                        newsmedia._id === id ? { ...newsmedia, ...data.newsmedia } : newsmedia
-                    )
-                );
-                if (data.success) {
-                    toast.success(`NewsMedia ${data.newsmedia.title} updated`);
-                }
+            const res = await fetch("/api/newsmedia", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id, ...newsmedia }),
+            });
+            const data = await res.json();
+            setNewsMedias(
+                newsmedias.map((newsmedia) =>
+                    newsmedia._id === id ? { ...newsmedia, ...data.newsmedia } : newsmedia
+                )
+            );
+            if (data.success) {
+                toast.success(`NewsMedia ${data.newsmedia.title} updated`);
             }
         } catch (error) {
             console.log(error);
@@ -171,7 +115,7 @@ function NewsIndex() {
     useEffect(() => {
         getNewsMedias();
     }, []);
-    
+
 
     return (
         <div>
@@ -191,14 +135,13 @@ function NewsIndex() {
                     <div className='max-w-[600px] mx-auto'>
                         <input
                             type='text'
-                            placeholder='Name'
+                            placeholder='Title'
                             className='w-full border-[1px] shadow-none border-gray-300 p-2 rounded-lg mt-4'
                             value={newsmedia.title}
                             onChange={(e) =>
                                 setNewsMedia({ ...newsmedia, title: e.target.value })
                             }
                         />
-                        <input name="myImage" onChange={uploadToClient} className="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl mt-4 text-grey-500 file:mr-5 file:py-4 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
                         <input
                             type='text'
                             placeholder='Link'
@@ -206,6 +149,24 @@ function NewsIndex() {
                             value={newsmedia.link}
                             onChange={(e) =>
                                 setNewsMedia({ ...newsmedia, link: e.target.value })
+                            }
+                        />
+                        <Textarea
+                            type='text'
+                            placeholder='Description'
+                            className='w-full border-[1px] shadow-none border-gray-300 p-2 rounded-lg mt-4'
+                            value={newsmedia.description}
+                            onChange={(e) =>
+                                setNewsMedia({ ...newsmedia, description: e.target.value })
+                            }
+                        />
+                        <input
+                            type='text'
+                            placeholder='Source'
+                            className='w-full border-[1px] shadow-none border-gray-300 p-2 rounded-lg mt-4'
+                            value={newsmedia.source}
+                            onChange={(e) =>
+                                setNewsMedia({ ...newsmedia, source: e.target.value })
                             }
                         />
                         <button className='bg-blue-500 border-none mt-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' onClick={addNewsMedia}>Add NewsMedia</button>
@@ -223,13 +184,11 @@ function NewsIndex() {
                                     <div className='bg-white shadow-md rounded-lg p-4'>
                                         <div className='grid justify-between'>
                                             <div>
-                                                <img
-                                                    src={newsmedia.image}
-                                                    alt='image'
-                                                    className='w-full'
-                                                />
                                                 <div className='mt-4 text-center'>
                                                     <p className='font-bold'>{newsmedia.title}</p>
+                                                </div>
+                                                <div className='mt-4 text-center'>
+                                                    <p className='font-bold'>{newsmedia.source}</p>
                                                 </div>
                                             </div>
                                             <div className='flex mt-4 justify-center'>
@@ -264,14 +223,13 @@ function NewsIndex() {
                                     <div className="mt-2">
                                         <input
                                             type='text'
-                                            placeholder='Name'
+                                            placeholder='Title'
                                             className='w-full border-[1px] shadow-none border-gray-300 p-2 rounded-lg mt-4'
                                             value={unewsmedia.title}
                                             onChange={(e) =>
                                                 setUNewsMedia({ ...unewsmedia, title: e.target.value })
                                             }
                                         />
-                                        <input title="myImage" onChange={uploadToClient} className="text-md bg-blue-100 file:uppercase file:font-semibold rounded-3xl mt-4 text-grey-500 file:mr-5 file:py-4 file:px-6 file:rounded-full file:border-0 file:text-sm file:bg-blue-500 file:text-white hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 w-full" type="file" accept="image/*" />
                                         <input
                                             type='text'
                                             placeholder='Link'
@@ -279,6 +237,15 @@ function NewsIndex() {
                                             value={unewsmedia.link}
                                             onChange={(e) =>
                                                 setUNewsMedia({ ...unewsmedia, link: e.target.value })
+                                            }
+                                        />
+                                        <input
+                                            type='text'
+                                            placeholder='Source'
+                                            className='w-full border-[1px] shadow-none border-gray-300 p-2 rounded-lg mt-4'
+                                            value={unewsmedia.source}
+                                            onChange={(e) =>
+                                                setUNewsMedia({ ...unewsmedia, source: e.target.value })
                                             }
                                         />
                                     </div>

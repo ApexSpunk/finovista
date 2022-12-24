@@ -6,33 +6,37 @@ import { getPosts } from '../../redux/post/actions'
 import AboutUs from './AboutUs'
 import Carousell from '../Utils/Carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import Carousel from 'react-multi-carousel';
+import Carousels from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+
 const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
-      breakpoint: { max: 4000, min: 3000 },
-      items: 5
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2
+        breakpoint: { max: 1024, min: 464 },
+        items: 2
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
+        breakpoint: { max: 464, min: 0 },
+        items: 1
     }
-  };
+};
 
 
 function Home() {
 
     const [images, setImages] = useState(1)
     const [talkseries, setTalkseries] = useState([])
+    const [banner, setBanner] = useState([])
     const dispatch = useDispatch()
     const { posts: { data: posts, loading, error } } = useSelector(state => state.post)
     useEffect(() => {
@@ -52,25 +56,41 @@ function Home() {
     }, [])
 
     const fetchTalkSeries = async () => {
-        const res = await fetch('/api/talkseries')
+        const res = await fetch('/api/whatsnew')
         const data = await res.json()
-        setTalkseries(data.talkseries)
-        console.log(data.talkseries)
+        setTalkseries(data.whatsnew)
+    }
+
+    const fetchBanner = async () => {
+        const res = await fetch('/api/banners')
+        const data = await res.json()
+        setBanner(data.banners)
+        console.log(data.banners)
     }
 
     useEffect(() => {
         fetchTalkSeries()
+        fetchBanner()
     }, [])
-    
+
+
+
+
 
     return (
         <div>
-            <Link href='./events/2.2th-talk-series-on-transitioning-to-modern-energy-for-cooking:-standards-and-labelling-of-electric-cooking-devices'>
-                <Carousell />
-                {/* <div className="w-full h-[519px] cursor-pointer">
+            <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} dynamicHeight stopOnHover={true} swipeAnimationHandler={true} showArrows={true}>
+                {banner.map((item, index) => (
+                    <Link href={item.link} key={index}>
+                        <div className="cursor-pointer">
+                            <img src={item.logo} alt="hero" />
+                        </div>
+                    </Link>
+                ))}
+            </Carousel>
+            {/* <div className="w-full h-[519px] cursor-pointer">
                     <img src='./homebanner.jpeg' alt="hero" className="w-full h-full object-cover object-bottom" />
                 </div> */}
-            </Link>
             <AboutUs />
             <div className='mt-20 bg-gray-300'>
                 <Flex className='mx-3 md:mx-12 lg:mx-24 xl:mx-32 mt-20 py-12 justify-around'>
@@ -176,11 +196,11 @@ function Home() {
                                 <p className='text-3xl mt-4 font-semibold'>Something from our latest blog</p>
                                 <p className='text-sm mt-2 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>As a app web crawler expert, I help organizations adjust to the expanding significance of internet promoting or lipsum.</p>
                             </div>
-                            <div className='grid grid-cols-6 gap-6 mt-10 homeServices homeBlog'>
+                            <Carousels responsive={responsive}>
                                 {
-                                    loading ? <div className='text-center'>Loading...</div> : posts.slice(0, 3).map((post, index) => (
+                                    loading ? <div className='text-center'>Loading...</div> : posts.map((post, index) => (
                                         <Link href={`/blog/${post.slug}`} key={index}>
-                                            <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
+                                            <div className='col-span-6 lg:col-span-3 m-2 rounded-md shadow-md xl:col-span-2'>
                                                 <div className='col-span-6 lg:col-span-3 xl:col-span-2'>
                                                     <div>
                                                         <img src={post.thumbnail} alt="3" className="w-full object-cover h-[200px] rounded-t-lg" />
@@ -201,7 +221,7 @@ function Home() {
                                         </Link>
                                     ))
                                 }
-                            </div>
+                            </Carousels>
                         </div>
                     </div>
                 </div>
@@ -214,8 +234,7 @@ function Home() {
                                 <p className='font-bold text-blue-700 mt-2'>\ Talk Series \</p>
                                 <p className='text-3xl mt-4 font-semibold mb-12'>Talk Series</p>
                             </div>
-                            <Carousel responsive={responsive}>
-
+                            <Carousels responsive={responsive}>
                                 {
                                     loading ? <div className='text-center'>Loading...</div> : talkseries.map((post, index) => (
                                         <Link href={post.link} key={index}>
@@ -228,7 +247,7 @@ function Home() {
                                                         <p className={'text-xs mt-[-10px] mb-2 font-semibold ' + (index === 0 ? 'text-blue-400' : index === 1 ? 'text-green-400' : index === 2 ? 'text-orange-400' : 'text-yellow-400')}>
                                                             {post.category}
                                                         </p>
-                                                        <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 52) + '...' : post.title}</h2>
+                                                        <h2 className='text-xl font-semibold'>{post.title.length > 50 ? post.title.substring(0, 50) + '...' : post.title}</h2>
                                                         {/* <p className='text-[13px] mt-2'>
                                                     {
                                                         post.content.length > 100 ? post.content.substring(0, 102) + '...' : post.content
@@ -240,7 +259,7 @@ function Home() {
                                         </Link>
                                     ))
                                 }
-                            </Carousel>
+                            </Carousels>
                         </div>
                     </div>
                 </div>

@@ -8,9 +8,10 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import Navbar from '../../components/admin/Navbar'
 import Topbar from '../../components/admin/Topbar'
+import BannersIndex from '../../components/Utils/BannersIndex'
 
 function setting() {
-    const {data:session} = useSession()
+    const { data: session } = useSession()
     const [data, setData] = React.useState({
         name: '',
         email: '',
@@ -19,7 +20,7 @@ function setting() {
     })
     useEffect(() => {
         if (session) {
-            setData({ ...data,id:session.user.id, name: session.user.name, email: session.user.email, role: session.user.role })
+            setData({ ...data, id: session.user.id, name: session.user.name, email: session.user.email, role: session.user.role })
         }
     }, [session])
     const handleChange = (e) => {
@@ -34,7 +35,7 @@ function setting() {
             },
             body: JSON.stringify(data),
         })
-        if(response){
+        if (response) {
             toast.success('profile updated successfully', {
                 position: 'top-center',
                 autoClose: 2000,
@@ -47,8 +48,8 @@ function setting() {
         }
         setData({ ...data, password: '' })
     }
-  return (
-    <div>
+    return (
+        <div>
             <Head>
                 <title>Finovista Dashboard</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -81,18 +82,19 @@ function setting() {
                                                 <Text fontSize='xl' fontWeight='500'>User Setting</Text>
                                             </Box>
                                             <div className="grid">
-                                            <Box mt='4'>
-                                                <InputGroup className="mb-4">
-                                                    <Input type="text" placeholder="name" name='name' value={data.name} onChange={handleChange} />
-                                                </InputGroup>
-                                                <InputGroup className="mb-4">
-                                                    <Input type="text" placeholder="email" name='email' value={data.email} onChange={handleChange} />
-                                                </InputGroup>
-                                                <InputGroup className="mb-4">
-                                                    <Input type="text" placeholder="password" name='password' value={data.password} onChange={handleChange} />
-                                                </InputGroup>
-                                                <Button className="w-full" colorScheme="blue" onClick={handleSubmit}>Save</Button>
-                                            </Box>
+                                                <Box mt='4'>
+                                                    <InputGroup className="mb-4">
+                                                        <Input type="text" placeholder="name" name='name' value={data.name} onChange={handleChange} />
+                                                    </InputGroup>
+                                                    <InputGroup className="mb-4">
+                                                        <Input type="text" placeholder="email" name='email' value={data.email} onChange={handleChange} />
+                                                    </InputGroup>
+                                                    <InputGroup className="mb-4">
+                                                        <Input type="text" placeholder="password" name='password' value={data.password} onChange={handleChange} />
+                                                    </InputGroup>
+                                                    <Button className="w-full" colorScheme="blue" onClick={handleSubmit}>Save</Button>
+                                                </Box>
+                                                <BannersIndex />
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +105,7 @@ function setting() {
                 </div>
             </main>
         </div>
-  )
+    )
 }
 
 setting.auth = { role: "admin" }
