@@ -86,6 +86,11 @@ function deputyProgramme() {
                             <li>Having worked in/Managed a Clean Cooking programmes</li>
                             <li>Strong understanding of the clean cooking industry, with an active network of agencies</li>
                         </ul>
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7IhcEyKelgQAxerkoMRp0OShposvvQHmw_0oMDXAN0QC_yw/viewform" target='_blank'>
+                                <button className='bg-blue-500 border-none cursor-pointer text-white rounded-md px-6 py-4 mt-4'>
+                                    Apply Now
+                                </button>
+                            </a>
                     </div>
                     <div className=''>
                             <Sidebar />

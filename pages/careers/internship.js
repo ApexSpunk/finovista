@@ -60,6 +60,11 @@ function deputyProgramme() {
                                 sunil.sharma@finovista.
                             </a> Only shortlisted candidates will be
                             contacted. We appreciate your interest.</p>
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7IhcEyKelgQAxerkoMRp0OShposvvQHmw_0oMDXAN0QC_yw/viewform" target='_blank'>
+                                <button className='bg-blue-500 border-none cursor-pointer text-white rounded-md px-6 py-4 mt-4'>
+                                    Apply Now
+                                </button>
+                            </a>
                     </div>
                     <div className=''>
                         <Sidebar />
