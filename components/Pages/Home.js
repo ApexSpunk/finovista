@@ -231,8 +231,8 @@ function Home() {
                     <div className='grid grid-cols-1 gap-10  text-gray-700 my-10 mx-3 md:mx-12 lg:mx-24 xl:mx-32'>
                         <div className='grid-span-1'>
                             <div className='text-center'>
-                                <p className='font-bold text-blue-700 mt-2'>\ Talk Series \</p>
-                                <p className='text-3xl mt-4 font-semibold mb-12'>Talk Series</p>
+                                <p className='font-bold text-blue-700 mt-2'>\ What's New \</p>
+                                <p className='text-3xl mt-4 font-semibold mb-12'>What's New</p>
                             </div>
                             <Carousels responsive={responsive}>
                                 {
